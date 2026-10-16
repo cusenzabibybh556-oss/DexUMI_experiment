@@ -1,0 +1,4 @@
+#===========if can0 not found:
+sudo modprobe can 
+sudo modprobe can_raw 
+sudo modprobe peak_usb

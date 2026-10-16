@@ -1,0 +1,8 @@
+teleop_episode_0_20260610_233126.hdf5 size=393447560
+  timestamps: (109,)
+  observations/arm_joints: (109, 6)
+  observations/hand_joints: (109, 10)
+  observations/images/wrist_RGB: (109, 480, 640, 3)
+  observations/images/front_RGB: (109, 480, 640, 3)
+  observations/depth/wrist_depth: (109, 480, 640)
+  observations/depth/front_depth: (109, 480, 640)

@@ -1,0 +1,9 @@
+# Binary files
+*.bin binary
+*.so binary
+*.dll binary
+*.exe binary
+*.zip binary
+
+# Text files
+* text=auto

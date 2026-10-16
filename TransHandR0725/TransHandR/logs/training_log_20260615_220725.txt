@@ -1,0 +1,24 @@
+2026-06-15 22:07:25,216 - INFO - 日志文件: logs/training_log_20260615_220725.txt
+2026-06-15 22:07:25,216 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: leaphand
+2026-06-15 22:07:25,216 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/leaphand/model_final.pth
+2026-06-15 22:07:25,969 - INFO - loss_weight: [500, 500, 10, 0, 50]
+2026-06-15 22:07:30,244 - INFO - 
+--- Batch 0, Epoch 0 ---
+Loss values - Total: 2450.388672, Vec: 164.186295, Pos: 188.457611, Col: 0.000010, Thumb: 0.000000, TipDist: 2097.744873, Reg: 0.000000
+  Average gradient norm: 1602.694201
+  Total parameters with gradients: 134
+2026-06-15 22:07:38,031 - INFO - 
+--- Batch 0, Epoch 1 ---
+Loss values - Total: 336.355835, Vec: 121.266113, Pos: 90.871834, Col: 0.000010, Thumb: 0.000000, TipDist: 124.217865, Reg: 0.000000
+  Average gradient norm: 62.862667
+  Total parameters with gradients: 134
+2026-06-15 22:07:44,705 - INFO - 
+--- Batch 0, Epoch 2 ---
+Loss values - Total: 237.050476, Vec: 65.122177, Pos: 72.773125, Col: 0.000010, Thumb: 0.000000, TipDist: 99.155159, Reg: 0.000000
+  Average gradient norm: 71.777731
+  Total parameters with gradients: 134
+2026-06-15 22:07:51,959 - INFO - 
+--- Batch 0, Epoch 3 ---
+Loss values - Total: 197.219299, Vec: 49.460224, Pos: 62.565102, Col: 0.000010, Thumb: 0.000000, TipDist: 85.193962, Reg: 0.000000
+  Average gradient norm: 40.874638
+  Total parameters with gradients: 134

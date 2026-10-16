@@ -1,0 +1,39 @@
+2026-06-15 16:48:42,979 - INFO - 日志文件: logs/training_log_20260615_164842.txt
+2026-06-15 16:48:42,980 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: inspire
+2026-06-15 16:48:42,980 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/inspire/model_final.pth
+2026-06-15 16:48:43,381 - INFO - loss_weight: [500, 500, 10, 0, 50]
+2026-06-15 16:48:45,573 - INFO - 
+--- Batch 0, Epoch 0 ---
+Loss values - Total: 381.951202, Vec: 79.095276, Pos: 110.496445, Col: 0.000010, Thumb: 0.000000, TipDist: 192.359467, Reg: 0.000000
+  Average gradient norm: 78.452999
+  Total parameters with gradients: 134
+2026-06-15 16:48:52,613 - INFO - 
+--- Batch 0, Epoch 1 ---
+Loss values - Total: 222.073746, Vec: 25.531370, Pos: 71.000977, Col: 0.000010, Thumb: 0.000000, TipDist: 125.541389, Reg: 0.000000
+  Average gradient norm: 28.891423
+  Total parameters with gradients: 134
+2026-06-15 16:48:58,415 - INFO - 
+--- Batch 0, Epoch 2 ---
+Loss values - Total: 132.983154, Vec: 16.413891, Pos: 30.118004, Col: 0.000010, Thumb: 0.000000, TipDist: 86.451241, Reg: 0.000000
+  Average gradient norm: 17.711863
+  Total parameters with gradients: 134
+2026-06-15 16:49:04,264 - INFO - 
+--- Batch 0, Epoch 3 ---
+Loss values - Total: 93.924377, Vec: 15.044805, Pos: 19.249502, Col: 0.000010, Thumb: 0.000000, TipDist: 59.630058, Reg: 0.000000
+  Average gradient norm: 8.105313
+  Total parameters with gradients: 134
+2026-06-15 16:49:09,781 - INFO - 
+--- Batch 0, Epoch 4 ---
+Loss values - Total: 77.109680, Vec: 14.026354, Pos: 17.394930, Col: 0.000010, Thumb: 0.000000, TipDist: 45.688389, Reg: 0.000000
+  Average gradient norm: 18.621611
+  Total parameters with gradients: 134
+2026-06-15 16:49:15,629 - INFO - 
+--- Batch 0, Epoch 5 ---
+Loss values - Total: 70.800552, Vec: 13.889471, Pos: 16.508512, Col: 0.000010, Thumb: 0.000000, TipDist: 40.402557, Reg: 0.000000
+  Average gradient norm: 10.793995
+  Total parameters with gradients: 134
+2026-06-15 16:49:21,193 - INFO - 
+--- Batch 0, Epoch 6 ---
+Loss values - Total: 65.061707, Vec: 11.881178, Pos: 15.554249, Col: 0.000010, Thumb: 0.000000, TipDist: 37.626266, Reg: 0.000000
+  Average gradient norm: 13.162993
+  Total parameters with gradients: 134

@@ -1,0 +1,63 @@
+VERSION: 3.1.0 # 适配新CAN透明盒设备
+LINKER_HAND:  # 手部配置信息
+  LEFT_HAND:
+    EXISTS: False
+    TOUCH: True
+    CAN: "can0"  # CAN 接口名称
+    MODBUS: "None"
+    JOINT: L20
+    CAN_ID: 0x28  # 移到 LEFT_HAND 内部
+    CAN_BITRATE: 1000000  # 移到 LEFT_HAND 内部
+    NAME:
+      - joint41
+      - joint42
+      - joint43
+      - joint44
+      - joint45
+      - joint46
+      - joint47
+      - joint48
+      - joint49
+      - joint50
+      - joint51
+      - joint52
+      - joint53
+      - joint54
+      - joint55
+      - joint56
+      - joint57
+      - joint58
+      - joint59
+      - joint60
+    
+  RIGHT_HAND:
+    EXISTS: True
+    TOUCH: True
+    CAN: "can0"  # CAN 接口名称
+    MODBUS: "None"
+    JOINT: L20
+    CAN_ID: 0x28  # 移到 RIGHT_HAND 内部
+    CAN_BITRATE: 1000000  # 移到 RIGHT_HAND 内部
+    NAME:
+      - joint71
+      - joint72
+      - joint73
+      - joint74
+      - joint75
+      - joint76
+      - joint77
+      - joint78
+      - joint79
+      - joint80
+      - joint81
+      - joint82
+      - joint83
+      - joint84
+      - joint85
+      - joint86
+      - joint87
+      - joint88
+      - joint89
+      - joint90
+
+PASSWORD: ""

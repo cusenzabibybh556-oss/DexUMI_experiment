@@ -1,0 +1,15 @@
+inspire_bridge_node:
+  ros__parameters:
+    command_min: [0, 0, 0, 0, 0, 0]
+    command_max: [1000, 1000, 1000, 1000, 1000, 1000]
+    speed: 800
+    force: 500
+    min_send_interval: 0.02
+    state_hz: 60.0
+    force_hz: 20.0
+    command_deadband: [12, 12, 12, 12, 16, 60]
+    command_filter_alpha_min: 0.25
+    command_filter_alpha_max: 0.75
+    command_full_response_error: 160
+    command_max_step: 100
+    command_write_epsilon: 5

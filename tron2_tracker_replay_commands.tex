@@ -1,0 +1,87 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{hyperref}
+
+\title{TRON2 左臂 Tracker 轨迹回放命令与安全说明}
+\date{2026 年 10 月 14 日}
+
+\begin{document}
+\maketitle
+
+\section*{当前结论}
+
+目前排查的不只是“是否双臂共同偏移”，还包括左腕是否按计划轨迹运动、末帧是否到达目标，以及本应保持不动的右腕是否漂移。此前以 0.03 倍缩放时，曾出现左臂计划最大相对位移为 9.5\,mm、实际最大位移约 21--26\,mm，右腕也偏移约 11--12\,mm 的情况，因此\textbf{不能认定先前回放正确}。离线核算显示，轨迹首帧相对位移为零，旧版 0.03 倍缩放、0.2 倍速时首秒计划位移不足 0.1\,mm；已有只读静止记录中两腕波动不足 0.1\,mm。2026 年 10 月 13 日的接管日志已确认：19 条双臂 ServoP 目标完全相同，且未发送 Tracker 轨迹；首条指令后约 57\,ms 左右腕分别偏移 7.2 和 6.9\,mm，随后旧版 3\,mm 接管门限中止发送。这能定位跳变发生的阶段，但不能证明其内部成因。
+
+Tracker 的记录坐标原点尚未标定。脚本使用首个有效样本作参考，取相对平移 $p(t)-p(0)$，再叠加到机器人启动时的腕部位置；它\textbf{不把 Tracker 绝对坐标直接当成机器人基座坐标}。结合第 65 段数据与真人左腕先向下取物、再向机器人自身右边移动、最后向左返回的动作描述，当前\textbf{候选}映射为\texttt{--axis-map y,z,x}：Tracker 的 $-X$ 对应机器人向下（$-Z$），Tracker 的 $-Z$ 对应机器人向右（$-Y$）。剩余轴只是按右手坐标系推断，尚未通过前后方向动作实测；斜向安装也可能使实际映射并非简单换轴。\texttt{--scale 0.3} 将平移缩至原轨迹的 30\%，相对先前的 3\% 示例放大十倍；这不是单位换算，也不表示真实腕部轨迹已被标定。第 65 段离线计算的最大目标位移为 95.3\,mm，因此示例将\texttt{--max-displacement} 改为 0.10\,m。若 Tracker 与腕部有安装偏移，旋转还可能造成额外的腕部位置差异。
+
+\section*{命令 1：离线预览（不连接机器人）}
+
+用于核对数据、有效帧数、计划位移和时长。此命令不会发送运动指令。
+
+\begin{verbatim}
+cd /home/zmy/Projects/Dexumi
+conda activate dexumi
+python3 replay_tron2_tracker.py --episode 65 --arm left \
+  --axis-map y,z,x --scale 0.3 --orientation-scale 0 \
+  --speed 0.2 --max-displacement 0.10
+\end{verbatim}
+
+\section*{命令 2：机器人只读预检（不发送运动指令）}
+
+读取当前双腕位姿并检查计划目标是否在工作空间内；它\textbf{不能证明机器人会正确跟随轨迹}，也不能通过一次静态检查排除执行时的双臂漂移。
+
+\begin{verbatim}
+cd /home/zmy/Projects/Dexumi
+conda activate dexumi
+python3 replay_tron2_tracker.py --episode 65 --arm left \
+  --axis-map y,z,x --scale 0.3 --orientation-scale 0 \
+  --speed 0.2 --max-displacement 0.10 --check-robot
+\end{verbatim}
+
+\section*{命令 3：只读静止记录（可选复核）}
+
+连续约 10 秒读取左右腕位姿，写入自动生成的 JSONL 日志；不会发送 ServoP、MoveJ 或其他运动指令。用于检查不回放时双腕是否自行漂移。命令结束会打印日志路径和两腕相对首帧的最大偏移。
+
+\begin{verbatim}
+cd /home/zmy/Projects/Dexumi
+conda activate dexumi
+python3 replay_tron2_tracker.py --episode 65 --arm left \
+  --axis-map y,z,x --scale 0.3 --orientation-scale 0 \
+  --speed 0.2 --max-displacement 0.10 --record-idle 10
+\end{verbatim}
+
+\section*{命令 4：真机直接回放 Tracker 轨迹}
+
+\texttt{--execute} 现在始终直接回放，不再执行接管观察、等待停稳或重新锚定；旧命令中的\texttt{--direct-replay} 仍可作为兼容别名使用，但不改变行为。确认并倒计时后，以当时实测的双腕位姿作为相对轨迹起点，立即发送轨迹首帧。\textbf{首帧相对位移为零，故第一条 ServoP 目标仍是当前双腕位姿；此前的双臂启动跳变仍可能发生。}程序仍检查启动前双腕静止、工作空间、轨迹阶段反馈和偏移、结束后的实际运动。默认反馈超时为 0.5 秒；2026 年 10 月 14 日查看的脚本中，运动臂在线位置误差门限为 0.5\,m、未计划运动臂偏移门限为 0.1\,m，已不能拦住先前观测到的厘米级启动跳变。不能把发送了首帧或只读预检通过当作回放成功。
+
+\begin{verbatim}
+cd /home/zmy/Projects/Dexumi
+conda activate dexumi
+python3 replay_tron2_tracker.py --episode 65 --arm left \
+  --axis-map y,z,x --scale 0.3 --orientation-scale 0 \
+  --speed 0.2 --max-displacement 0.10 \
+  --execute --countdown 5
+\end{verbatim}
+
+须先完成命令 2 的只读预检。与先前 9.5\,mm 计划相比，本命令的最大目标位移为 95.3\,mm；\texttt{--max-displacement 0.10} 只是目标位移上限，不是碰撞保护或实际运动上限。执行时输入大写\texttt{DIRECT}，确认全臂范围清空并握住实体急停。若反馈超限，脚本只停止后续指令，并不能撤回已发送的第一条命令。\texttt{Ctrl+C} 不是硬件急停。
+
+\section*{固定起点并同步回放 O6 左手（新增）}
+
+不需要启动网页或数据手套遥操。指定 \texttt{--o6-can can1} 后，回放任务会独立启动唯一持有 O6 CAN 的 \texttt{o6\_bridge}，结束时关闭；采集平台须保持停止，也不可另开手动桥接。现场此前确认 O6 对应 \texttt{can1}，重新插拔后应再次核对接口名。下面第一条命令只检查 episode 的腕部与六通道 O6 实测状态时间轴，不连接机器人或灵巧手、不启动桥接；第二条命令自动恢复保存的双臂固定起点，待输入大写\texttt{REPLAY}后，使用同一个单调时钟起点发送左腕轨迹与由\texttt{dexterous\_hand/joint\_positions}生成的手指目标，\textbf{不读取\texttt{action/command}或原始数据手套轨迹}。结束或中止后不自动切回手套；专用桥接关闭后硬件是否继续持位须现场确认。
+
+\begin{verbatim}
+cd /home/zmy/Projects/Dexumi
+conda activate dexumi
+python3 replay_tron2_fixed_start.py --episode 65 --with-o6-hand --o6-can can1
+python3 replay_tron2_fixed_start.py --episode 65 --with-o6-hand --o6-can can1 --execute
+\end{verbatim}
+
+第 65 段 O6 状态反馈有 138 个有效六通道样本（146 个 D405 主帧中的 8 帧无效，回放时跳过）；\texttt{--speed 0.2} 下最后一个手指目标与机械臂末帧均约在 24.839 秒。此状态是采集时通过 O6 SDK 读取、插值到 D405 主时间轴的记录，不是原始全频率 CAN 事件。重放实测状态时仍须把其数值作为新目标发给 O6，不能保证真机再次达到逐点完全相同的实际状态。只有\texttt{o6\_bridge} 持有 CAN；回放进程不直接打开 CAN。要恢复数据手套控制，应先确保回放进程已经结束，再由现场操作者显式切换；下一条手套指令可能让手指跳变：
+
+\begin{verbatim}
+source /opt/ros/humble/setup.bash
+source /home/zmy/Projects/Dexumi/linkerhand_telop_python-master/ros2/install/setup.bash
+ros2 service call /robot/o6/left/resume_live std_srvs/srv/Trigger '{}'
+\end{verbatim}
+
+\end{document}

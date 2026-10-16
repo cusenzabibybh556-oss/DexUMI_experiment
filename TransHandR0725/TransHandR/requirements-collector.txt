@@ -1,0 +1,12 @@
+# Minimal dependencies for mock capture, HDF5 validation, and dashboard.
+numpy>=1.23,<2.3
+h5py>=3.11,<4
+Pillow>=9,<13
+hid>=1.0.5
+pyserial>=3.5
+python-can>=4.0,<5
+PyYAML>=5.4,<7
+
+# Hardware extras are installed separately; see README.md.
+# pyrealsense2 and avp_stream are NOT bundled. Local SDKs and pyvut source must
+# be included in the deployment layout documented there.

@@ -1,0 +1,49 @@
+2026-06-15 22:29:11,319 - INFO - 日志文件: logs/training_log_20260615_222911.txt
+2026-06-15 22:29:11,319 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: leaphand
+2026-06-15 22:29:11,319 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/leaphand/model_final.pth
+2026-06-15 22:29:11,546 - INFO - loss_weight: [500, 500, 10, 0, 50]
+2026-06-15 22:29:13,266 - INFO - 
+--- Batch 0, Epoch 0 ---
+Loss values - Total: 534.718567, Vec: 200.599442, Pos: 132.900818, Col: 0.000010, Thumb: 0.000000, TipDist: 201.218323, Reg: 0.000000
+  Average gradient norm: 220.790332
+  Total parameters with gradients: 134
+2026-06-15 22:29:17,228 - INFO - 
+--- Batch 0, Epoch 1 ---
+Loss values - Total: 270.323853, Vec: 95.021416, Pos: 44.736485, Col: 0.000010, Thumb: 0.000000, TipDist: 130.565948, Reg: 0.000000
+  Average gradient norm: 51.110415
+  Total parameters with gradients: 134
+2026-06-15 22:29:21,255 - INFO - 
+--- Batch 0, Epoch 2 ---
+Loss values - Total: 211.430206, Vec: 59.561646, Pos: 36.765156, Col: 0.000010, Thumb: 0.000000, TipDist: 115.103409, Reg: 0.000000
+  Average gradient norm: 51.024849
+  Total parameters with gradients: 134
+2026-06-15 22:29:24,888 - INFO - 
+--- Batch 0, Epoch 3 ---
+Loss values - Total: 161.817413, Vec: 44.922958, Pos: 27.623545, Col: 0.000010, Thumb: 0.000000, TipDist: 89.270897, Reg: 0.000000
+  Average gradient norm: 32.417112
+  Total parameters with gradients: 134
+2026-06-15 22:29:28,520 - INFO - 
+--- Batch 0, Epoch 4 ---
+Loss values - Total: 148.355103, Vec: 47.350685, Pos: 30.148714, Col: 0.000010, Thumb: 0.000000, TipDist: 70.855698, Reg: 0.000000
+  Average gradient norm: 30.080789
+  Total parameters with gradients: 134
+2026-06-15 22:29:32,204 - INFO - 
+--- Batch 0, Epoch 5 ---
+Loss values - Total: 132.497177, Vec: 45.876125, Pos: 26.140621, Col: 0.000010, Thumb: 0.000000, TipDist: 60.480427, Reg: 0.000000
+  Average gradient norm: 48.218089
+  Total parameters with gradients: 134
+2026-06-15 22:29:35,840 - INFO - 
+--- Batch 0, Epoch 6 ---
+Loss values - Total: 119.458176, Vec: 41.498363, Pos: 28.492846, Col: 0.000010, Thumb: 0.000000, TipDist: 49.466961, Reg: 0.000000
+  Average gradient norm: 24.927971
+  Total parameters with gradients: 134
+2026-06-15 22:29:39,462 - INFO - 
+--- Batch 0, Epoch 7 ---
+Loss values - Total: 105.912659, Vec: 34.565228, Pos: 29.565372, Col: 0.000010, Thumb: 0.000000, TipDist: 41.782051, Reg: 0.000000
+  Average gradient norm: 42.234437
+  Total parameters with gradients: 134
+2026-06-15 22:29:43,100 - INFO - 
+--- Batch 0, Epoch 8 ---
+Loss values - Total: 100.019669, Vec: 35.713184, Pos: 29.220057, Col: 0.000010, Thumb: 0.000000, TipDist: 35.086418, Reg: 0.000000
+  Average gradient norm: 17.068535
+  Total parameters with gradients: 134

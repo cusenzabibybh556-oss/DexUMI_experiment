@@ -1,0 +1,1504 @@
+2026-06-15 18:53:06,250 - INFO - 日志文件: logs/training_log_20260615_185306.txt
+2026-06-15 18:53:06,250 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: leaphand
+2026-06-15 18:53:06,250 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/leaphand/model_final.pth
+2026-06-15 18:53:06,787 - INFO - loss_weight: [500, 500, 10, 0, 50]
+2026-06-15 18:53:10,284 - INFO - 
+--- Batch 0, Epoch 0 ---
+Loss values - Total: 632.378479, Vec: 202.036331, Pos: 161.861603, Col: 0.000010, Thumb: 0.000000, TipDist: 268.480530, Reg: 0.000000
+  Average gradient norm: 353.339803
+  Total parameters with gradients: 134
+2026-06-15 18:53:19,034 - INFO - 
+--- Batch 0, Epoch 1 ---
+Loss values - Total: 381.674927, Vec: 87.803017, Pos: 142.837387, Col: 0.000010, Thumb: 0.000000, TipDist: 151.034515, Reg: 0.000000
+  Average gradient norm: 67.996616
+  Total parameters with gradients: 134
+2026-06-15 18:53:28,155 - INFO - 
+--- Batch 0, Epoch 2 ---
+Loss values - Total: 305.498535, Vec: 72.418327, Pos: 103.093910, Col: 0.000010, Thumb: 0.000000, TipDist: 129.986282, Reg: 0.000000
+  Average gradient norm: 39.446513
+  Total parameters with gradients: 134
+2026-06-15 18:53:36,278 - INFO - 
+--- Batch 0, Epoch 3 ---
+Loss values - Total: 263.953125, Vec: 58.937710, Pos: 96.993103, Col: 0.000010, Thumb: 0.000000, TipDist: 108.022285, Reg: 0.000000
+  Average gradient norm: 26.639588
+  Total parameters with gradients: 134
+2026-06-15 18:53:45,090 - INFO - 
+--- Batch 0, Epoch 4 ---
+Loss values - Total: 236.506424, Vec: 56.261044, Pos: 94.511795, Col: 0.000010, Thumb: 0.000000, TipDist: 85.733566, Reg: 0.000000
+  Average gradient norm: 53.998934
+  Total parameters with gradients: 134
+2026-06-15 18:53:53,406 - INFO - 
+--- Batch 0, Epoch 5 ---
+Loss values - Total: 207.597473, Vec: 51.299801, Pos: 84.399040, Col: 0.000010, Thumb: 0.000000, TipDist: 71.898621, Reg: 0.000000
+  Average gradient norm: 33.859838
+  Total parameters with gradients: 134
+2026-06-15 18:54:01,865 - INFO - 
+--- Batch 0, Epoch 6 ---
+Loss values - Total: 174.591873, Vec: 51.583630, Pos: 72.647079, Col: 0.000010, Thumb: 0.000000, TipDist: 50.361149, Reg: 0.000000
+  Average gradient norm: 44.503174
+  Total parameters with gradients: 134
+2026-06-15 18:54:10,169 - INFO - 
+--- Batch 0, Epoch 7 ---
+Loss values - Total: 150.792191, Vec: 47.578720, Pos: 58.338562, Col: 0.000010, Thumb: 0.000000, TipDist: 44.874901, Reg: 0.000000
+  Average gradient norm: 37.450829
+  Total parameters with gradients: 134
+2026-06-15 18:54:18,845 - INFO - 
+--- Batch 0, Epoch 8 ---
+Loss values - Total: 140.335464, Vec: 50.109966, Pos: 56.408787, Col: 0.000010, Thumb: 0.000000, TipDist: 33.816708, Reg: 0.000000
+  Average gradient norm: 15.311374
+  Total parameters with gradients: 134
+2026-06-15 18:54:27,657 - INFO - 
+--- Batch 0, Epoch 9 ---
+Loss values - Total: 132.563141, Vec: 44.602139, Pos: 56.265961, Col: 0.000010, Thumb: 0.000000, TipDist: 31.695036, Reg: 0.000000
+  Average gradient norm: 30.907976
+  Total parameters with gradients: 134
+2026-06-15 18:54:35,739 - INFO - 
+--- Batch 0, Epoch 10 ---
+Loss values - Total: 129.197906, Vec: 43.437458, Pos: 56.022541, Col: 0.000010, Thumb: 0.000000, TipDist: 29.737902, Reg: 0.000000
+  Average gradient norm: 31.433574
+  Total parameters with gradients: 134
+2026-06-15 18:54:43,835 - INFO - 
+--- Batch 0, Epoch 11 ---
+Loss values - Total: 121.610039, Vec: 42.064251, Pos: 53.826000, Col: 0.000010, Thumb: 0.000000, TipDist: 25.719780, Reg: 0.000000
+  Average gradient norm: 20.374589
+  Total parameters with gradients: 134
+2026-06-15 18:54:52,236 - INFO - 
+--- Batch 0, Epoch 12 ---
+Loss values - Total: 121.196152, Vec: 40.534939, Pos: 51.782303, Col: 0.000010, Thumb: 0.000000, TipDist: 28.878902, Reg: 0.000000
+  Average gradient norm: 39.627715
+  Total parameters with gradients: 134
+2026-06-15 18:55:00,862 - INFO - 
+--- Batch 0, Epoch 13 ---
+Loss values - Total: 122.852386, Vec: 41.975994, Pos: 55.010052, Col: 0.000010, Thumb: 0.000000, TipDist: 25.866329, Reg: 0.000000
+  Average gradient norm: 33.652867
+  Total parameters with gradients: 134
+2026-06-15 18:55:09,388 - INFO - 
+--- Batch 0, Epoch 14 ---
+Loss values - Total: 121.466461, Vec: 40.435917, Pos: 54.413765, Col: 0.000010, Thumb: 0.000000, TipDist: 26.616770, Reg: 0.000000
+  Average gradient norm: 39.982426
+  Total parameters with gradients: 134
+2026-06-15 18:55:17,885 - INFO - 
+--- Batch 0, Epoch 15 ---
+Loss values - Total: 116.530098, Vec: 40.559532, Pos: 53.105175, Col: 0.000010, Thumb: 0.000000, TipDist: 22.865387, Reg: 0.000000
+  Average gradient norm: 24.688459
+  Total parameters with gradients: 134
+2026-06-15 18:55:26,166 - INFO - 
+--- Batch 0, Epoch 16 ---
+Loss values - Total: 118.123108, Vec: 42.271641, Pos: 52.515610, Col: 0.000010, Thumb: 0.000000, TipDist: 23.335855, Reg: 0.000000
+  Average gradient norm: 30.523046
+  Total parameters with gradients: 134
+2026-06-15 18:55:34,315 - INFO - 
+--- Batch 0, Epoch 17 ---
+Loss values - Total: 116.733421, Vec: 41.797947, Pos: 53.383202, Col: 0.000010, Thumb: 0.000000, TipDist: 21.552261, Reg: 0.000000
+  Average gradient norm: 24.798604
+  Total parameters with gradients: 134
+2026-06-15 18:55:42,964 - INFO - 
+--- Batch 0, Epoch 18 ---
+Loss values - Total: 115.003540, Vec: 40.647076, Pos: 52.893303, Col: 0.000010, Thumb: 0.000000, TipDist: 21.463160, Reg: 0.000000
+  Average gradient norm: 36.331210
+  Total parameters with gradients: 134
+2026-06-15 18:55:51,279 - INFO - 
+--- Batch 0, Epoch 19 ---
+Loss values - Total: 111.551445, Vec: 40.440102, Pos: 51.640121, Col: 0.000010, Thumb: 0.000000, TipDist: 19.471212, Reg: 0.000000
+  Average gradient norm: 27.761735
+  Total parameters with gradients: 134
+2026-06-15 18:55:59,772 - INFO - 
+--- Batch 0, Epoch 20 ---
+Loss values - Total: 114.668922, Vec: 38.163872, Pos: 49.319607, Col: 0.000010, Thumb: 0.000000, TipDist: 27.185440, Reg: 0.000000
+  Average gradient norm: 34.002380
+  Total parameters with gradients: 134
+2026-06-15 18:56:07,785 - INFO - 
+--- Batch 0, Epoch 21 ---
+Loss values - Total: 111.785187, Vec: 37.978333, Pos: 54.716042, Col: 0.000010, Thumb: 0.000000, TipDist: 19.090807, Reg: 0.000000
+  Average gradient norm: 24.946304
+  Total parameters with gradients: 134
+2026-06-15 18:56:16,290 - INFO - 
+--- Batch 0, Epoch 22 ---
+Loss values - Total: 111.757858, Vec: 41.047459, Pos: 51.244228, Col: 0.000010, Thumb: 0.000000, TipDist: 19.466167, Reg: 0.000000
+  Average gradient norm: 30.194891
+  Total parameters with gradients: 134
+2026-06-15 18:56:24,557 - INFO - 
+--- Batch 0, Epoch 23 ---
+Loss values - Total: 111.088364, Vec: 41.653820, Pos: 51.702496, Col: 0.000010, Thumb: 0.000000, TipDist: 17.732038, Reg: 0.000000
+  Average gradient norm: 29.813007
+  Total parameters with gradients: 134
+2026-06-15 18:56:32,943 - INFO - 
+--- Batch 0, Epoch 24 ---
+Loss values - Total: 107.201630, Vec: 38.963669, Pos: 50.201519, Col: 0.000010, Thumb: 0.000000, TipDist: 18.036428, Reg: 0.000000
+  Average gradient norm: 23.339332
+  Total parameters with gradients: 134
+2026-06-15 18:56:41,471 - INFO - 
+--- Batch 0, Epoch 25 ---
+Loss values - Total: 111.245926, Vec: 42.429523, Pos: 53.689178, Col: 0.000010, Thumb: 0.000000, TipDist: 15.127221, Reg: 0.000000
+  Average gradient norm: 24.137507
+  Total parameters with gradients: 134
+2026-06-15 18:56:49,837 - INFO - 
+--- Batch 0, Epoch 26 ---
+Loss values - Total: 106.653809, Vec: 38.039822, Pos: 50.283886, Col: 0.000010, Thumb: 0.000000, TipDist: 18.330095, Reg: 0.000000
+  Average gradient norm: 30.187872
+  Total parameters with gradients: 134
+2026-06-15 18:56:58,450 - INFO - 
+--- Batch 0, Epoch 27 ---
+Loss values - Total: 108.174805, Vec: 40.022930, Pos: 52.578529, Col: 0.000010, Thumb: 0.000000, TipDist: 15.573345, Reg: 0.000000
+  Average gradient norm: 34.307247
+  Total parameters with gradients: 134
+2026-06-15 18:57:06,445 - INFO - 
+--- Batch 0, Epoch 28 ---
+Loss values - Total: 106.904808, Vec: 40.215279, Pos: 50.092903, Col: 0.000010, Thumb: 0.000000, TipDist: 16.596617, Reg: 0.000000
+  Average gradient norm: 21.938813
+  Total parameters with gradients: 134
+2026-06-15 18:57:15,118 - INFO - 
+--- Batch 0, Epoch 29 ---
+Loss values - Total: 104.907913, Vec: 41.157265, Pos: 50.058552, Col: 0.000010, Thumb: 0.000000, TipDist: 13.692088, Reg: 0.000000
+  Average gradient norm: 12.039369
+  Total parameters with gradients: 134
+2026-06-15 18:57:23,781 - INFO - 
+--- Batch 0, Epoch 30 ---
+Loss values - Total: 106.568344, Vec: 41.451225, Pos: 47.823063, Col: 0.000010, Thumb: 0.000000, TipDist: 17.294046, Reg: 0.000000
+  Average gradient norm: 17.825842
+  Total parameters with gradients: 134
+2026-06-15 18:57:32,463 - INFO - 
+--- Batch 0, Epoch 31 ---
+Loss values - Total: 104.741104, Vec: 39.508945, Pos: 51.019417, Col: 0.000010, Thumb: 0.000000, TipDist: 14.212728, Reg: 0.000000
+  Average gradient norm: 21.106689
+  Total parameters with gradients: 134
+2026-06-15 18:57:41,097 - INFO - 
+--- Batch 0, Epoch 32 ---
+Loss values - Total: 105.598694, Vec: 42.688496, Pos: 47.427238, Col: 0.000010, Thumb: 0.000000, TipDist: 15.482945, Reg: 0.000000
+  Average gradient norm: 20.913474
+  Total parameters with gradients: 134
+2026-06-15 18:57:49,463 - INFO - 
+--- Batch 0, Epoch 33 ---
+Loss values - Total: 103.108406, Vec: 39.621761, Pos: 46.769463, Col: 0.000010, Thumb: 0.000000, TipDist: 16.717180, Reg: 0.000000
+  Average gradient norm: 14.400672
+  Total parameters with gradients: 134
+2026-06-15 18:57:57,820 - INFO - 
+--- Batch 0, Epoch 34 ---
+Loss values - Total: 102.249985, Vec: 40.216652, Pos: 49.977356, Col: 0.000010, Thumb: 0.000000, TipDist: 12.055965, Reg: 0.000000
+  Average gradient norm: 17.220849
+  Total parameters with gradients: 134
+2026-06-15 18:58:06,115 - INFO - 
+--- Batch 0, Epoch 35 ---
+Loss values - Total: 104.997925, Vec: 39.591484, Pos: 50.402576, Col: 0.000010, Thumb: 0.000000, TipDist: 15.003851, Reg: 0.000000
+  Average gradient norm: 22.329030
+  Total parameters with gradients: 134
+2026-06-15 18:58:13,310 - INFO - 
+--- Batch 0, Epoch 36 ---
+Loss values - Total: 100.982574, Vec: 38.867477, Pos: 49.386883, Col: 0.000010, Thumb: 0.000000, TipDist: 12.728199, Reg: 0.000000
+  Average gradient norm: 17.947491
+  Total parameters with gradients: 134
+2026-06-15 18:58:18,698 - INFO - 
+--- Batch 0, Epoch 37 ---
+Loss values - Total: 110.483055, Vec: 40.562443, Pos: 50.797298, Col: 0.000010, Thumb: 0.000000, TipDist: 19.123306, Reg: 0.000000
+  Average gradient norm: 19.761143
+  Total parameters with gradients: 134
+2026-06-15 18:58:25,369 - INFO - 
+--- Batch 0, Epoch 38 ---
+Loss values - Total: 105.291512, Vec: 38.876358, Pos: 50.635853, Col: 0.000010, Thumb: 0.000000, TipDist: 15.779294, Reg: 0.000000
+  Average gradient norm: 23.521084
+  Total parameters with gradients: 134
+2026-06-15 18:58:30,638 - INFO - 
+--- Batch 0, Epoch 39 ---
+Loss values - Total: 102.922188, Vec: 40.706757, Pos: 49.446075, Col: 0.000010, Thumb: 0.000000, TipDist: 12.769350, Reg: 0.000000
+  Average gradient norm: 10.320263
+  Total parameters with gradients: 134
+2026-06-15 18:58:35,632 - INFO - 
+--- Batch 0, Epoch 40 ---
+Loss values - Total: 100.420097, Vec: 37.772087, Pos: 49.493149, Col: 0.000010, Thumb: 0.000000, TipDist: 13.154852, Reg: 0.000000
+  Average gradient norm: 16.125480
+  Total parameters with gradients: 134
+2026-06-15 18:58:40,703 - INFO - 
+--- Batch 0, Epoch 41 ---
+Loss values - Total: 101.222443, Vec: 42.245018, Pos: 46.891384, Col: 0.000010, Thumb: 0.000000, TipDist: 12.086036, Reg: 0.000000
+  Average gradient norm: 15.331750
+  Total parameters with gradients: 134
+2026-06-15 18:58:45,661 - INFO - 
+--- Batch 0, Epoch 42 ---
+Loss values - Total: 98.906914, Vec: 38.390518, Pos: 47.071705, Col: 0.000010, Thumb: 0.000000, TipDist: 13.444686, Reg: 0.000000
+  Average gradient norm: 20.645266
+  Total parameters with gradients: 134
+2026-06-15 18:58:50,597 - INFO - 
+--- Batch 0, Epoch 43 ---
+Loss values - Total: 121.077515, Vec: 42.464577, Pos: 51.967323, Col: 0.000010, Thumb: 0.000000, TipDist: 26.645603, Reg: 0.000000
+  Average gradient norm: 52.437411
+  Total parameters with gradients: 134
+2026-06-15 18:58:55,130 - INFO - 
+--- Batch 0, Epoch 44 ---
+Loss values - Total: 101.831619, Vec: 38.889622, Pos: 49.991650, Col: 0.000010, Thumb: 0.000000, TipDist: 12.950343, Reg: 0.000000
+  Average gradient norm: 14.601524
+  Total parameters with gradients: 134
+2026-06-15 18:59:00,194 - INFO - 
+--- Batch 0, Epoch 45 ---
+Loss values - Total: 112.054985, Vec: 39.595226, Pos: 55.593456, Col: 0.000010, Thumb: 0.000000, TipDist: 16.866293, Reg: 0.000000
+  Average gradient norm: 36.435758
+  Total parameters with gradients: 134
+2026-06-15 18:59:05,242 - INFO - 
+--- Batch 0, Epoch 46 ---
+Loss values - Total: 100.953102, Vec: 40.591068, Pos: 47.877354, Col: 0.000010, Thumb: 0.000000, TipDist: 12.484675, Reg: 0.000000
+  Average gradient norm: 14.817933
+  Total parameters with gradients: 134
+2026-06-15 18:59:09,989 - INFO - 
+--- Batch 0, Epoch 47 ---
+Loss values - Total: 107.961975, Vec: 39.249683, Pos: 52.302193, Col: 4.416135, Thumb: 0.000000, TipDist: 11.993958, Reg: 0.000000
+  Average gradient norm: 547.475586
+  Total parameters with gradients: 134
+2026-06-15 18:59:14,966 - INFO - 
+--- Batch 0, Epoch 48 ---
+Loss values - Total: 101.252914, Vec: 39.408947, Pos: 46.797405, Col: 0.000010, Thumb: 0.000000, TipDist: 15.046555, Reg: 0.000000
+  Average gradient norm: 22.345124
+  Total parameters with gradients: 134
+2026-06-15 18:59:19,899 - INFO - 
+--- Batch 0, Epoch 49 ---
+Loss values - Total: 97.753738, Vec: 38.533321, Pos: 46.797119, Col: 0.000010, Thumb: 0.000000, TipDist: 12.423290, Reg: 0.000000
+  Average gradient norm: 8.603762
+  Total parameters with gradients: 134
+2026-06-15 18:59:24,291 - INFO - 
+--- Batch 0, Epoch 50 ---
+Loss values - Total: 99.851494, Vec: 39.858986, Pos: 49.421936, Col: 0.000010, Thumb: 0.000000, TipDist: 10.570567, Reg: 0.000000
+  Average gradient norm: 23.762592
+  Total parameters with gradients: 134
+2026-06-15 18:59:28,652 - INFO - 
+--- Batch 0, Epoch 51 ---
+Loss values - Total: 99.018745, Vec: 39.715118, Pos: 47.465740, Col: 0.000010, Thumb: 0.000000, TipDist: 11.837877, Reg: 0.000000
+  Average gradient norm: 15.493488
+  Total parameters with gradients: 134
+2026-06-15 18:59:33,253 - INFO - 
+--- Batch 0, Epoch 52 ---
+Loss values - Total: 99.727142, Vec: 38.862431, Pos: 49.813980, Col: 0.000010, Thumb: 0.000000, TipDist: 11.050727, Reg: 0.000000
+  Average gradient norm: 23.960796
+  Total parameters with gradients: 134
+2026-06-15 18:59:38,140 - INFO - 
+--- Batch 0, Epoch 53 ---
+Loss values - Total: 102.519699, Vec: 39.027321, Pos: 49.442371, Col: 0.000010, Thumb: 0.000000, TipDist: 14.049995, Reg: 0.000000
+  Average gradient norm: 34.091183
+  Total parameters with gradients: 134
+2026-06-15 18:59:42,700 - INFO - 
+--- Batch 0, Epoch 54 ---
+Loss values - Total: 102.201767, Vec: 38.133053, Pos: 48.443462, Col: 0.000010, Thumb: 0.000000, TipDist: 15.625246, Reg: 0.000000
+  Average gradient norm: 28.884261
+  Total parameters with gradients: 134
+2026-06-15 18:59:47,256 - INFO - 
+--- Batch 0, Epoch 55 ---
+Loss values - Total: 103.620567, Vec: 37.750404, Pos: 47.203629, Col: 7.051497, Thumb: 0.000000, TipDist: 11.615034, Reg: 0.000000
+  Average gradient norm: 625.891657
+  Total parameters with gradients: 134
+2026-06-15 18:59:52,270 - INFO - 
+--- Batch 0, Epoch 56 ---
+Loss values - Total: 101.137207, Vec: 40.344925, Pos: 47.465115, Col: 0.000010, Thumb: 0.000000, TipDist: 13.327158, Reg: 0.000000
+  Average gradient norm: 15.158235
+  Total parameters with gradients: 134
+2026-06-15 18:59:57,296 - INFO - 
+--- Batch 0, Epoch 57 ---
+Loss values - Total: 103.121185, Vec: 41.583153, Pos: 49.207890, Col: 0.000010, Thumb: 0.000000, TipDist: 12.330132, Reg: 0.000000
+  Average gradient norm: 13.397807
+  Total parameters with gradients: 134
+2026-06-15 19:00:02,131 - INFO - 
+--- Batch 0, Epoch 58 ---
+Loss values - Total: 98.341331, Vec: 36.856426, Pos: 48.824825, Col: 0.000010, Thumb: 0.000000, TipDist: 12.660071, Reg: 0.000000
+  Average gradient norm: 15.688753
+  Total parameters with gradients: 134
+2026-06-15 19:00:07,046 - INFO - 
+--- Batch 0, Epoch 59 ---
+Loss values - Total: 98.051804, Vec: 36.155041, Pos: 49.504608, Col: 0.000010, Thumb: 0.000000, TipDist: 12.392139, Reg: 0.000000
+  Average gradient norm: 19.424930
+  Total parameters with gradients: 134
+2026-06-15 19:00:12,188 - INFO - 
+--- Batch 0, Epoch 60 ---
+Loss values - Total: 95.242455, Vec: 35.675930, Pos: 47.887238, Col: 0.000010, Thumb: 0.000000, TipDist: 11.679274, Reg: 0.000000
+  Average gradient norm: 8.824433
+  Total parameters with gradients: 134
+2026-06-15 19:00:16,944 - INFO - 
+--- Batch 0, Epoch 61 ---
+Loss values - Total: 97.480232, Vec: 38.700974, Pos: 48.513287, Col: 0.000010, Thumb: 0.000000, TipDist: 10.265960, Reg: 0.000000
+  Average gradient norm: 9.959765
+  Total parameters with gradients: 134
+2026-06-15 19:00:21,804 - INFO - 
+--- Batch 0, Epoch 62 ---
+Loss values - Total: 98.768669, Vec: 39.197441, Pos: 48.686932, Col: 0.000010, Thumb: 0.000000, TipDist: 10.884294, Reg: 0.000000
+  Average gradient norm: 22.461891
+  Total parameters with gradients: 134
+2026-06-15 19:00:26,830 - INFO - 
+--- Batch 0, Epoch 63 ---
+Loss values - Total: 98.140915, Vec: 39.143768, Pos: 46.869972, Col: 0.000010, Thumb: 0.000000, TipDist: 12.127164, Reg: 0.000000
+  Average gradient norm: 12.069840
+  Total parameters with gradients: 134
+2026-06-15 19:00:31,958 - INFO - 
+--- Batch 0, Epoch 64 ---
+Loss values - Total: 95.342575, Vec: 38.571209, Pos: 46.740227, Col: 0.000010, Thumb: 0.000000, TipDist: 10.031139, Reg: 0.000000
+  Average gradient norm: 12.861929
+  Total parameters with gradients: 134
+2026-06-15 19:00:36,970 - INFO - 
+--- Batch 0, Epoch 65 ---
+Loss values - Total: 96.628708, Vec: 37.734871, Pos: 48.620499, Col: 0.000010, Thumb: 0.000000, TipDist: 10.273328, Reg: 0.000000
+  Average gradient norm: 13.473623
+  Total parameters with gradients: 134
+2026-06-15 19:00:41,650 - INFO - 
+--- Batch 0, Epoch 66 ---
+Loss values - Total: 93.675827, Vec: 35.474991, Pos: 45.977497, Col: 0.000010, Thumb: 0.000000, TipDist: 12.223338, Reg: 0.000000
+  Average gradient norm: 15.439333
+  Total parameters with gradients: 134
+2026-06-15 19:00:46,569 - INFO - 
+--- Batch 0, Epoch 67 ---
+Loss values - Total: 102.596359, Vec: 41.278687, Pos: 49.232758, Col: 0.000010, Thumb: 0.000000, TipDist: 12.084907, Reg: 0.000000
+  Average gradient norm: 27.701446
+  Total parameters with gradients: 134
+2026-06-15 19:00:51,474 - INFO - 
+--- Batch 0, Epoch 68 ---
+Loss values - Total: 95.773445, Vec: 37.814430, Pos: 46.697372, Col: 0.000010, Thumb: 0.000000, TipDist: 11.261632, Reg: 0.000000
+  Average gradient norm: 9.108166
+  Total parameters with gradients: 134
+2026-06-15 19:00:56,561 - INFO - 
+--- Batch 0, Epoch 69 ---
+Loss values - Total: 95.687645, Vec: 37.940170, Pos: 48.092052, Col: 0.000010, Thumb: 0.000000, TipDist: 9.655412, Reg: 0.000000
+  Average gradient norm: 14.030683
+  Total parameters with gradients: 134
+2026-06-15 19:01:01,534 - INFO - 
+--- Batch 0, Epoch 70 ---
+Loss values - Total: 94.503708, Vec: 35.695694, Pos: 48.514408, Col: 0.000010, Thumb: 0.000000, TipDist: 10.293598, Reg: 0.000000
+  Average gradient norm: 15.367489
+  Total parameters with gradients: 134
+2026-06-15 19:01:06,526 - INFO - 
+--- Batch 0, Epoch 71 ---
+Loss values - Total: 93.998863, Vec: 37.762558, Pos: 47.673458, Col: 0.000010, Thumb: 0.000000, TipDist: 8.562838, Reg: 0.000000
+  Average gradient norm: 4.435784
+  Total parameters with gradients: 134
+2026-06-15 19:01:11,505 - INFO - 
+--- Batch 0, Epoch 72 ---
+Loss values - Total: 97.349411, Vec: 39.783787, Pos: 47.581070, Col: 0.000010, Thumb: 0.000000, TipDist: 9.984551, Reg: 0.000000
+  Average gradient norm: 12.674431
+  Total parameters with gradients: 134
+2026-06-15 19:01:16,479 - INFO - 
+--- Batch 0, Epoch 73 ---
+Loss values - Total: 94.903511, Vec: 37.205883, Pos: 48.632294, Col: 0.000010, Thumb: 0.000000, TipDist: 9.065324, Reg: 0.000000
+  Average gradient norm: 18.470178
+  Total parameters with gradients: 134
+2026-06-15 19:01:21,584 - INFO - 
+--- Batch 0, Epoch 74 ---
+Loss values - Total: 95.458122, Vec: 37.758793, Pos: 46.870537, Col: 0.000010, Thumb: 0.000000, TipDist: 10.828779, Reg: 0.000000
+  Average gradient norm: 14.411539
+  Total parameters with gradients: 134
+2026-06-15 19:01:26,326 - INFO - 
+--- Batch 0, Epoch 75 ---
+Loss values - Total: 96.466774, Vec: 38.402245, Pos: 48.871735, Col: 0.000010, Thumb: 0.000000, TipDist: 9.192788, Reg: 0.000000
+  Average gradient norm: 19.647731
+  Total parameters with gradients: 134
+2026-06-15 19:01:31,323 - INFO - 
+--- Batch 0, Epoch 76 ---
+Loss values - Total: 97.138260, Vec: 39.720333, Pos: 46.528488, Col: 0.000010, Thumb: 0.000000, TipDist: 10.889426, Reg: 0.000000
+  Average gradient norm: 9.856569
+  Total parameters with gradients: 134
+2026-06-15 19:01:36,301 - INFO - 
+--- Batch 0, Epoch 77 ---
+Loss values - Total: 96.667267, Vec: 38.128178, Pos: 48.926037, Col: 0.000010, Thumb: 0.000000, TipDist: 9.613049, Reg: 0.000000
+  Average gradient norm: 11.175350
+  Total parameters with gradients: 134
+2026-06-15 19:01:41,380 - INFO - 
+--- Batch 0, Epoch 78 ---
+Loss values - Total: 95.570648, Vec: 38.552658, Pos: 48.429409, Col: 0.000010, Thumb: 0.000000, TipDist: 8.588572, Reg: 0.000000
+  Average gradient norm: 14.935459
+  Total parameters with gradients: 134
+2026-06-15 19:01:46,369 - INFO - 
+--- Batch 0, Epoch 79 ---
+Loss values - Total: 92.306000, Vec: 36.724026, Pos: 46.397625, Col: 0.000010, Thumb: 0.000000, TipDist: 9.184341, Reg: 0.000000
+  Average gradient norm: 4.332667
+  Total parameters with gradients: 134
+2026-06-15 19:01:51,375 - INFO - 
+--- Batch 0, Epoch 80 ---
+Loss values - Total: 103.947205, Vec: 40.985035, Pos: 45.894455, Col: 0.000010, Thumb: 0.000000, TipDist: 17.067711, Reg: 0.000000
+  Average gradient norm: 37.603978
+  Total parameters with gradients: 134
+2026-06-15 19:01:56,370 - INFO - 
+--- Batch 0, Epoch 81 ---
+Loss values - Total: 96.089073, Vec: 39.372341, Pos: 47.723717, Col: 0.000010, Thumb: 0.000000, TipDist: 8.993013, Reg: 0.000000
+  Average gradient norm: 25.858120
+  Total parameters with gradients: 134
+2026-06-15 19:02:01,462 - INFO - 
+--- Batch 0, Epoch 82 ---
+Loss values - Total: 94.578568, Vec: 36.116394, Pos: 48.702431, Col: 0.000010, Thumb: 0.000000, TipDist: 9.759732, Reg: 0.000000
+  Average gradient norm: 10.890135
+  Total parameters with gradients: 134
+2026-06-15 19:02:06,420 - INFO - 
+--- Batch 0, Epoch 83 ---
+Loss values - Total: 95.525803, Vec: 37.230293, Pos: 49.548111, Col: 0.000010, Thumb: 0.000000, TipDist: 8.747389, Reg: 0.000000
+  Average gradient norm: 11.162411
+  Total parameters with gradients: 134
+2026-06-15 19:02:11,291 - INFO - 
+--- Batch 0, Epoch 84 ---
+Loss values - Total: 94.895187, Vec: 36.507732, Pos: 48.085625, Col: 0.000010, Thumb: 0.000000, TipDist: 10.301823, Reg: 0.000000
+  Average gradient norm: 10.511563
+  Total parameters with gradients: 134
+2026-06-15 19:02:16,379 - INFO - 
+--- Batch 0, Epoch 85 ---
+Loss values - Total: 94.852867, Vec: 36.217968, Pos: 48.822968, Col: 0.000010, Thumb: 0.000000, TipDist: 9.811921, Reg: 0.000000
+  Average gradient norm: 12.559816
+  Total parameters with gradients: 134
+2026-06-15 19:02:24,513 - INFO - 
+--- Batch 0, Epoch 86 ---
+Loss values - Total: 95.137100, Vec: 37.604023, Pos: 48.482559, Col: 0.000010, Thumb: 0.000000, TipDist: 9.050510, Reg: 0.000000
+  Average gradient norm: 12.509932
+  Total parameters with gradients: 134
+2026-06-15 19:02:32,868 - INFO - 
+--- Batch 0, Epoch 87 ---
+Loss values - Total: 95.910416, Vec: 40.542194, Pos: 46.640526, Col: 0.000010, Thumb: 0.000000, TipDist: 8.727688, Reg: 0.000000
+  Average gradient norm: 10.763007
+  Total parameters with gradients: 134
+2026-06-15 19:02:41,074 - INFO - 
+--- Batch 0, Epoch 88 ---
+Loss values - Total: 93.492500, Vec: 36.165524, Pos: 48.295490, Col: 0.000010, Thumb: 0.000000, TipDist: 9.031481, Reg: 0.000000
+  Average gradient norm: 8.410046
+  Total parameters with gradients: 134
+2026-06-15 19:02:49,597 - INFO - 
+--- Batch 0, Epoch 89 ---
+Loss values - Total: 96.214981, Vec: 39.028652, Pos: 47.231430, Col: 0.000010, Thumb: 0.000000, TipDist: 9.954886, Reg: 0.000000
+  Average gradient norm: 12.676343
+  Total parameters with gradients: 134
+2026-06-15 19:02:57,477 - INFO - 
+--- Batch 0, Epoch 90 ---
+Loss values - Total: 95.870331, Vec: 38.064240, Pos: 48.993187, Col: 0.000010, Thumb: 0.000000, TipDist: 8.812894, Reg: 0.000000
+  Average gradient norm: 13.979481
+  Total parameters with gradients: 134
+2026-06-15 19:03:05,479 - INFO - 
+--- Batch 0, Epoch 91 ---
+Loss values - Total: 95.002220, Vec: 39.429794, Pos: 46.862404, Col: 0.000010, Thumb: 0.000000, TipDist: 8.710011, Reg: 0.000000
+  Average gradient norm: 9.862969
+  Total parameters with gradients: 134
+2026-06-15 19:03:13,834 - INFO - 
+--- Batch 0, Epoch 92 ---
+Loss values - Total: 93.907272, Vec: 37.083164, Pos: 47.208717, Col: 0.000010, Thumb: 0.000000, TipDist: 9.615376, Reg: 0.000000
+  Average gradient norm: 9.602312
+  Total parameters with gradients: 134
+2026-06-15 19:03:21,705 - INFO - 
+--- Batch 0, Epoch 93 ---
+Loss values - Total: 95.124557, Vec: 38.799023, Pos: 46.709179, Col: 0.000010, Thumb: 0.000000, TipDist: 9.616346, Reg: 0.000000
+  Average gradient norm: 10.759233
+  Total parameters with gradients: 134
+2026-06-15 19:03:30,030 - INFO - 
+--- Batch 0, Epoch 94 ---
+Loss values - Total: 95.077461, Vec: 37.613998, Pos: 49.045025, Col: 0.000010, Thumb: 0.000000, TipDist: 8.418426, Reg: 0.000000
+  Average gradient norm: 19.396606
+  Total parameters with gradients: 134
+2026-06-15 19:03:38,222 - INFO - 
+--- Batch 0, Epoch 95 ---
+Loss values - Total: 94.079590, Vec: 36.757950, Pos: 47.686157, Col: 0.000010, Thumb: 0.000000, TipDist: 9.635474, Reg: 0.000000
+  Average gradient norm: 11.549681
+  Total parameters with gradients: 134
+2026-06-15 19:03:46,067 - INFO - 
+--- Batch 0, Epoch 96 ---
+Loss values - Total: 100.586067, Vec: 39.806278, Pos: 50.443367, Col: 0.000010, Thumb: 0.000000, TipDist: 10.336413, Reg: 0.000000
+  Average gradient norm: 18.414367
+  Total parameters with gradients: 134
+2026-06-15 19:03:54,750 - INFO - 
+--- Batch 0, Epoch 97 ---
+Loss values - Total: 104.765839, Vec: 38.130554, Pos: 52.554012, Col: 0.000010, Thumb: 0.000000, TipDist: 14.081258, Reg: 0.000000
+  Average gradient norm: 35.530388
+  Total parameters with gradients: 134
+2026-06-15 19:04:02,936 - INFO - 
+--- Batch 0, Epoch 98 ---
+Loss values - Total: 94.140274, Vec: 36.628296, Pos: 48.575710, Col: 0.000010, Thumb: 0.000000, TipDist: 8.936253, Reg: 0.000000
+  Average gradient norm: 12.331126
+  Total parameters with gradients: 134
+2026-06-15 19:04:11,300 - INFO - 
+--- Batch 0, Epoch 99 ---
+Loss values - Total: 94.409927, Vec: 36.830292, Pos: 48.356365, Col: 0.000010, Thumb: 0.000000, TipDist: 9.223259, Reg: 0.000000
+  Average gradient norm: 12.237950
+  Total parameters with gradients: 134
+2026-06-15 19:04:19,529 - INFO - 
+--- Batch 0, Epoch 100 ---
+Loss values - Total: 94.041008, Vec: 37.363258, Pos: 48.474842, Col: 0.000010, Thumb: 0.000000, TipDist: 8.202897, Reg: 0.000000
+  Average gradient norm: 6.410231
+  Total parameters with gradients: 134
+2026-06-15 19:04:28,204 - INFO - 
+--- Batch 0, Epoch 101 ---
+Loss values - Total: 93.876877, Vec: 38.802910, Pos: 46.645130, Col: 0.000010, Thumb: 0.000000, TipDist: 8.428823, Reg: 0.000000
+  Average gradient norm: 10.903609
+  Total parameters with gradients: 134
+2026-06-15 19:04:36,798 - INFO - 
+--- Batch 0, Epoch 102 ---
+Loss values - Total: 94.838654, Vec: 38.344429, Pos: 47.451408, Col: 0.000010, Thumb: 0.000000, TipDist: 9.042809, Reg: 0.000000
+  Average gradient norm: 10.023818
+  Total parameters with gradients: 134
+2026-06-15 19:04:45,236 - INFO - 
+--- Batch 0, Epoch 103 ---
+Loss values - Total: 98.652786, Vec: 38.894939, Pos: 46.165146, Col: 4.174200, Thumb: 0.000000, TipDist: 9.418499, Reg: 0.000000
+  Average gradient norm: 611.155780
+  Total parameters with gradients: 134
+2026-06-15 19:04:53,859 - INFO - 
+--- Batch 0, Epoch 104 ---
+Loss values - Total: 96.838547, Vec: 38.843140, Pos: 48.929932, Col: 0.000010, Thumb: 0.000000, TipDist: 9.065464, Reg: 0.000000
+  Average gradient norm: 9.385986
+  Total parameters with gradients: 134
+2026-06-15 19:05:02,637 - INFO - 
+--- Batch 0, Epoch 105 ---
+Loss values - Total: 93.958244, Vec: 36.687099, Pos: 48.875816, Col: 0.000010, Thumb: 0.000000, TipDist: 8.395327, Reg: 0.000000
+  Average gradient norm: 5.302555
+  Total parameters with gradients: 134
+2026-06-15 19:05:11,234 - INFO - 
+--- Batch 0, Epoch 106 ---
+Loss values - Total: 96.126862, Vec: 39.511791, Pos: 47.896515, Col: 0.000010, Thumb: 0.000000, TipDist: 8.718547, Reg: 0.000000
+  Average gradient norm: 8.337507
+  Total parameters with gradients: 134
+2026-06-15 19:05:19,514 - INFO - 
+--- Batch 0, Epoch 107 ---
+Loss values - Total: 94.961143, Vec: 37.658199, Pos: 49.530586, Col: 0.000010, Thumb: 0.000000, TipDist: 7.772356, Reg: 0.000000
+  Average gradient norm: 10.363295
+  Total parameters with gradients: 134
+2026-06-15 19:05:27,931 - INFO - 
+--- Batch 0, Epoch 108 ---
+Loss values - Total: 95.532181, Vec: 36.996143, Pos: 49.118233, Col: 0.000010, Thumb: 0.000000, TipDist: 9.417794, Reg: 0.000000
+  Average gradient norm: 13.706050
+  Total parameters with gradients: 134
+2026-06-15 19:05:36,037 - INFO - 
+--- Batch 0, Epoch 109 ---
+Loss values - Total: 93.057747, Vec: 36.793705, Pos: 48.340225, Col: 0.000010, Thumb: 0.000000, TipDist: 7.923813, Reg: 0.000000
+  Average gradient norm: 16.224868
+  Total parameters with gradients: 134
+2026-06-15 19:05:44,687 - INFO - 
+--- Batch 0, Epoch 110 ---
+Loss values - Total: 93.874008, Vec: 37.789589, Pos: 47.816872, Col: 0.000010, Thumb: 0.000000, TipDist: 8.267543, Reg: 0.000000
+  Average gradient norm: 11.230807
+  Total parameters with gradients: 134
+2026-06-15 19:05:52,975 - INFO - 
+--- Batch 0, Epoch 111 ---
+Loss values - Total: 92.807144, Vec: 36.691746, Pos: 48.304478, Col: 0.000010, Thumb: 0.000000, TipDist: 7.810911, Reg: 0.000000
+  Average gradient norm: 6.596203
+  Total parameters with gradients: 134
+2026-06-15 19:06:01,577 - INFO - 
+--- Batch 0, Epoch 112 ---
+Loss values - Total: 93.806931, Vec: 37.590816, Pos: 47.534496, Col: 0.000010, Thumb: 0.000000, TipDist: 8.681612, Reg: 0.000000
+  Average gradient norm: 9.035269
+  Total parameters with gradients: 134
+2026-06-15 19:06:09,983 - INFO - 
+--- Batch 0, Epoch 113 ---
+Loss values - Total: 91.935577, Vec: 37.667263, Pos: 44.981163, Col: 0.000010, Thumb: 0.000000, TipDist: 9.287145, Reg: 0.000000
+  Average gradient norm: 7.849281
+  Total parameters with gradients: 134
+2026-06-15 19:06:18,591 - INFO - 
+--- Batch 0, Epoch 114 ---
+Loss values - Total: 95.210602, Vec: 37.021667, Pos: 50.276703, Col: 0.000010, Thumb: 0.000000, TipDist: 7.912228, Reg: 0.000000
+  Average gradient norm: 12.181113
+  Total parameters with gradients: 134
+2026-06-15 19:06:26,839 - INFO - 
+--- Batch 0, Epoch 115 ---
+Loss values - Total: 95.651031, Vec: 38.476383, Pos: 47.902710, Col: 0.000010, Thumb: 0.000000, TipDist: 9.271935, Reg: 0.000000
+  Average gradient norm: 9.308469
+  Total parameters with gradients: 134
+2026-06-15 19:06:35,451 - INFO - 
+--- Batch 0, Epoch 116 ---
+Loss values - Total: 95.574982, Vec: 39.313046, Pos: 48.338226, Col: 0.000010, Thumb: 0.000000, TipDist: 7.923701, Reg: 0.000000
+  Average gradient norm: 9.553323
+  Total parameters with gradients: 134
+2026-06-15 19:06:43,916 - INFO - 
+--- Batch 0, Epoch 117 ---
+Loss values - Total: 93.438652, Vec: 37.854195, Pos: 47.556828, Col: 0.000010, Thumb: 0.000000, TipDist: 8.027617, Reg: 0.000000
+  Average gradient norm: 12.219231
+  Total parameters with gradients: 134
+2026-06-15 19:06:52,158 - INFO - 
+--- Batch 0, Epoch 118 ---
+Loss values - Total: 92.475685, Vec: 37.343842, Pos: 46.773785, Col: 0.000010, Thumb: 0.000000, TipDist: 8.358047, Reg: 0.000000
+  Average gradient norm: 5.220360
+  Total parameters with gradients: 134
+2026-06-15 19:07:00,810 - INFO - 
+--- Batch 0, Epoch 119 ---
+Loss values - Total: 94.757652, Vec: 38.369442, Pos: 48.095463, Col: 0.000010, Thumb: 0.000000, TipDist: 8.292742, Reg: 0.000000
+  Average gradient norm: 8.379843
+  Total parameters with gradients: 134
+2026-06-15 19:07:08,838 - INFO - 
+--- Batch 0, Epoch 120 ---
+Loss values - Total: 94.809578, Vec: 39.319565, Pos: 47.702969, Col: 0.000010, Thumb: 0.000000, TipDist: 7.787033, Reg: 0.000000
+  Average gradient norm: 8.589061
+  Total parameters with gradients: 134
+2026-06-15 19:07:17,363 - INFO - 
+--- Batch 0, Epoch 121 ---
+Loss values - Total: 91.450485, Vec: 35.099453, Pos: 48.106430, Col: 0.000010, Thumb: 0.000000, TipDist: 8.244595, Reg: 0.000000
+  Average gradient norm: 7.168323
+  Total parameters with gradients: 134
+2026-06-15 19:07:25,745 - INFO - 
+--- Batch 0, Epoch 122 ---
+Loss values - Total: 91.590790, Vec: 35.618557, Pos: 47.549179, Col: 0.000010, Thumb: 0.000000, TipDist: 8.423038, Reg: 0.000000
+  Average gradient norm: 5.118212
+  Total parameters with gradients: 134
+2026-06-15 19:07:34,239 - INFO - 
+--- Batch 0, Epoch 123 ---
+Loss values - Total: 93.058754, Vec: 36.144310, Pos: 48.298729, Col: 0.000010, Thumb: 0.000000, TipDist: 8.615705, Reg: 0.000000
+  Average gradient norm: 11.324700
+  Total parameters with gradients: 134
+2026-06-15 19:07:42,976 - INFO - 
+--- Batch 0, Epoch 124 ---
+Loss values - Total: 94.717461, Vec: 37.789631, Pos: 49.331947, Col: 0.000010, Thumb: 0.000000, TipDist: 7.595874, Reg: 0.000000
+  Average gradient norm: 10.137364
+  Total parameters with gradients: 134
+2026-06-15 19:07:51,678 - INFO - 
+--- Batch 0, Epoch 125 ---
+Loss values - Total: 98.210869, Vec: 37.863117, Pos: 47.036594, Col: 5.975535, Thumb: 0.000000, TipDist: 7.335623, Reg: 0.000000
+  Average gradient norm: 578.156956
+  Total parameters with gradients: 134
+2026-06-15 19:08:00,082 - INFO - 
+--- Batch 0, Epoch 126 ---
+Loss values - Total: 95.102562, Vec: 36.762562, Pos: 49.061398, Col: 0.000010, Thumb: 0.000000, TipDist: 9.278598, Reg: 0.000000
+  Average gradient norm: 11.102095
+  Total parameters with gradients: 134
+2026-06-15 19:08:08,823 - INFO - 
+--- Batch 0, Epoch 127 ---
+Loss values - Total: 92.612625, Vec: 36.702297, Pos: 46.903812, Col: 0.000010, Thumb: 0.000000, TipDist: 9.006512, Reg: 0.000000
+  Average gradient norm: 10.682718
+  Total parameters with gradients: 134
+2026-06-15 19:08:16,729 - INFO - 
+--- Batch 0, Epoch 128 ---
+Loss values - Total: 92.688957, Vec: 38.031807, Pos: 47.428490, Col: 0.000010, Thumb: 0.000000, TipDist: 7.228650, Reg: 0.000000
+  Average gradient norm: 14.946786
+  Total parameters with gradients: 134
+2026-06-15 19:08:25,434 - INFO - 
+--- Batch 0, Epoch 129 ---
+Loss values - Total: 95.092331, Vec: 39.292007, Pos: 47.122299, Col: 0.000010, Thumb: 0.000000, TipDist: 8.678015, Reg: 0.000000
+  Average gradient norm: 5.774954
+  Total parameters with gradients: 134
+2026-06-15 19:08:33,810 - INFO - 
+--- Batch 0, Epoch 130 ---
+Loss values - Total: 94.022789, Vec: 37.757477, Pos: 48.519356, Col: 0.000010, Thumb: 0.000000, TipDist: 7.745948, Reg: 0.000000
+  Average gradient norm: 13.988610
+  Total parameters with gradients: 134
+2026-06-15 19:08:42,193 - INFO - 
+--- Batch 0, Epoch 131 ---
+Loss values - Total: 94.207855, Vec: 39.223976, Pos: 46.024948, Col: 0.000010, Thumb: 0.000000, TipDist: 8.958920, Reg: 0.000000
+  Average gradient norm: 6.432924
+  Total parameters with gradients: 134
+2026-06-15 19:08:50,670 - INFO - 
+--- Batch 0, Epoch 132 ---
+Loss values - Total: 93.722748, Vec: 38.225277, Pos: 48.108742, Col: 0.000010, Thumb: 0.000000, TipDist: 7.388728, Reg: 0.000000
+  Average gradient norm: 12.793011
+  Total parameters with gradients: 134
+2026-06-15 19:08:59,418 - INFO - 
+--- Batch 0, Epoch 133 ---
+Loss values - Total: 93.640564, Vec: 38.324860, Pos: 46.283661, Col: 0.000010, Thumb: 0.000000, TipDist: 9.032037, Reg: 0.000000
+  Average gradient norm: 10.146496
+  Total parameters with gradients: 134
+2026-06-15 19:09:07,820 - INFO - 
+--- Batch 0, Epoch 134 ---
+Loss values - Total: 93.585220, Vec: 37.847347, Pos: 47.759613, Col: 0.000010, Thumb: 0.000000, TipDist: 7.978245, Reg: 0.000000
+  Average gradient norm: 8.629735
+  Total parameters with gradients: 134
+2026-06-15 19:09:16,374 - INFO - 
+--- Batch 0, Epoch 135 ---
+Loss values - Total: 96.637077, Vec: 40.477234, Pos: 47.699013, Col: 0.000010, Thumb: 0.000000, TipDist: 8.460822, Reg: 0.000000
+  Average gradient norm: 7.144889
+  Total parameters with gradients: 134
+2026-06-15 19:09:24,736 - INFO - 
+--- Batch 0, Epoch 136 ---
+Loss values - Total: 92.202202, Vec: 37.220974, Pos: 48.186726, Col: 0.000010, Thumb: 0.000000, TipDist: 6.794491, Reg: 0.000000
+  Average gradient norm: 8.705267
+  Total parameters with gradients: 134
+2026-06-15 19:09:33,162 - INFO - 
+--- Batch 0, Epoch 137 ---
+Loss values - Total: 96.846741, Vec: 39.684410, Pos: 47.686474, Col: 0.000010, Thumb: 0.000000, TipDist: 9.475856, Reg: 0.000000
+  Average gradient norm: 12.000619
+  Total parameters with gradients: 134
+2026-06-15 19:09:41,907 - INFO - 
+--- Batch 0, Epoch 138 ---
+Loss values - Total: 93.104149, Vec: 38.453602, Pos: 47.191078, Col: 0.000010, Thumb: 0.000000, TipDist: 7.459455, Reg: 0.000000
+  Average gradient norm: 9.409738
+  Total parameters with gradients: 134
+2026-06-15 19:09:50,643 - INFO - 
+--- Batch 0, Epoch 139 ---
+Loss values - Total: 91.553749, Vec: 37.815201, Pos: 45.287579, Col: 0.000010, Thumb: 0.000000, TipDist: 8.450958, Reg: 0.000000
+  Average gradient norm: 6.610236
+  Total parameters with gradients: 134
+2026-06-15 19:09:58,905 - INFO - 
+--- Batch 0, Epoch 140 ---
+Loss values - Total: 92.958748, Vec: 36.132824, Pos: 49.264767, Col: 0.000010, Thumb: 0.000000, TipDist: 7.561150, Reg: 0.000000
+  Average gradient norm: 11.027202
+  Total parameters with gradients: 134
+2026-06-15 19:10:07,141 - INFO - 
+--- Batch 0, Epoch 141 ---
+Loss values - Total: 92.876259, Vec: 37.944027, Pos: 46.713631, Col: 0.000010, Thumb: 0.000000, TipDist: 8.218596, Reg: 0.000000
+  Average gradient norm: 7.246200
+  Total parameters with gradients: 134
+2026-06-15 19:10:15,831 - INFO - 
+--- Batch 0, Epoch 142 ---
+Loss values - Total: 93.496078, Vec: 39.344112, Pos: 46.882153, Col: 0.000010, Thumb: 0.000000, TipDist: 7.269804, Reg: 0.000000
+  Average gradient norm: 11.018434
+  Total parameters with gradients: 134
+2026-06-15 19:10:24,523 - INFO - 
+--- Batch 0, Epoch 143 ---
+Loss values - Total: 93.022057, Vec: 37.645260, Pos: 46.108643, Col: 0.000010, Thumb: 0.000000, TipDist: 9.268141, Reg: 0.000000
+  Average gradient norm: 10.082869
+  Total parameters with gradients: 134
+2026-06-15 19:10:33,058 - INFO - 
+--- Batch 0, Epoch 144 ---
+Loss values - Total: 91.503265, Vec: 37.717575, Pos: 46.926460, Col: 0.000010, Thumb: 0.000000, TipDist: 6.859224, Reg: 0.000000
+  Average gradient norm: 10.725259
+  Total parameters with gradients: 134
+2026-06-15 19:10:41,108 - INFO - 
+--- Batch 0, Epoch 145 ---
+Loss values - Total: 94.358017, Vec: 38.053375, Pos: 47.250801, Col: 0.000010, Thumb: 0.000000, TipDist: 9.053835, Reg: 0.000000
+  Average gradient norm: 8.390445
+  Total parameters with gradients: 134
+2026-06-15 19:10:49,532 - INFO - 
+--- Batch 0, Epoch 146 ---
+Loss values - Total: 91.721512, Vec: 38.243492, Pos: 46.726711, Col: 0.000010, Thumb: 0.000000, TipDist: 6.751303, Reg: 0.000000
+  Average gradient norm: 10.597419
+  Total parameters with gradients: 134
+2026-06-15 19:10:58,453 - INFO - 
+--- Batch 0, Epoch 147 ---
+Loss values - Total: 92.870415, Vec: 37.554188, Pos: 46.714603, Col: 0.000010, Thumb: 0.000000, TipDist: 8.601613, Reg: 0.000000
+  Average gradient norm: 6.719551
+  Total parameters with gradients: 134
+2026-06-15 19:11:06,853 - INFO - 
+--- Batch 0, Epoch 148 ---
+Loss values - Total: 91.475517, Vec: 37.322918, Pos: 47.445812, Col: 0.000010, Thumb: 0.000000, TipDist: 6.706780, Reg: 0.000000
+  Average gradient norm: 10.300811
+  Total parameters with gradients: 134
+2026-06-15 19:11:15,134 - INFO - 
+--- Batch 0, Epoch 149 ---
+Loss values - Total: 93.651695, Vec: 38.241329, Pos: 46.276966, Col: 0.000010, Thumb: 0.000000, TipDist: 9.133395, Reg: 0.000000
+  Average gradient norm: 6.227944
+  Total parameters with gradients: 134
+2026-06-15 19:11:23,422 - INFO - 
+--- Batch 0, Epoch 150 ---
+Loss values - Total: 94.913490, Vec: 36.435490, Pos: 46.264336, Col: 0.000010, Thumb: 0.000000, TipDist: 12.213656, Reg: 0.000000
+  Average gradient norm: 15.963962
+  Total parameters with gradients: 134
+2026-06-15 19:11:31,807 - INFO - 
+--- Batch 0, Epoch 151 ---
+Loss values - Total: 94.745270, Vec: 40.332718, Pos: 45.992764, Col: 0.000010, Thumb: 0.000000, TipDist: 8.419781, Reg: 0.000000
+  Average gradient norm: 10.230775
+  Total parameters with gradients: 134
+2026-06-15 19:11:40,701 - INFO - 
+--- Batch 0, Epoch 152 ---
+Loss values - Total: 91.951187, Vec: 38.409668, Pos: 45.341232, Col: 0.000010, Thumb: 0.000000, TipDist: 8.200276, Reg: 0.000000
+  Average gradient norm: 6.494617
+  Total parameters with gradients: 134
+2026-06-15 19:11:49,081 - INFO - 
+--- Batch 0, Epoch 153 ---
+Loss values - Total: 93.533554, Vec: 37.550068, Pos: 48.865673, Col: 0.000010, Thumb: 0.000000, TipDist: 7.117804, Reg: 0.000000
+  Average gradient norm: 12.355151
+  Total parameters with gradients: 134
+2026-06-15 19:11:57,487 - INFO - 
+--- Batch 0, Epoch 154 ---
+Loss values - Total: 92.182251, Vec: 37.487400, Pos: 46.300171, Col: 0.000010, Thumb: 0.000000, TipDist: 8.394673, Reg: 0.000000
+  Average gradient norm: 5.626963
+  Total parameters with gradients: 134
+2026-06-15 19:12:06,044 - INFO - 
+--- Batch 0, Epoch 155 ---
+Loss values - Total: 94.152939, Vec: 38.206593, Pos: 46.561615, Col: 0.000010, Thumb: 0.000000, TipDist: 9.384729, Reg: 0.000000
+  Average gradient norm: 7.260646
+  Total parameters with gradients: 134
+2026-06-15 19:12:14,756 - INFO - 
+--- Batch 0, Epoch 156 ---
+Loss values - Total: 93.813248, Vec: 37.833466, Pos: 48.609318, Col: 0.000010, Thumb: 0.000000, TipDist: 7.370462, Reg: 0.000000
+  Average gradient norm: 13.316830
+  Total parameters with gradients: 134
+2026-06-15 19:12:23,308 - INFO - 
+--- Batch 0, Epoch 157 ---
+Loss values - Total: 93.237297, Vec: 37.602142, Pos: 47.938129, Col: 0.000010, Thumb: 0.000000, TipDist: 7.697021, Reg: 0.000000
+  Average gradient norm: 7.821210
+  Total parameters with gradients: 134
+2026-06-15 19:12:31,914 - INFO - 
+--- Batch 0, Epoch 158 ---
+Loss values - Total: 92.665131, Vec: 36.735882, Pos: 47.147865, Col: 0.000010, Thumb: 0.000000, TipDist: 8.781380, Reg: 0.000000
+  Average gradient norm: 9.726075
+  Total parameters with gradients: 134
+2026-06-15 19:12:40,342 - INFO - 
+--- Batch 0, Epoch 159 ---
+Loss values - Total: 92.739738, Vec: 37.894947, Pos: 48.234432, Col: 0.000010, Thumb: 0.000000, TipDist: 6.610355, Reg: 0.000000
+  Average gradient norm: 9.439768
+  Total parameters with gradients: 134
+2026-06-15 19:12:48,738 - INFO - 
+--- Batch 0, Epoch 160 ---
+Loss values - Total: 91.711349, Vec: 39.732994, Pos: 44.090794, Col: 0.000010, Thumb: 0.000000, TipDist: 7.887547, Reg: 0.000000
+  Average gradient norm: 5.674573
+  Total parameters with gradients: 134
+2026-06-15 19:12:57,451 - INFO - 
+--- Batch 0, Epoch 161 ---
+Loss values - Total: 93.974640, Vec: 39.964771, Pos: 46.325993, Col: 0.000010, Thumb: 0.000000, TipDist: 7.683869, Reg: 0.000000
+  Average gradient norm: 8.486242
+  Total parameters with gradients: 134
+2026-06-15 19:13:06,009 - INFO - 
+--- Batch 0, Epoch 162 ---
+Loss values - Total: 94.131241, Vec: 38.244198, Pos: 47.241928, Col: 0.000010, Thumb: 0.000000, TipDist: 8.645103, Reg: 0.000000
+  Average gradient norm: 7.132353
+  Total parameters with gradients: 134
+2026-06-15 19:13:14,746 - INFO - 
+--- Batch 0, Epoch 163 ---
+Loss values - Total: 92.894051, Vec: 37.559025, Pos: 47.339073, Col: 0.000010, Thumb: 0.000000, TipDist: 7.995941, Reg: 0.000000
+  Average gradient norm: 6.531065
+  Total parameters with gradients: 134
+2026-06-15 19:13:23,301 - INFO - 
+--- Batch 0, Epoch 164 ---
+Loss values - Total: 94.226852, Vec: 40.315010, Pos: 47.027313, Col: 0.000010, Thumb: 0.000000, TipDist: 6.884518, Reg: 0.000000
+  Average gradient norm: 8.053539
+  Total parameters with gradients: 134
+2026-06-15 19:13:32,212 - INFO - 
+--- Batch 0, Epoch 165 ---
+Loss values - Total: 92.735451, Vec: 37.159695, Pos: 48.280247, Col: 0.000010, Thumb: 0.000000, TipDist: 7.295504, Reg: 0.000000
+  Average gradient norm: 9.566934
+  Total parameters with gradients: 134
+2026-06-15 19:13:40,979 - INFO - 
+--- Batch 0, Epoch 166 ---
+Loss values - Total: 91.672066, Vec: 37.507313, Pos: 47.404984, Col: 0.000010, Thumb: 0.000000, TipDist: 6.759764, Reg: 0.000000
+  Average gradient norm: 5.706250
+  Total parameters with gradients: 134
+2026-06-15 19:13:49,563 - INFO - 
+--- Batch 0, Epoch 167 ---
+Loss values - Total: 92.922249, Vec: 38.435757, Pos: 46.800068, Col: 0.000010, Thumb: 0.000000, TipDist: 7.686415, Reg: 0.000000
+  Average gradient norm: 4.454423
+  Total parameters with gradients: 134
+2026-06-15 19:13:57,954 - INFO - 
+--- Batch 0, Epoch 168 ---
+Loss values - Total: 94.885620, Vec: 40.966949, Pos: 45.981762, Col: 0.000010, Thumb: 0.000000, TipDist: 7.936901, Reg: 0.000000
+  Average gradient norm: 7.560837
+  Total parameters with gradients: 134
+2026-06-15 19:14:06,368 - INFO - 
+--- Batch 0, Epoch 169 ---
+Loss values - Total: 94.316986, Vec: 39.025951, Pos: 48.208088, Col: 0.000010, Thumb: 0.000000, TipDist: 7.082942, Reg: 0.000000
+  Average gradient norm: 8.963139
+  Total parameters with gradients: 134
+2026-06-15 19:14:15,282 - INFO - 
+--- Batch 0, Epoch 170 ---
+Loss values - Total: 92.193665, Vec: 37.073788, Pos: 47.345825, Col: 0.000010, Thumb: 0.000000, TipDist: 7.774044, Reg: 0.000000
+  Average gradient norm: 7.025362
+  Total parameters with gradients: 134
+2026-06-15 19:14:23,842 - INFO - 
+--- Batch 0, Epoch 171 ---
+Loss values - Total: 92.857651, Vec: 36.139389, Pos: 49.170105, Col: 0.000010, Thumb: 0.000000, TipDist: 7.548146, Reg: 0.000000
+  Average gradient norm: 6.754592
+  Total parameters with gradients: 134
+2026-06-15 19:14:32,556 - INFO - 
+--- Batch 0, Epoch 172 ---
+Loss values - Total: 92.764893, Vec: 36.090626, Pos: 49.247543, Col: 0.000010, Thumb: 0.000000, TipDist: 7.426721, Reg: 0.000000
+  Average gradient norm: 7.639929
+  Total parameters with gradients: 134
+2026-06-15 19:14:41,143 - INFO - 
+--- Batch 0, Epoch 173 ---
+Loss values - Total: 92.290573, Vec: 37.648476, Pos: 46.975964, Col: 0.000010, Thumb: 0.000000, TipDist: 7.666127, Reg: 0.000000
+  Average gradient norm: 5.192192
+  Total parameters with gradients: 134
+2026-06-15 19:14:49,585 - INFO - 
+--- Batch 0, Epoch 174 ---
+Loss values - Total: 91.499802, Vec: 36.922195, Pos: 48.371166, Col: 0.000010, Thumb: 0.000000, TipDist: 6.206428, Reg: 0.000000
+  Average gradient norm: 13.294061
+  Total parameters with gradients: 134
+2026-06-15 19:14:57,978 - INFO - 
+--- Batch 0, Epoch 175 ---
+Loss values - Total: 94.605453, Vec: 39.089848, Pos: 47.933182, Col: 0.000010, Thumb: 0.000000, TipDist: 7.582422, Reg: 0.000000
+  Average gradient norm: 9.006604
+  Total parameters with gradients: 134
+2026-06-15 19:15:06,393 - INFO - 
+--- Batch 0, Epoch 176 ---
+Loss values - Total: 96.197586, Vec: 40.621574, Pos: 48.437378, Col: 0.000010, Thumb: 0.000000, TipDist: 7.138624, Reg: 0.000000
+  Average gradient norm: 6.025026
+  Total parameters with gradients: 134
+2026-06-15 19:15:15,123 - INFO - 
+--- Batch 0, Epoch 177 ---
+Loss values - Total: 91.068665, Vec: 36.736118, Pos: 47.229118, Col: 0.000010, Thumb: 0.000000, TipDist: 7.103415, Reg: 0.000000
+  Average gradient norm: 3.649326
+  Total parameters with gradients: 134
+2026-06-15 19:15:23,827 - INFO - 
+--- Batch 0, Epoch 178 ---
+Loss values - Total: 92.007278, Vec: 38.229565, Pos: 46.078602, Col: 0.000010, Thumb: 0.000000, TipDist: 7.699101, Reg: 0.000000
+  Average gradient norm: 4.188297
+  Total parameters with gradients: 134
+2026-06-15 19:15:32,787 - INFO - 
+--- Batch 0, Epoch 179 ---
+Loss values - Total: 91.038315, Vec: 36.847759, Pos: 46.042217, Col: 0.000010, Thumb: 0.000000, TipDist: 8.148335, Reg: 0.000000
+  Average gradient norm: 7.422180
+  Total parameters with gradients: 134
+2026-06-15 19:15:41,389 - INFO - 
+--- Batch 0, Epoch 180 ---
+Loss values - Total: 89.724380, Vec: 35.727222, Pos: 47.558369, Col: 0.000010, Thumb: 0.000000, TipDist: 6.438780, Reg: 0.000000
+  Average gradient norm: 10.248942
+  Total parameters with gradients: 134
+2026-06-15 19:15:49,829 - INFO - 
+--- Batch 0, Epoch 181 ---
+Loss values - Total: 93.621994, Vec: 38.828831, Pos: 47.515774, Col: 0.000010, Thumb: 0.000000, TipDist: 7.277382, Reg: 0.000000
+  Average gradient norm: 4.490322
+  Total parameters with gradients: 134
+2026-06-15 19:15:58,068 - INFO - 
+--- Batch 0, Epoch 182 ---
+Loss values - Total: 93.678268, Vec: 39.951065, Pos: 45.976452, Col: 0.000010, Thumb: 0.000000, TipDist: 7.750741, Reg: 0.000000
+  Average gradient norm: 4.241447
+  Total parameters with gradients: 134
+2026-06-15 19:16:06,488 - INFO - 
+--- Batch 0, Epoch 183 ---
+Loss values - Total: 88.936371, Vec: 34.805515, Pos: 46.247524, Col: 0.000010, Thumb: 0.000000, TipDist: 7.883327, Reg: 0.000000
+  Average gradient norm: 7.589675
+  Total parameters with gradients: 134
+2026-06-15 19:16:15,090 - INFO - 
+--- Batch 0, Epoch 184 ---
+Loss values - Total: 93.377365, Vec: 39.365181, Pos: 47.067867, Col: 0.000010, Thumb: 0.000000, TipDist: 6.944315, Reg: 0.000000
+  Average gradient norm: 7.598835
+  Total parameters with gradients: 134
+2026-06-15 19:16:23,485 - INFO - 
+--- Batch 0, Epoch 185 ---
+Loss values - Total: 91.090996, Vec: 37.086937, Pos: 45.959881, Col: 0.000010, Thumb: 0.000000, TipDist: 8.044176, Reg: 0.000000
+  Average gradient norm: 8.145640
+  Total parameters with gradients: 134
+2026-06-15 19:16:31,696 - INFO - 
+--- Batch 0, Epoch 186 ---
+Loss values - Total: 94.269943, Vec: 38.534882, Pos: 49.048405, Col: 0.000010, Thumb: 0.000000, TipDist: 6.686650, Reg: 0.000000
+  Average gradient norm: 9.376768
+  Total parameters with gradients: 134
+2026-06-15 19:16:39,926 - INFO - 
+--- Batch 0, Epoch 187 ---
+Loss values - Total: 91.761086, Vec: 38.192333, Pos: 45.919083, Col: 0.000010, Thumb: 0.000000, TipDist: 7.649657, Reg: 0.000000
+  Average gradient norm: 5.877822
+  Total parameters with gradients: 134
+2026-06-15 19:16:48,530 - INFO - 
+--- Batch 0, Epoch 188 ---
+Loss values - Total: 95.022453, Vec: 39.950748, Pos: 48.275745, Col: 0.000010, Thumb: 0.000000, TipDist: 6.795953, Reg: 0.000000
+  Average gradient norm: 9.690993
+  Total parameters with gradients: 134
+2026-06-15 19:16:57,121 - INFO - 
+--- Batch 0, Epoch 189 ---
+Loss values - Total: 92.663200, Vec: 37.919659, Pos: 46.738228, Col: 0.000010, Thumb: 0.000000, TipDist: 8.005311, Reg: 0.000000
+  Average gradient norm: 5.407267
+  Total parameters with gradients: 134
+2026-06-15 19:17:05,580 - INFO - 
+--- Batch 0, Epoch 190 ---
+Loss values - Total: 91.147697, Vec: 37.903255, Pos: 47.089439, Col: 0.000010, Thumb: 0.000000, TipDist: 6.155000, Reg: 0.000000
+  Average gradient norm: 8.051970
+  Total parameters with gradients: 134
+2026-06-15 19:17:14,187 - INFO - 
+--- Batch 0, Epoch 191 ---
+Loss values - Total: 92.553612, Vec: 38.407017, Pos: 45.954956, Col: 0.000010, Thumb: 0.000000, TipDist: 8.191636, Reg: 0.000000
+  Average gradient norm: 8.359495
+  Total parameters with gradients: 134
+2026-06-15 19:17:22,816 - INFO - 
+--- Batch 0, Epoch 192 ---
+Loss values - Total: 93.447128, Vec: 37.548172, Pos: 48.358707, Col: 0.000010, Thumb: 0.000000, TipDist: 7.540247, Reg: 0.000000
+  Average gradient norm: 6.242799
+  Total parameters with gradients: 134
+2026-06-15 19:17:31,615 - INFO - 
+--- Batch 0, Epoch 193 ---
+Loss values - Total: 90.555656, Vec: 37.671177, Pos: 45.473343, Col: 0.000010, Thumb: 0.000000, TipDist: 7.411134, Reg: 0.000000
+  Average gradient norm: 5.772172
+  Total parameters with gradients: 134
+2026-06-15 19:17:40,140 - INFO - 
+--- Batch 0, Epoch 194 ---
+Loss values - Total: 90.508530, Vec: 36.999714, Pos: 46.558910, Col: 0.000010, Thumb: 0.000000, TipDist: 6.949901, Reg: 0.000000
+  Average gradient norm: 7.619817
+  Total parameters with gradients: 134
+2026-06-15 19:17:48,692 - INFO - 
+--- Batch 0, Epoch 195 ---
+Loss values - Total: 90.841103, Vec: 36.463551, Pos: 47.006062, Col: 0.000010, Thumb: 0.000000, TipDist: 7.371481, Reg: 0.000000
+  Average gradient norm: 8.187251
+  Total parameters with gradients: 134
+2026-06-15 19:17:57,140 - INFO - 
+--- Batch 0, Epoch 196 ---
+Loss values - Total: 92.381386, Vec: 38.368710, Pos: 47.342823, Col: 0.000010, Thumb: 0.000000, TipDist: 6.669845, Reg: 0.000000
+  Average gradient norm: 8.594185
+  Total parameters with gradients: 134
+2026-06-15 19:18:05,193 - INFO - 
+--- Batch 0, Epoch 197 ---
+Loss values - Total: 91.225464, Vec: 34.914928, Pos: 48.440659, Col: 0.000010, Thumb: 0.000000, TipDist: 7.869865, Reg: 0.000000
+  Average gradient norm: 6.344375
+  Total parameters with gradients: 134
+2026-06-15 19:18:13,563 - INFO - 
+--- Batch 0, Epoch 198 ---
+Loss values - Total: 89.243599, Vec: 35.996384, Pos: 46.558342, Col: 0.000010, Thumb: 0.000000, TipDist: 6.688866, Reg: 0.000000
+  Average gradient norm: 8.128825
+  Total parameters with gradients: 134
+2026-06-15 19:18:21,480 - INFO - 
+--- Batch 0, Epoch 199 ---
+Loss values - Total: 91.290604, Vec: 36.665012, Pos: 47.689003, Col: 0.000010, Thumb: 0.000000, TipDist: 6.936577, Reg: 0.000000
+  Average gradient norm: 5.390752
+  Total parameters with gradients: 134
+2026-06-15 19:18:29,907 - INFO - 
+--- Batch 0, Epoch 200 ---
+Loss values - Total: 87.660591, Vec: 34.340622, Pos: 46.921535, Col: 0.000010, Thumb: 0.000000, TipDist: 6.398421, Reg: 0.000000
+  Average gradient norm: 7.134034
+  Total parameters with gradients: 134
+2026-06-15 19:18:38,289 - INFO - 
+--- Batch 0, Epoch 201 ---
+Loss values - Total: 92.583870, Vec: 36.258942, Pos: 48.881226, Col: 0.000010, Thumb: 0.000000, TipDist: 7.443696, Reg: 0.000000
+  Average gradient norm: 6.220555
+  Total parameters with gradients: 134
+2026-06-15 19:18:46,671 - INFO - 
+--- Batch 0, Epoch 202 ---
+Loss values - Total: 91.068268, Vec: 35.765690, Pos: 48.235916, Col: 0.000010, Thumb: 0.000000, TipDist: 7.066655, Reg: 0.000000
+  Average gradient norm: 6.443351
+  Total parameters with gradients: 134
+2026-06-15 19:18:55,399 - INFO - 
+--- Batch 0, Epoch 203 ---
+Loss values - Total: 91.522675, Vec: 36.997559, Pos: 47.500534, Col: 0.000010, Thumb: 0.000000, TipDist: 7.024573, Reg: 0.000000
+  Average gradient norm: 5.310822
+  Total parameters with gradients: 134
+2026-06-15 19:19:03,698 - INFO - 
+--- Batch 0, Epoch 204 ---
+Loss values - Total: 91.452248, Vec: 37.607906, Pos: 47.129509, Col: 0.000010, Thumb: 0.000000, TipDist: 6.714825, Reg: 0.000000
+  Average gradient norm: 9.318065
+  Total parameters with gradients: 134
+2026-06-15 19:19:11,984 - INFO - 
+--- Batch 0, Epoch 205 ---
+Loss values - Total: 91.737000, Vec: 37.126263, Pos: 47.627193, Col: 0.000010, Thumb: 0.000000, TipDist: 6.983538, Reg: 0.000000
+  Average gradient norm: 6.071090
+  Total parameters with gradients: 134
+2026-06-15 19:19:20,399 - INFO - 
+--- Batch 0, Epoch 206 ---
+Loss values - Total: 89.235870, Vec: 36.060413, Pos: 46.954216, Col: 0.000010, Thumb: 0.000000, TipDist: 6.221227, Reg: 0.000000
+  Average gradient norm: 12.735877
+  Total parameters with gradients: 134
+2026-06-15 19:19:28,635 - INFO - 
+--- Batch 0, Epoch 207 ---
+Loss values - Total: 90.245613, Vec: 36.435486, Pos: 46.636395, Col: 0.000010, Thumb: 0.000000, TipDist: 7.173719, Reg: 0.000000
+  Average gradient norm: 3.439843
+  Total parameters with gradients: 134
+2026-06-15 19:19:36,568 - INFO - 
+--- Batch 0, Epoch 208 ---
+Loss values - Total: 90.999557, Vec: 37.640625, Pos: 45.893589, Col: 0.000010, Thumb: 0.000000, TipDist: 7.465341, Reg: 0.000000
+  Average gradient norm: 8.014704
+  Total parameters with gradients: 134
+2026-06-15 19:19:44,688 - INFO - 
+--- Batch 0, Epoch 209 ---
+Loss values - Total: 92.919479, Vec: 38.822929, Pos: 46.953945, Col: 0.000010, Thumb: 0.000000, TipDist: 7.142604, Reg: 0.000000
+  Average gradient norm: 8.008208
+  Total parameters with gradients: 134
+2026-06-15 19:19:52,855 - INFO - 
+--- Batch 0, Epoch 210 ---
+Loss values - Total: 90.158470, Vec: 36.861698, Pos: 45.795979, Col: 0.000010, Thumb: 0.000000, TipDist: 7.500789, Reg: 0.000000
+  Average gradient norm: 4.803944
+  Total parameters with gradients: 134
+2026-06-15 19:20:01,244 - INFO - 
+--- Batch 0, Epoch 211 ---
+Loss values - Total: 91.417809, Vec: 37.433453, Pos: 47.004055, Col: 0.000010, Thumb: 0.000000, TipDist: 6.980292, Reg: 0.000000
+  Average gradient norm: 4.129565
+  Total parameters with gradients: 134
+2026-06-15 19:20:09,819 - INFO - 
+--- Batch 0, Epoch 212 ---
+Loss values - Total: 94.931267, Vec: 39.345745, Pos: 48.932163, Col: 0.000010, Thumb: 0.000000, TipDist: 6.653351, Reg: 0.000000
+  Average gradient norm: 7.773219
+  Total parameters with gradients: 134
+2026-06-15 19:20:18,030 - INFO - 
+--- Batch 0, Epoch 213 ---
+Loss values - Total: 90.087585, Vec: 36.983891, Pos: 45.081936, Col: 0.000010, Thumb: 0.000000, TipDist: 8.021748, Reg: 0.000000
+  Average gradient norm: 7.307522
+  Total parameters with gradients: 134
+2026-06-15 19:20:26,283 - INFO - 
+--- Batch 0, Epoch 214 ---
+Loss values - Total: 90.223732, Vec: 36.900993, Pos: 46.854549, Col: 0.000010, Thumb: 0.000000, TipDist: 6.468186, Reg: 0.000000
+  Average gradient norm: 6.587978
+  Total parameters with gradients: 134
+2026-06-15 19:20:34,605 - INFO - 
+--- Batch 0, Epoch 215 ---
+Loss values - Total: 93.687981, Vec: 39.403160, Pos: 47.008209, Col: 0.000010, Thumb: 0.000000, TipDist: 7.276603, Reg: 0.000000
+  Average gradient norm: 3.716866
+  Total parameters with gradients: 134
+2026-06-15 19:20:42,884 - INFO - 
+--- Batch 0, Epoch 216 ---
+Loss values - Total: 93.010857, Vec: 38.794060, Pos: 47.543434, Col: 0.000010, Thumb: 0.000000, TipDist: 6.673353, Reg: 0.000000
+  Average gradient norm: 5.051013
+  Total parameters with gradients: 134
+2026-06-15 19:20:51,483 - INFO - 
+--- Batch 0, Epoch 217 ---
+Loss values - Total: 93.601418, Vec: 37.915867, Pos: 46.378693, Col: 0.000010, Thumb: 0.000000, TipDist: 9.306857, Reg: 0.000000
+  Average gradient norm: 7.862803
+  Total parameters with gradients: 134
+2026-06-15 19:21:00,019 - INFO - 
+--- Batch 0, Epoch 218 ---
+Loss values - Total: 89.476418, Vec: 35.250793, Pos: 48.335522, Col: 0.000010, Thumb: 0.000000, TipDist: 5.890092, Reg: 0.000000
+  Average gradient norm: 10.169531
+  Total parameters with gradients: 134
+2026-06-15 19:21:08,465 - INFO - 
+--- Batch 0, Epoch 219 ---
+Loss values - Total: 92.263672, Vec: 40.423977, Pos: 45.223377, Col: 0.000010, Thumb: 0.000000, TipDist: 6.616309, Reg: 0.000000
+  Average gradient norm: 5.985520
+  Total parameters with gradients: 134
+2026-06-15 19:21:16,833 - INFO - 
+--- Batch 0, Epoch 220 ---
+Loss values - Total: 94.359253, Vec: 39.745708, Pos: 47.739716, Col: 0.000010, Thumb: 0.000000, TipDist: 6.873817, Reg: 0.000000
+  Average gradient norm: 6.950227
+  Total parameters with gradients: 134
+2026-06-15 19:21:25,534 - INFO - 
+--- Batch 0, Epoch 221 ---
+Loss values - Total: 91.480980, Vec: 38.817841, Pos: 46.144268, Col: 0.000010, Thumb: 0.000000, TipDist: 6.518857, Reg: 0.000000
+  Average gradient norm: 6.023508
+  Total parameters with gradients: 134
+2026-06-15 19:21:34,055 - INFO - 
+--- Batch 0, Epoch 222 ---
+Loss values - Total: 90.876259, Vec: 37.709656, Pos: 46.828716, Col: 0.000010, Thumb: 0.000000, TipDist: 6.337872, Reg: 0.000000
+  Average gradient norm: 10.482808
+  Total parameters with gradients: 134
+2026-06-15 19:21:42,431 - INFO - 
+--- Batch 0, Epoch 223 ---
+Loss values - Total: 91.396233, Vec: 38.511520, Pos: 45.669792, Col: 0.000010, Thumb: 0.000000, TipDist: 7.214911, Reg: 0.000000
+  Average gradient norm: 4.719999
+  Total parameters with gradients: 134
+2026-06-15 19:21:51,004 - INFO - 
+--- Batch 0, Epoch 224 ---
+Loss values - Total: 92.499519, Vec: 38.145397, Pos: 48.115025, Col: 0.000010, Thumb: 0.000000, TipDist: 6.239092, Reg: 0.000000
+  Average gradient norm: 7.340654
+  Total parameters with gradients: 134
+2026-06-15 19:21:59,769 - INFO - 
+--- Batch 0, Epoch 225 ---
+Loss values - Total: 93.893837, Vec: 38.237484, Pos: 48.917858, Col: 0.000010, Thumb: 0.000000, TipDist: 6.738491, Reg: 0.000000
+  Average gradient norm: 8.750357
+  Total parameters with gradients: 134
+2026-06-15 19:22:08,418 - INFO - 
+--- Batch 0, Epoch 226 ---
+Loss values - Total: 89.213371, Vec: 35.008747, Pos: 47.374615, Col: 0.000010, Thumb: 0.000000, TipDist: 6.830004, Reg: 0.000000
+  Average gradient norm: 7.591057
+  Total parameters with gradients: 134
+2026-06-15 19:22:17,126 - INFO - 
+--- Batch 0, Epoch 227 ---
+Loss values - Total: 92.940712, Vec: 37.589649, Pos: 47.929764, Col: 0.000010, Thumb: 0.000000, TipDist: 7.421292, Reg: 0.000000
+  Average gradient norm: 5.331693
+  Total parameters with gradients: 134
+2026-06-15 19:22:25,663 - INFO - 
+--- Batch 0, Epoch 228 ---
+Loss values - Total: 91.232834, Vec: 35.761776, Pos: 48.465611, Col: 0.000010, Thumb: 0.000000, TipDist: 7.005441, Reg: 0.000000
+  Average gradient norm: 9.863485
+  Total parameters with gradients: 134
+2026-06-15 19:22:34,047 - INFO - 
+--- Batch 0, Epoch 229 ---
+Loss values - Total: 90.041527, Vec: 35.329773, Pos: 47.866901, Col: 0.000010, Thumb: 0.000000, TipDist: 6.844847, Reg: 0.000000
+  Average gradient norm: 5.083717
+  Total parameters with gradients: 134
+2026-06-15 19:22:42,780 - INFO - 
+--- Batch 0, Epoch 230 ---
+Loss values - Total: 91.600685, Vec: 36.601082, Pos: 49.052876, Col: 0.000010, Thumb: 0.000000, TipDist: 5.946715, Reg: 0.000000
+  Average gradient norm: 11.596747
+  Total parameters with gradients: 134
+2026-06-15 19:22:51,309 - INFO - 
+--- Batch 0, Epoch 231 ---
+Loss values - Total: 90.904305, Vec: 37.064247, Pos: 46.815315, Col: 0.000010, Thumb: 0.000000, TipDist: 7.024734, Reg: 0.000000
+  Average gradient norm: 8.065295
+  Total parameters with gradients: 134
+2026-06-15 19:22:59,717 - INFO - 
+--- Batch 0, Epoch 232 ---
+Loss values - Total: 90.687836, Vec: 37.017406, Pos: 46.245216, Col: 0.000010, Thumb: 0.000000, TipDist: 7.425207, Reg: 0.000000
+  Average gradient norm: 4.298752
+  Total parameters with gradients: 134
+2026-06-15 19:23:07,986 - INFO - 
+--- Batch 0, Epoch 233 ---
+Loss values - Total: 95.647614, Vec: 37.467857, Pos: 48.834435, Col: 0.000010, Thumb: 0.000000, TipDist: 9.345316, Reg: 0.000000
+  Average gradient norm: 8.703156
+  Total parameters with gradients: 134
+2026-06-15 19:23:16,550 - INFO - 
+--- Batch 0, Epoch 234 ---
+Loss values - Total: 93.512878, Vec: 37.635380, Pos: 48.646996, Col: 0.000010, Thumb: 0.000000, TipDist: 7.230494, Reg: 0.000000
+  Average gradient norm: 8.875057
+  Total parameters with gradients: 134
+2026-06-15 19:23:25,296 - INFO - 
+--- Batch 0, Epoch 235 ---
+Loss values - Total: 90.466316, Vec: 35.026962, Pos: 48.309368, Col: 0.000010, Thumb: 0.000000, TipDist: 7.129976, Reg: 0.000000
+  Average gradient norm: 7.798467
+  Total parameters with gradients: 134
+2026-06-15 19:23:33,849 - INFO - 
+--- Batch 0, Epoch 236 ---
+Loss values - Total: 89.979530, Vec: 37.898659, Pos: 45.346588, Col: 0.000010, Thumb: 0.000000, TipDist: 6.734277, Reg: 0.000000
+  Average gradient norm: 6.514655
+  Total parameters with gradients: 134
+2026-06-15 19:23:42,240 - INFO - 
+--- Batch 0, Epoch 237 ---
+Loss values - Total: 93.438316, Vec: 39.396885, Pos: 47.903778, Col: 0.000010, Thumb: 0.000000, TipDist: 6.137648, Reg: 0.000000
+  Average gradient norm: 9.190658
+  Total parameters with gradients: 134
+2026-06-15 19:23:50,975 - INFO - 
+--- Batch 0, Epoch 238 ---
+Loss values - Total: 90.522194, Vec: 38.024536, Pos: 45.889915, Col: 0.000010, Thumb: 0.000000, TipDist: 6.607732, Reg: 0.000000
+  Average gradient norm: 8.952708
+  Total parameters with gradients: 134
+2026-06-15 19:23:59,395 - INFO - 
+--- Batch 0, Epoch 239 ---
+Loss values - Total: 92.659851, Vec: 37.589619, Pos: 48.069351, Col: 0.000010, Thumb: 0.000000, TipDist: 7.000874, Reg: 0.000000
+  Average gradient norm: 6.857581
+  Total parameters with gradients: 134
+2026-06-15 19:24:07,684 - INFO - 
+--- Batch 0, Epoch 240 ---
+Loss values - Total: 94.568283, Vec: 38.383499, Pos: 48.592194, Col: 0.000010, Thumb: 0.000000, TipDist: 7.592580, Reg: 0.000000
+  Average gradient norm: 7.240372
+  Total parameters with gradients: 134
+2026-06-15 19:24:16,094 - INFO - 
+--- Batch 0, Epoch 241 ---
+Loss values - Total: 91.251480, Vec: 38.136158, Pos: 46.263039, Col: 0.000010, Thumb: 0.000000, TipDist: 6.852269, Reg: 0.000000
+  Average gradient norm: 8.185100
+  Total parameters with gradients: 134
+2026-06-15 19:24:24,472 - INFO - 
+--- Batch 0, Epoch 242 ---
+Loss values - Total: 92.019730, Vec: 38.277580, Pos: 46.178173, Col: 0.000010, Thumb: 0.000000, TipDist: 7.563970, Reg: 0.000000
+  Average gradient norm: 7.771224
+  Total parameters with gradients: 134
+2026-06-15 19:24:33,188 - INFO - 
+--- Batch 0, Epoch 243 ---
+Loss values - Total: 93.123695, Vec: 37.769787, Pos: 48.522007, Col: 0.000010, Thumb: 0.000000, TipDist: 6.831895, Reg: 0.000000
+  Average gradient norm: 9.024919
+  Total parameters with gradients: 134
+2026-06-15 19:24:42,032 - INFO - 
+--- Batch 0, Epoch 244 ---
+Loss values - Total: 91.265739, Vec: 38.272102, Pos: 45.542011, Col: 0.000010, Thumb: 0.000000, TipDist: 7.451611, Reg: 0.000000
+  Average gradient norm: 7.519239
+  Total parameters with gradients: 134
+2026-06-15 19:24:50,288 - INFO - 
+--- Batch 0, Epoch 245 ---
+Loss values - Total: 92.567902, Vec: 37.831215, Pos: 47.929794, Col: 0.000010, Thumb: 0.000000, TipDist: 6.806884, Reg: 0.000000
+  Average gradient norm: 7.378223
+  Total parameters with gradients: 134
+2026-06-15 19:24:58,714 - INFO - 
+--- Batch 0, Epoch 246 ---
+Loss values - Total: 90.477814, Vec: 37.400185, Pos: 46.403957, Col: 0.000010, Thumb: 0.000000, TipDist: 6.673667, Reg: 0.000000
+  Average gradient norm: 6.917363
+  Total parameters with gradients: 134
+2026-06-15 19:25:07,442 - INFO - 
+--- Batch 0, Epoch 247 ---
+Loss values - Total: 94.544495, Vec: 37.954472, Pos: 47.959148, Col: 0.000010, Thumb: 0.000000, TipDist: 8.630869, Reg: 0.000000
+  Average gradient norm: 7.733607
+  Total parameters with gradients: 134
+2026-06-15 19:25:16,222 - INFO - 
+--- Batch 0, Epoch 248 ---
+Loss values - Total: 90.963661, Vec: 35.875854, Pos: 47.851398, Col: 0.000010, Thumb: 0.000000, TipDist: 7.236402, Reg: 0.000000
+  Average gradient norm: 5.816211
+  Total parameters with gradients: 134
+2026-06-15 19:25:24,485 - INFO - 
+--- Batch 0, Epoch 249 ---
+Loss values - Total: 90.280846, Vec: 36.613781, Pos: 45.846024, Col: 0.000010, Thumb: 0.000000, TipDist: 7.821033, Reg: 0.000000
+  Average gradient norm: 4.575544
+  Total parameters with gradients: 134
+2026-06-15 19:25:32,884 - INFO - 
+--- Batch 0, Epoch 250 ---
+Loss values - Total: 90.314934, Vec: 36.460861, Pos: 47.411144, Col: 0.000010, Thumb: 0.000000, TipDist: 6.442914, Reg: 0.000000
+  Average gradient norm: 7.388166
+  Total parameters with gradients: 134
+2026-06-15 19:25:41,142 - INFO - 
+--- Batch 0, Epoch 251 ---
+Loss values - Total: 91.240906, Vec: 37.024117, Pos: 48.158184, Col: 0.000010, Thumb: 0.000000, TipDist: 6.058602, Reg: 0.000000
+  Average gradient norm: 8.836869
+  Total parameters with gradients: 134
+2026-06-15 19:25:49,905 - INFO - 
+--- Batch 0, Epoch 252 ---
+Loss values - Total: 91.515335, Vec: 37.926189, Pos: 46.332264, Col: 0.000010, Thumb: 0.000000, TipDist: 7.256876, Reg: 0.000000
+  Average gradient norm: 5.568620
+  Total parameters with gradients: 134
+2026-06-15 19:25:58,467 - INFO - 
+--- Batch 0, Epoch 253 ---
+Loss values - Total: 92.572906, Vec: 38.578140, Pos: 47.121727, Col: 0.000010, Thumb: 0.000000, TipDist: 6.873033, Reg: 0.000000
+  Average gradient norm: 5.739947
+  Total parameters with gradients: 134
+2026-06-15 19:26:07,032 - INFO - 
+--- Batch 0, Epoch 254 ---
+Loss values - Total: 92.140427, Vec: 37.490833, Pos: 48.252254, Col: 0.000010, Thumb: 0.000000, TipDist: 6.397329, Reg: 0.000000
+  Average gradient norm: 7.706267
+  Total parameters with gradients: 134
+2026-06-15 19:26:15,753 - INFO - 
+--- Batch 0, Epoch 255 ---
+Loss values - Total: 88.440468, Vec: 35.485500, Pos: 46.029266, Col: 0.000010, Thumb: 0.000000, TipDist: 6.925689, Reg: 0.000000
+  Average gradient norm: 4.567503
+  Total parameters with gradients: 134
+2026-06-15 19:26:24,466 - INFO - 
+--- Batch 0, Epoch 256 ---
+Loss values - Total: 92.434525, Vec: 37.300060, Pos: 48.715229, Col: 0.000010, Thumb: 0.000000, TipDist: 6.419225, Reg: 0.000000
+  Average gradient norm: 12.819592
+  Total parameters with gradients: 134
+2026-06-15 19:26:33,264 - INFO - 
+--- Batch 0, Epoch 257 ---
+Loss values - Total: 90.941086, Vec: 36.555454, Pos: 45.981079, Col: 0.000010, Thumb: 0.000000, TipDist: 8.404550, Reg: 0.000000
+  Average gradient norm: 6.740252
+  Total parameters with gradients: 134
+2026-06-15 19:26:42,196 - INFO - 
+--- Batch 0, Epoch 258 ---
+Loss values - Total: 89.063019, Vec: 34.563889, Pos: 48.037807, Col: 0.000010, Thumb: 0.000000, TipDist: 6.461313, Reg: 0.000000
+  Average gradient norm: 9.872338
+  Total parameters with gradients: 134
+2026-06-15 19:26:50,937 - INFO - 
+--- Batch 0, Epoch 259 ---
+Loss values - Total: 93.288048, Vec: 37.755547, Pos: 48.464855, Col: 0.000010, Thumb: 0.000000, TipDist: 7.067642, Reg: 0.000000
+  Average gradient norm: 8.258776
+  Total parameters with gradients: 134
+2026-06-15 19:26:59,192 - INFO - 
+--- Batch 0, Epoch 260 ---
+Loss values - Total: 89.647697, Vec: 34.801762, Pos: 48.177322, Col: 0.000010, Thumb: 0.000000, TipDist: 6.668613, Reg: 0.000000
+  Average gradient norm: 5.594308
+  Total parameters with gradients: 134
+2026-06-15 19:27:07,644 - INFO - 
+--- Batch 0, Epoch 261 ---
+Loss values - Total: 91.378403, Vec: 35.774879, Pos: 47.827393, Col: 0.000010, Thumb: 0.000000, TipDist: 7.776121, Reg: 0.000000
+  Average gradient norm: 3.979821
+  Total parameters with gradients: 134
+2026-06-15 19:27:16,399 - INFO - 
+--- Batch 0, Epoch 262 ---
+Loss values - Total: 90.972046, Vec: 37.763332, Pos: 47.043808, Col: 0.000010, Thumb: 0.000000, TipDist: 6.164893, Reg: 0.000000
+  Average gradient norm: 5.976031
+  Total parameters with gradients: 134
+2026-06-15 19:27:25,173 - INFO - 
+--- Batch 0, Epoch 263 ---
+Loss values - Total: 92.925339, Vec: 37.591698, Pos: 48.994682, Col: 0.000010, Thumb: 0.000000, TipDist: 6.338948, Reg: 0.000000
+  Average gradient norm: 10.449754
+  Total parameters with gradients: 134
+2026-06-15 19:27:33,775 - INFO - 
+--- Batch 0, Epoch 264 ---
+Loss values - Total: 93.137627, Vec: 39.240257, Pos: 47.260235, Col: 0.000010, Thumb: 0.000000, TipDist: 6.637134, Reg: 0.000000
+  Average gradient norm: 7.587102
+  Total parameters with gradients: 134
+2026-06-15 19:27:42,364 - INFO - 
+--- Batch 0, Epoch 265 ---
+Loss values - Total: 91.291595, Vec: 37.750088, Pos: 47.253990, Col: 0.000010, Thumb: 0.000000, TipDist: 6.287511, Reg: 0.000000
+  Average gradient norm: 5.305140
+  Total parameters with gradients: 134
+2026-06-15 19:27:50,962 - INFO - 
+--- Batch 0, Epoch 266 ---
+Loss values - Total: 91.251366, Vec: 37.785461, Pos: 46.532429, Col: 0.000010, Thumb: 0.000000, TipDist: 6.933470, Reg: 0.000000
+  Average gradient norm: 3.869264
+  Total parameters with gradients: 134
+2026-06-15 19:27:59,883 - INFO - 
+--- Batch 0, Epoch 267 ---
+Loss values - Total: 90.152542, Vec: 36.452896, Pos: 47.818123, Col: 0.000010, Thumb: 0.000000, TipDist: 5.881516, Reg: 0.000000
+  Average gradient norm: 6.695986
+  Total parameters with gradients: 134
+2026-06-15 19:28:08,634 - INFO - 
+--- Batch 0, Epoch 268 ---
+Loss values - Total: 88.842331, Vec: 36.707264, Pos: 46.144337, Col: 0.000010, Thumb: 0.000000, TipDist: 5.990721, Reg: 0.000000
+  Average gradient norm: 5.395212
+  Total parameters with gradients: 134
+2026-06-15 19:28:17,336 - INFO - 
+--- Batch 0, Epoch 269 ---
+Loss values - Total: 89.822647, Vec: 36.532200, Pos: 46.957729, Col: 0.000010, Thumb: 0.000000, TipDist: 6.332712, Reg: 0.000000
+  Average gradient norm: 9.735729
+  Total parameters with gradients: 134
+2026-06-15 19:28:26,061 - INFO - 
+--- Batch 0, Epoch 270 ---
+Loss values - Total: 92.914162, Vec: 36.659798, Pos: 49.920002, Col: 0.000010, Thumb: 0.000000, TipDist: 6.334352, Reg: 0.000000
+  Average gradient norm: 5.376183
+  Total parameters with gradients: 134
+2026-06-15 19:28:34,513 - INFO - 
+--- Batch 0, Epoch 271 ---
+Loss values - Total: 90.422607, Vec: 35.992451, Pos: 47.650768, Col: 0.000010, Thumb: 0.000000, TipDist: 6.779382, Reg: 0.000000
+  Average gradient norm: 6.452764
+  Total parameters with gradients: 134
+2026-06-15 19:28:43,117 - INFO - 
+--- Batch 0, Epoch 272 ---
+Loss values - Total: 91.193779, Vec: 37.058983, Pos: 47.452248, Col: 0.000010, Thumb: 0.000000, TipDist: 6.682542, Reg: 0.000000
+  Average gradient norm: 5.096549
+  Total parameters with gradients: 134
+2026-06-15 19:28:51,714 - INFO - 
+--- Batch 0, Epoch 273 ---
+Loss values - Total: 91.991165, Vec: 37.613918, Pos: 48.108421, Col: 0.000010, Thumb: 0.000000, TipDist: 6.268826, Reg: 0.000000
+  Average gradient norm: 8.145790
+  Total parameters with gradients: 134
+2026-06-15 19:29:00,439 - INFO - 
+--- Batch 0, Epoch 274 ---
+Loss values - Total: 90.217484, Vec: 37.330051, Pos: 45.896755, Col: 0.000010, Thumb: 0.000000, TipDist: 6.990665, Reg: 0.000000
+  Average gradient norm: 4.612603
+  Total parameters with gradients: 134
+2026-06-15 19:29:09,063 - INFO - 
+--- Batch 0, Epoch 275 ---
+Loss values - Total: 91.057701, Vec: 38.295151, Pos: 46.577526, Col: 0.000010, Thumb: 0.000000, TipDist: 6.185015, Reg: 0.000000
+  Average gradient norm: 6.557606
+  Total parameters with gradients: 134
+2026-06-15 19:29:17,631 - INFO - 
+--- Batch 0, Epoch 276 ---
+Loss values - Total: 95.683258, Vec: 40.092808, Pos: 48.177345, Col: 0.000010, Thumb: 0.000000, TipDist: 7.413095, Reg: 0.000000
+  Average gradient norm: 7.785585
+  Total parameters with gradients: 134
+2026-06-15 19:29:26,055 - INFO - 
+--- Batch 0, Epoch 277 ---
+Loss values - Total: 91.980103, Vec: 39.109760, Pos: 46.907864, Col: 0.000010, Thumb: 0.000000, TipDist: 5.962474, Reg: 0.000000
+  Average gradient norm: 6.488769
+  Total parameters with gradients: 134
+2026-06-15 19:29:34,820 - INFO - 
+--- Batch 0, Epoch 278 ---
+Loss values - Total: 94.126671, Vec: 40.044472, Pos: 47.224293, Col: 0.000010, Thumb: 0.000000, TipDist: 6.857896, Reg: 0.000000
+  Average gradient norm: 6.662617
+  Total parameters with gradients: 134
+2026-06-15 19:29:43,426 - INFO - 
+--- Batch 0, Epoch 279 ---
+Loss values - Total: 92.414749, Vec: 38.685745, Pos: 46.930164, Col: 0.000010, Thumb: 0.000000, TipDist: 6.798834, Reg: 0.000000
+  Average gradient norm: 4.548429
+  Total parameters with gradients: 134
+2026-06-15 19:29:51,700 - INFO - 
+--- Batch 0, Epoch 280 ---
+Loss values - Total: 89.257332, Vec: 35.550030, Pos: 48.178688, Col: 0.000010, Thumb: 0.000000, TipDist: 5.528613, Reg: 0.000000
+  Average gradient norm: 8.863122
+  Total parameters with gradients: 134
+2026-06-15 19:30:00,644 - INFO - 
+--- Batch 0, Epoch 281 ---
+Loss values - Total: 89.574013, Vec: 36.009071, Pos: 47.960022, Col: 0.000010, Thumb: 0.000000, TipDist: 5.604915, Reg: 0.000000
+  Average gradient norm: 7.406417
+  Total parameters with gradients: 134
+2026-06-15 19:30:09,212 - INFO - 
+--- Batch 0, Epoch 282 ---
+Loss values - Total: 89.626282, Vec: 35.195221, Pos: 48.343121, Col: 0.000010, Thumb: 0.000000, TipDist: 6.087925, Reg: 0.000000
+  Average gradient norm: 7.970263
+  Total parameters with gradients: 134
+2026-06-15 19:30:17,779 - INFO - 
+--- Batch 0, Epoch 283 ---
+Loss values - Total: 93.107513, Vec: 38.595333, Pos: 48.063599, Col: 0.000010, Thumb: 0.000000, TipDist: 6.448567, Reg: 0.000000
+  Average gradient norm: 4.613266
+  Total parameters with gradients: 134
+2026-06-15 19:30:26,514 - INFO - 
+--- Batch 0, Epoch 284 ---
+Loss values - Total: 91.503349, Vec: 36.162403, Pos: 48.494308, Col: 0.000010, Thumb: 0.000000, TipDist: 6.846635, Reg: 0.000000
+  Average gradient norm: 6.737075
+  Total parameters with gradients: 134
+2026-06-15 19:30:35,301 - INFO - 
+--- Batch 0, Epoch 285 ---
+Loss values - Total: 91.529205, Vec: 35.444336, Pos: 49.521248, Col: 0.000010, Thumb: 0.000000, TipDist: 6.563612, Reg: 0.000000
+  Average gradient norm: 5.303743
+  Total parameters with gradients: 134
+2026-06-15 19:30:43,761 - INFO - 
+--- Batch 0, Epoch 286 ---
+Loss values - Total: 88.331612, Vec: 34.599419, Pos: 46.957058, Col: 0.000010, Thumb: 0.000000, TipDist: 6.775133, Reg: 0.000000
+  Average gradient norm: 7.487655
+  Total parameters with gradients: 134
+2026-06-15 19:30:52,512 - INFO - 
+--- Batch 0, Epoch 287 ---
+Loss values - Total: 92.097610, Vec: 36.303352, Pos: 49.524837, Col: 0.000010, Thumb: 0.000000, TipDist: 6.269419, Reg: 0.000000
+  Average gradient norm: 8.272119
+  Total parameters with gradients: 134
+2026-06-15 19:31:01,129 - INFO - 
+--- Batch 0, Epoch 288 ---
+Loss values - Total: 93.096367, Vec: 38.881321, Pos: 47.016991, Col: 0.000010, Thumb: 0.000000, TipDist: 7.198044, Reg: 0.000000
+  Average gradient norm: 5.094489
+  Total parameters with gradients: 134
+2026-06-15 19:31:09,850 - INFO - 
+--- Batch 0, Epoch 289 ---
+Loss values - Total: 88.394112, Vec: 35.123062, Pos: 47.123722, Col: 0.000010, Thumb: 0.000000, TipDist: 6.147325, Reg: 0.000000
+  Average gradient norm: 9.746633
+  Total parameters with gradients: 134
+2026-06-15 19:31:18,406 - INFO - 
+--- Batch 0, Epoch 290 ---
+Loss values - Total: 92.494019, Vec: 37.561028, Pos: 47.731426, Col: 0.000010, Thumb: 0.000000, TipDist: 7.201559, Reg: 0.000000
+  Average gradient norm: 4.621665
+  Total parameters with gradients: 134
+2026-06-15 19:31:27,086 - INFO - 
+--- Batch 0, Epoch 291 ---
+Loss values - Total: 92.760880, Vec: 37.898224, Pos: 48.549889, Col: 0.000010, Thumb: 0.000000, TipDist: 6.312756, Reg: 0.000000
+  Average gradient norm: 11.384742
+  Total parameters with gradients: 134
+2026-06-15 19:31:35,629 - INFO - 
+--- Batch 0, Epoch 292 ---
+Loss values - Total: 90.447487, Vec: 34.762001, Pos: 47.598103, Col: 0.000010, Thumb: 0.000000, TipDist: 8.087370, Reg: 0.000000
+  Average gradient norm: 7.683004
+  Total parameters with gradients: 134
+2026-06-15 19:31:43,987 - INFO - 
+--- Batch 0, Epoch 293 ---
+Loss values - Total: 95.060547, Vec: 40.510048, Pos: 47.639172, Col: 0.000010, Thumb: 0.000000, TipDist: 6.911325, Reg: 0.000000
+  Average gradient norm: 8.837610
+  Total parameters with gradients: 134
+2026-06-15 19:31:52,395 - INFO - 
+--- Batch 0, Epoch 294 ---
+Loss values - Total: 90.950012, Vec: 37.718136, Pos: 46.618366, Col: 0.000010, Thumb: 0.000000, TipDist: 6.613499, Reg: 0.000000
+  Average gradient norm: 6.795262
+  Total parameters with gradients: 134
+2026-06-15 19:32:00,922 - INFO - 
+--- Batch 0, Epoch 295 ---
+Loss values - Total: 91.012062, Vec: 37.343124, Pos: 47.171116, Col: 0.000010, Thumb: 0.000000, TipDist: 6.497817, Reg: 0.000000
+  Average gradient norm: 4.377166
+  Total parameters with gradients: 134
+2026-06-15 19:32:09,336 - INFO - 
+--- Batch 0, Epoch 296 ---
+Loss values - Total: 92.348114, Vec: 38.025211, Pos: 48.064423, Col: 0.000010, Thumb: 0.000000, TipDist: 6.258477, Reg: 0.000000
+  Average gradient norm: 6.843545
+  Total parameters with gradients: 134
+2026-06-15 19:32:18,026 - INFO - 
+--- Batch 0, Epoch 297 ---
+Loss values - Total: 91.686050, Vec: 37.608738, Pos: 46.730057, Col: 0.000010, Thumb: 0.000000, TipDist: 7.347252, Reg: 0.000000
+  Average gradient norm: 5.994003
+  Total parameters with gradients: 134
+2026-06-15 19:32:26,507 - INFO - 
+--- Batch 0, Epoch 298 ---
+Loss values - Total: 90.226181, Vec: 34.778862, Pos: 49.198105, Col: 0.000010, Thumb: 0.000000, TipDist: 6.249210, Reg: 0.000000
+  Average gradient norm: 5.541493
+  Total parameters with gradients: 134
+2026-06-15 19:32:35,163 - INFO - 
+--- Batch 0, Epoch 299 ---
+Loss values - Total: 95.048607, Vec: 39.346378, Pos: 47.382565, Col: 0.000010, Thumb: 0.000000, TipDist: 8.319659, Reg: 0.000000
+  Average gradient norm: 7.446329
+  Total parameters with gradients: 134

@@ -1,0 +1,11 @@
+numpy
+scipy>=1.10.0
+PyYAML
+transforms3d
+anytree
+loguru
+trimesh
+tqdm
+colorama
+lxml
+pydantic

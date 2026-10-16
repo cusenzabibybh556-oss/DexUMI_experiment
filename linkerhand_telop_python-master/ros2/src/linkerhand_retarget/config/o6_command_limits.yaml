@@ -1,0 +1,13 @@
+# O6 command direction: 255 is open, 0 is fully flexed.
+# Increase a minimum value to reduce that channel's maximum flexion.
+o6_left_sim_node:
+  ros__parameters:
+    # [thumb flexion, thumb abduction, index, middle, ring, pinky]
+    command_min: [80.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    command_max: [255.0, 255.0, 255.0, 255.0, 255.0, 255.0]
+
+o6_bridge_node:
+  ros__parameters:
+    # Keep hardware limits independent from simulation limits.
+    command_min: [80.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    command_max: [255.0, 255.0, 255.0, 255.0, 255.0, 255.0]

@@ -1,0 +1,4 @@
+2026-06-15 23:32:00,663 - INFO - 日志文件: logs/training_log_20260615_233200.txt
+2026-06-15 23:32:00,663 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: leaphand
+2026-06-15 23:32:00,663 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/leaphand/model_final.pth
+2026-06-15 23:32:01,538 - INFO - loss_weight: [500, 500, 10, 0, 50, 200, 30, 100]

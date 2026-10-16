@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DexUMI · 多模态数据采集</title>
+  <link rel="stylesheet" href="/assets/dashboard.css?v=13">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/overview"><span class="brand-mark">DX</span><span><b>DexUMI</b><small>MULTIMODAL CAPTURE</small></span></a>
+    <nav><button class="nav active" data-view="overview">▦ 概览</button><button class="nav" data-view="data">◉ 数据</button></nav>
+    <div class="top-status"><i id="statusDot"></i><span id="connection">连接中</span></div>
+  </header>
+
+  <main>
+    <section id="overviewView" class="view active">
+      <div class="workspace">
+        <div class="left-column">
+          <article class="card visual-card">
+            <div class="card-head"><h2>▣ 实时可视化</h2><div class="head-actions"><span class="live"><i></i> LIVE</span><button class="icon" onclick="refreshImages()">↻</button></div></div>
+            <div class="camera-grid">
+              <div class="camera-box"><div class="camera-label"><b>HEAD</b><span>D435i / RGB</span><em id="headState">—</em></div><img id="headRgb" alt="D435i RGB"><div id="headError" class="camera-error hidden" role="status"></div></div>
+              <div class="camera-box"><div class="camera-label"><b>HEAD RGB-D</b><span>D435i / 深度伪彩</span><em id="headGap">— ms</em></div><img id="headDepth" alt="D435i RGB-D depth visualization"></div>
+              <div class="camera-box"><div class="camera-label"><b>MASTER</b><span>D405 / RGB</span><em id="masterFps">— FPS</em></div><img id="rgb" alt="D405 RGB"></div>
+              <div class="camera-box"><div class="camera-label"><b>MASTER RGB-D</b><span>D405 / 深度伪彩</span><em id="depthState">—</em></div><img id="depth" alt="D405 RGB-D depth visualization"></div>
+            </div>
+          </article>
+
+          <div class="telemetry-grid">
+            <article id="inspireModelCard" class="card source-visual model-card"><div class="card-head"><h2>INSPIRE · RETARGETED</h2><div class="head-actions"><span id="inspireModelSide">—</span><span id="inspireModelState">LOADING</span><button class="icon model-reset" title="复位三维视角" aria-label="复位三维视角" onclick="window.inspireHandViewer?.resetCamera()">↺</button></div></div><div id="inspireHandModel" role="img" aria-label="重定向后的 Inspire 灵巧手三维姿态"></div></article>
+            <article class="card wide"><div class="card-head"><h2>HAND STATE / ACTION</h2><span id="handGap">— ms</span></div><canvas id="joints"></canvas></article>
+            <article id="o6TactileCard" class="card source-visual"><div class="card-head"><h2>O6 · TACTILE ARRAY</h2><span id="tactileGap">— ms</span></div><canvas id="tactile"></canvas></article>
+            <article id="o6PalmCard" class="card source-visual"><div class="card-head"><h2>O6 · PALM ARRAY</h2><span id="palmGap">— ms</span></div><canvas id="palm"></canvas></article>
+            <article id="o6ModelCard" class="card source-visual model-card"><div class="card-head"><h2>O6 · TACTILE HAND</h2><div class="head-actions"><span id="o6ModelState">LOADING</span><button class="icon model-reset" title="复位三维视角" aria-label="复位三维视角" onclick="window.o6HandViewer?.resetCamera()">↺</button></div></div><div id="o6HandModel" role="img" aria-label="O6 左手三维状态与触觉显示"></div></article>
+            <article class="card"><div class="card-head"><h2>VIVE TRACKER · POSE</h2><span id="trackerState">—</span></div><canvas id="tracker"></canvas></article>
+          </div>
+        </div>
+
+        <aside class="right-column">
+          <article id="systemPanel" class="card system-panel">
+            <div class="card-head"><h2>系统配置</h2><div class="system-head-actions"><span id="systemBadge" class="badge">已停止</span><button id="deviceSettingsButton" class="icon settings-button" title="设备设置" aria-label="设备设置" onclick="openDeviceSettings()">⚙</button></div></div>
+            <div class="system-fields">
+              <label class="field"><span>控制源</span><select id="controlSource" onchange="changeProfile('source')"><option value="vision_pro">Vision Pro</option><option value="linkerforce">LinkerForce 外骨骼</option></select></label>
+              <label class="field"><span>目标手型</span><select id="targetHand" onchange="changeProfile('model')"></select></label>
+              <label class="field"><span>手侧</span><select id="handSideSelect" onchange="changeProfile('side')"></select></label>
+            </div>
+            <div id="processes" class="processes"></div>
+            <div id="feedbackStatus" class="feedback-status hidden"></div>
+            <div class="system-actions"><button id="systemStart" class="primary" onclick="toggleSystem()">启动系统</button></div>
+            <div id="systemError" class="error hidden"></div>
+          </article>
+
+          <article class="card record-panel">
+            <div class="card-head"><h2>数据录制</h2><span id="recordBadge" class="badge">空闲</span></div>
+            <div class="record-action"><div><small>网页快捷键</small><p><kbd>R</kbd> 开始　<kbd>S</kbd> 停止并保存</p></div><button id="recordButton" class="primary" onclick="toggleRecording()">▷ 开始录制</button></div>
+            <div class="section-title"><span>录制参数</span><span id="configState" class="saved">已保存</span></div>
+            <label class="field"><span>任务目录</span><input id="taskName" readonly></label>
+            <label class="field"><span>下一个文件</span><input id="nextFile" readonly></label>
+            <div class="limits"><span>最长 <b id="maxDuration">—</b></span><span>最大 <b id="maxSize">—</b></span></div>
+            <div class="channel-head"><label>部分录制</label><span>已选 <b id="selectedCount">0</b>/<b id="channelCount">0</b></span></div>
+            <div class="recommended-row"><span>数据保存通道</span><button onclick="selectRecommended()">按推荐选择</button></div>
+            <div id="channels" class="channels"></div>
+            <button id="saveConfig" class="save" onclick="saveConfig()">✓ 保存通道配置</button>
+            <div id="recordError" class="error hidden"></div>
+          </article>
+
+          <article class="card health-card"><div class="card-head"><h2 title="按当前 D405 主帧检查各数据源是否存在阈值内的有效对齐样本">数据源有效性</h2><span id="healthScore">0/0</span></div><p class="validity-note">基于最新主帧、源数据有效标志与时间对齐阈值的初步检查</p><div id="health" class="health"></div></article>
+          <article class="card disk-card"><div class="card-head"><h2>数据盘空间</h2><span id="diskFree">—</span></div><div class="progress"><i id="diskBar"></i></div><small id="diskPath">—</small></article>
+        </aside>
+      </div>
+    </section>
+
+    <section id="dataView" class="view">
+      <article class="card data-card">
+        <div class="data-toolbar"><div><h1>录制数据 <span id="episodeCount" class="count">0</span></h1><p id="dataRoot">—</p></div><div class="toolbar-actions"><button onclick="loadEpisodes()">↻ 刷新</button><input id="search" placeholder="搜索 episode…" oninput="renderEpisodes()"><select id="sort" onchange="renderEpisodes()"><option value="time">按时间</option><option value="size">按大小</option><option value="name">按名称</option></select></div></div>
+        <div id="episodeList" class="episode-list"><div class="empty">正在加载…</div></div>
+      </article>
+    </section>
+  </main>
+
+  <div id="deviceSettingsModal" class="modal hidden" onclick="modalBackdropClose(event, 'deviceSettingsModal')"><div class="settings-modal">
+    <div class="modal-head"><div><h2>设备设置</h2></div><button class="icon" title="关闭" aria-label="关闭" onclick="closeDeviceSettings()">×</button></div>
+    <div class="settings-content">
+      <section id="deviceVisionFields" class="settings-section">
+        <h3>Vision Pro</h3>
+        <label class="field"><span>IP 地址</span><input id="deviceAvpIp" inputmode="decimal" autocomplete="off" placeholder="172.20.10.9"></label>
+      </section>
+      <section id="deviceLinkerforceFields" class="settings-section">
+        <h3>外骨骼与真机</h3>
+        <label class="field"><span>左手套串口</span><input id="deviceLeftGloveSerial" autocomplete="off" placeholder="/dev/serial/by-path/..."></label>
+        <label class="field"><span>右手套串口</span><input id="deviceRightGloveSerial" autocomplete="off" placeholder="/dev/serial/by-path/..."></label>
+        <label class="field"><span>Inspire Hand 串口</span><input id="deviceHandSerial" autocomplete="off" placeholder="/dev/serial/by-path/..."></label>
+        <label class="field"><span>CAN 接口</span><input id="deviceCanInterface" autocomplete="off"></label>
+        <div id="calibrationPanel" class="calibration-panel hidden"><div><b id="calibrationTitle">INSPIRE · LEFT 标定</b><span id="calibrationSummary">尚未标定</span></div><button id="startCalibration" onclick="startCalibration()">重新标定</button></div>
+        <label id="inspireFeedbackSetting" class="feedback-setting hidden"><span>Inspire 力反馈</span><input id="enableForceFeedback" type="checkbox" aria-label="启动时开启 LinkerForce 力反馈"></label>
+      </section>
+      <section class="settings-section">
+        <h3>相机</h3>
+        <label class="field"><span>D405 序列号</span><input id="deviceD405Serial" inputmode="numeric" autocomplete="off"></label>
+        <label class="field"><span>D435i 序列号</span><input id="deviceD435iSerial" inputmode="numeric" autocomplete="off"></label>
+      </section>
+      <section class="settings-section">
+        <h3>数据保存</h3>
+        <label class="field"><span>新录制保存目录</span><input id="deviceRecordingDir" autocomplete="off" spellcheck="false" placeholder="/home/zmy/workplace/transhandr_episodes"></label>
+      </section>
+    </div>
+    <div class="settings-actions"><button onclick="closeDeviceSettings()">取消</button><button id="saveDeviceSettings" class="primary" onclick="saveDeviceSettings()">保存设置</button></div>
+    <div id="deviceSettingsError" class="error hidden"></div>
+  </div></div>
+
+  <div id="calibrationModal" class="modal hidden"><div class="calibration-modal">
+    <div class="modal-head"><div><h2>LinkerForce 手套标定</h2><p id="calibrationProfile">—</p></div></div>
+    <div class="calibration-body"><span id="calibrationStep">正在连接</span><h3 id="calibrationInstruction">请稍候</h3><div class="progress"><i id="calibrationProgress"></i></div><b id="calibrationPercent">0%</b><div id="calibrationError" class="error hidden"></div></div>
+    <div class="settings-actions"><button id="cancelCalibration" onclick="cancelCalibration()">取消标定</button><button id="finishCalibration" class="primary hidden" onclick="closeCalibration()">完成</button></div>
+  </div></div>
+
+  <div id="replayModal" class="modal hidden"><div class="modal-card">
+    <div class="modal-head"><div><h2 id="replayTitle">Episode 回放</h2><p id="replayMeta"></p></div><button class="icon" onclick="closeReplay()">×</button></div>
+    <div class="replay-grid"><div><label>D435i RGB</label><img id="replayD435Rgb"></div><div><label>D435i RGB-D（深度伪彩）</label><img id="replayD435Depth"></div><div><label>D405 RGB</label><img id="replayD405Rgb"></div><div><label>D405 RGB-D（深度伪彩）</label><img id="replayD405Depth"></div></div>
+    <div class="timeline"><button id="playButton" onclick="togglePlay()">▷</button><input id="frameSlider" type="range" min="0" value="0" oninput="setReplayFrame(this.value)"><span id="frameLabel">0 / 0</span></div>
+    <div id="qualityDetail" class="quality-detail"></div>
+  </div></div>
+  <div id="robotReplayModal" class="modal hidden"><div class="modal-card robot-replay-card">
+    <div class="modal-head"><div><h2>TRON2 固定起点真机回放</h2><p id="robotReplayEpisode">—</p></div><button class="icon" onclick="closeRobotReplay()">×</button></div>
+    <p class="robot-replay-warning">只限本机网页操作。先离线预检；点击准备会让双臂 MoveJ 到保存起点，确认 REPLAY 后再启动左腕与可选 O6 左手。当前固定姿态倍率 0、ServoP 300 Hz。软件停止不等于实体急停；现场必须清空运动范围并持有急停。</p>
+    <div class="robot-replay-fields">
+      <label class="field"><span>平移倍率 scale</span><input id="robotScale" type="number" min="0" max="1" step="any" value="1" required oninput="robotReplayChanged()"></label>
+      <label class="field"><span>速度倍率 speed</span><input id="robotSpeed" type="number" min="0.05" max="1" step="any" value="0.2" required oninput="robotReplayChanged()"></label>
+      <label class="field"><span>轴映射 axis-map</span><input id="robotAxisMap" value="y,z,x" spellcheck="false" oninput="robotReplayChanged()"></label>
+      <label class="field"><span>最大相对位移 (m)</span><input id="robotMaxDisplacement" type="number" min="0.001" max="0.35" step="any" value="0.35" required oninput="robotReplayChanged()"></label>
+      <label class="field"><span>倒计时 (秒)</span><input id="robotCountdown" type="number" min="5" max="30" step="1" value="5" required oninput="robotReplayChanged()"></label>
+      <label class="field robot-replay-check"><span>同步 O6 左手实测状态（非手套指令）</span><input id="robotWithO6" type="checkbox" checked onchange="robotReplayChanged()"></label>
+      <label class="field"><span>回放专用 O6 CAN 接口（不启动手套）</span><input id="robotO6Can" value="can1" pattern="can[0-9]+" required autocomplete="off" spellcheck="false" oninput="robotReplayChanged()"></label>
+    </div>
+    <p class="robot-replay-warning">同步 O6 时，采集系统需为“已停止”；回放任务会独立启动所选 CAN 的 O6 桥接，并在任务结束后关闭。不要同时运行另一个 O6 桥接。</p>
+    <div class="robot-replay-actions"><button id="robotPreview" onclick="previewRobotReplay()">① 离线预检</button><input id="robotPrepareWord" placeholder="输入 PREPARE" autocomplete="off" spellcheck="false"><button id="robotPrepare" onclick="startRobotReplay()" disabled>② 准备固定起点</button></div>
+    <div class="robot-replay-actions"><button id="robotRestore" onclick="restoreRobotStart()" disabled>仅恢复准备位置（不回放）</button><span class="robot-replay-hint">同样需要在上方输入 PREPARE；不依赖轨迹预检，也不会自动开始回放。</span></div>
+    <div class="robot-replay-actions"><input id="robotConfirmWord" placeholder="起点到位后输入 REPLAY" autocomplete="off" spellcheck="false"><button id="robotConfirm" onclick="confirmRobotReplay()" disabled>③ 开始真机回放</button><button id="robotCancel" onclick="cancelRobotReplay()" disabled>停止后续指令（非急停）</button></div>
+    <div id="robotReplayState" class="robot-replay-state">尚未预检</div><pre id="robotReplayOutput" class="robot-replay-output"></pre>
+  </div></div>
+  <div id="toast" class="toast hidden"></div>
+  <script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
+  <script type="module" src="/assets/inspire_hand_viewer.js?v=4"></script>
+  <script type="module" src="/assets/o6_hand_viewer.js?v=16"></script>
+  <script src="/assets/dashboard.js?v=21"></script>
+</body>
+</html>

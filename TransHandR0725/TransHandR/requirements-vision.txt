@@ -1,0 +1,11 @@
+# Legacy Vision Pro controller baseline, Python 3.8.
+# Install torch==1.12.1 / torchvision==0.13.1 first; see README.md.
+# This is a reconstruction recipe, not a fully locked or clean-room-tested env.
+-r requirements-collector.txt
+numpy==1.24.4
+scipy==1.10.1
+einops==0.8.1
+timm==1.0.28
+avp_stream==2.51
+# Newer OpenCV releases require NumPy 2, incompatible with this baseline.
+opencv-python<4.12

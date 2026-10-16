@@ -1,0 +1,33 @@
+name: Dependency Update Check
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-updates:
+    name: Check for Dependency Updates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install pip-tools
+        run: pip install pip-tools
+
+      - name: Check for outdated dependencies
+        run: |
+          pip install -r new/ros2/src/requirements.txt
+          pip list --outdated --format=columns
+
+      - name: Create issue if outdated
+        run: |
+          OUTDATED=$(pip list --outdated --format=freeze | wc -l)
+          if [ "$OUTDATED" -gt 0 ]; then
+            echo "Found $OUTDATED outdated packages"
+          fi

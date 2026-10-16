@@ -1,0 +1,45 @@
+# Shared rules for a unified Dexumi source repository.
+**/.git/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.venv*/
+venv/
+*.egg-info/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+node_modules/
+
+# Machine-specific build and runtime output
+/linkerhand_telop_python-master/ros2/build/
+/linkerhand_telop_python-master/ros2/install/
+/linkerhand_telop_python-master/ros2/log/
+/project1yu/pyvut/source/
+/tron2_replay_traces/
+*.log
+*.lock
+**/artifacts/
+**/data/multisource/
+
+# Recordings, model artifacts, and duplicate distribution archives
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.onnx
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.mp4
+*.avi
+*.bag
+*.db3

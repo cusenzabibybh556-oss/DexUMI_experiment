@@ -1,0 +1,151 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'new/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'new/**'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install linting tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+
+      - name: Run Ruff linter
+        run: |
+          ruff check new/ --output-format=github
+
+      - name: Check for syntax errors
+        run: |
+          python -m py_compile $(find new -name "*.py" -type f)
+
+  test-import:
+    name: Import Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies (ROS2)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r new/ros2/src/requirements.txt
+
+      - name: Test Python imports (ROS2)
+        run: |
+          cd new/ros2/src/linkerhand_retarget
+          python -c "import linkerhand_retarget"
+
+      - name: Install dependencies (ROS1)
+        run: |
+          pip install -r new/ros1/src/requirements.txt
+
+      - name: Test Python imports (ROS1)
+        run: |
+          cd new/ros1/src
+          python -c "from linkerhand import HandCore"
+
+  test-ros1:
+    name: ROS1 Build Test
+    runs-on: ubuntu-latest
+    container:
+      image: ros:noetic
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r new/ros1/src/requirements.txt
+
+      - name: Build ROS1 package
+        run: |
+          source /opt/ros/noetic/setup.bash
+          mkdir -p catkin_ws/src
+          cp -r new/ros1/src catkin_ws/src/ros_linkerhand_retarget
+          cd catkin_ws
+          catkin_make
+
+  test-ros2:
+    name: ROS2 Build Test
+    runs-on: ubuntu-latest
+    container:
+      image: ros:humble
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r new/ros2/src/requirements.txt
+
+      - name: Build ROS2 package
+        run: |
+          source /opt/ros/humble/setup.bash
+          mkdir -p ros2_ws/src
+          cp -r new/ros2/src/linkerhand_retarget ros2_ws/src/
+          cd ros2_ws
+          colcon build --symlink-install
+
+  check-licenses:
+    name: License Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check LICENSE file exists
+        run: |
+          test -f new/LICENSE && echo "LICENSE found"
+
+      - name: Check package.xml license declarations
+        run: |
+          grep -r "<license>MIT</license>" new/ --include="package.xml" || exit 1
+
+      - name: Check setup.py license declarations
+        run: |
+          grep -r "license='MIT'" new/ --include="setup.py" || exit 1
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install safety
+        run: pip install safety
+
+      - name: Run safety check (ROS1)
+        run: |
+          safety check -r new/ros1/src/requirements.txt || true
+        continue-on-error: true
+
+      - name: Run safety check (ROS2)
+        run: |
+          safety check -r new/ros2/src/requirements.txt --ignore 70612 || true
+        continue-on-error: true

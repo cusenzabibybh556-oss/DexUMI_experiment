@@ -1,0 +1,4 @@
+2026-06-17 10:59:06,620 - INFO - 日志文件: logs/training_log_20260617_105906.txt
+2026-06-17 10:59:06,620 - INFO - 最终版调试Optimized，数据类型: visionpro，手的类型: inspire
+2026-06-17 10:59:06,620 - INFO - 保存模型文件: /home/ub/TransHandR/checkpoint/models/Optimized/inspire/model_final.pth
+2026-06-17 10:59:06,879 - INFO - loss_weight: [500, 500, 10, 0, 50, 200, 30, 100]
