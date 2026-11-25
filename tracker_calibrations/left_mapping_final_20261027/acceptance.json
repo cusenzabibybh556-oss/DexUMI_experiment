@@ -1,0 +1,30 @@
+{
+  "schema": "tracker-tron2-calibration-user-acceptance-v1",
+  "recorded_at": "2026-10-27T23:27:13.150745+08:00",
+  "status": "user_accepted_measured_accuracy",
+  "user_statement": "1cm我觉得可以接受",
+  "calibration_file": "calibration.json",
+  "calibration_sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5",
+  "validation_file": "independent_review.json",
+  "measured_validation": {
+    "count": 7,
+    "position_rmse_mm": 7.642281458594694,
+    "position_max_mm": 12.098841313356033,
+    "rotation_rmse_deg": 0.6253306082154333,
+    "rotation_max_deg": 0.8984733257477615
+  },
+  "interpretation": "用户接受所报告的约1 cm级映射一致性；不是声明所有位置误差小于10 mm。",
+  "scope": {
+    "arm": "left",
+    "robot_id": "DACH_TRON2A_253",
+    "tracker_mac": "23:32:ae:d4:f6:a1",
+    "map": "2026-10-27采样期间保留的Tracker地图",
+    "mount": "本次左腕Tracker与支架安装；O6已拆",
+    "reference": "实测关节角经官方模型正解得到的SDK左腕TCP"
+  },
+  "original_position_5mm_rmse_gate_passed": false,
+  "frozen_matrix_modified": false,
+  "global_solver_thresholds_modified": false,
+  "replay_integration_enabled_by_this_record": false,
+  "robot_motion_sent_by_this_record": false
+}

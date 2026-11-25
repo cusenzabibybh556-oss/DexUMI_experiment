@@ -62,7 +62,7 @@ for model, dim, limit in (("inspire", 6, 1000.0), ("l10", 10, 255.0), ("l21", 25
     ))
 
 _register(TeleoperationProfile(
-    control_source="linkerforce", robot_model="o6", hand_sides=("left",),
+    control_source="linkerforce", robot_model="o6", hand_sides=("left", "right"),
     action_dim=6, state_dim=6, joint_names=O6_NAMES,
     command_min=(100.0, 0.0, 0.0, 0.0, 0.0, 0.0),
     command_max=(255.0,) * 6, driver="linkerforce_o6_ros",

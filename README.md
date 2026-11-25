@@ -13,8 +13,10 @@
 | `project1yu/tele/`、`project1yu/tele copy/` | 重定向、机械臂与灵巧手 SDK、模型 | [tele](project1yu/tele/README.md)、[tele copy](<project1yu/tele copy/README.md>) |
 | `project1yu/TeleOperation/` | 另一套遥操作实现 | [项目说明](<project1yu/TeleOperation/TeleOperation 项目简易 README.md>) |
 | `project1yu/act-main/` | ACT 训练/推理代码 | [README](project1yu/act-main/README.md)、[Conda 配置](project1yu/act-main/conda_env.yaml) |
+| `tron2_act/` | Top＋Tracker＋O6 的 ACT 数据、训练与离线评估，无硬件控制 | [训练使用说明](tron2_act/README.md)、[默认配置](configs/tron2_act.yaml) |
+| `tron2_vision/` | Top前景标签编辑、轻量分割训练、自动处理与ACT输入缓存 | [数据处理链路](tron2_vision/README.md) |
 | `project1yu/DexUMI-main/` | DexUMI 原始工程，含嵌入式代码 | [README](project1yu/DexUMI-main/README.md)、[环境配置](project1yu/DexUMI-main/environment.yml) |
-| 根目录 `replay_*.py` 等 | TRON2/O6 回放与测试 | [固定起点参数](tron2_fixed_start_profiles.md)、[命令记录](tron2_tracker_replay_commands.tex) |
+| 根目录 `replay_*.py` 等 | TRON2/O6 回放与测试 | [固定起点参数](tron2_fixed_start_profiles.md)、[命令记录](tron2_tracker_replay_commands.md) |
 
 项目总览见 [DEXUMI_工程内容整理.md](DEXUMI_工程内容整理.md)。子项目文档中原机器的绝对路径、网络与串口配置需按目标机器调整。历史/训练项目的 README 原样保留，尚未全部重新验证安装。
 

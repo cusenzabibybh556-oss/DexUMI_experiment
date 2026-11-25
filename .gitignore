@@ -25,6 +25,7 @@ node_modules/
 *.log
 *.lock
 **/artifacts/
+/artifacts/
 **/data/multisource/
 
 # Recordings, model artifacts, and duplicate distribution archives

@@ -1,0 +1,64 @@
+{
+  "recorded_at": "2026-10-27T23:34:32.524638+08:00",
+  "status": "explicit_cli_integration_offline_verified",
+  "source": "/home/zmy/workplace/insert-data/transhandr_demo/o6/episode_000065.hdf5",
+  "source_sha256": "fa86c0c25ebaa34dc0f7edee60424be7cbee377b39947c33506b8a0a2dabb13d",
+  "source_frame_confirmation": "用户确认地图朝向及机器人底座朝向都没变",
+  "source_mount": "历史真人左腕；与机器人法兰标定安装不同",
+  "source_quaternion_evidence": "旧采集路径直接保存pyvut pose.rotation；当前pyvut原始字段排列与被动HID相同。历史文件无原始报文或解析器版本。",
+  "mapping": {
+    "mode": "calibrated-tracker-relative",
+    "calibration_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/left_mapping_final_20261027/calibration.json",
+    "calibration_sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5",
+    "robot_id": "DACH_TRON2A_253",
+    "R_BW": [
+      [
+        -0.9967406771165723,
+        -0.011608932836971654,
+        0.0798326703773858
+      ],
+      [
+        0.07991441446087905,
+        -0.0067561427955535255,
+        0.9967788324878804
+      ],
+      [
+        -0.011032177598846837,
+        0.9999097895374931,
+        0.007661843414918552
+      ]
+    ],
+    "input_quaternion_format": "pyvut-legacy",
+    "stored_quaternion_order": "wxyz",
+    "position_reference": "tracker_origin_displacement_from_first_valid_frame",
+    "orientation_reference": "spatial_delta_from_first_valid_frame",
+    "anchor": "startup_wrist_pose",
+    "T_ET_applied": false,
+    "T_BW_translation_applied": false,
+    "source_frame_requirement": "recording and calibration world axes must agree"
+  },
+  "settings": {
+    "scale": 1.0,
+    "orientation_scale": 0.5,
+    "speed": 0.2
+  },
+  "offline_plan": {
+    "frames": 7453,
+    "duration_s": 24.838727679999998,
+    "max_displacement_m": 0.3177253212387208,
+    "max_relative_angle_deg": 18.913196190914963,
+    "fixed_anchor_target_min_m": [
+      0.4976184290157812,
+      -0.10398208440664222,
+      -0.2164596106207776
+    ],
+    "fixed_anchor_target_max_m": [
+      0.6425252379707229,
+      0.20469219616409243,
+      -0.1368900032864524
+    ]
+  },
+  "hardware_connected": false,
+  "motion_sent": false,
+  "frozen_calibration_modified": false
+}

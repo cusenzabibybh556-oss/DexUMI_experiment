@@ -1,0 +1,1706 @@
+{
+  "schema": "tracker-tron2-calibration-global-multireference-v1",
+  "created_at": "2026-10-27T15:17:05.455208+00:00",
+  "status": "frozen_candidate_pending_new_validation",
+  "method": "DexUMI fixed installation X; all ordered FIT-reference relative motions; mean world transform",
+  "objective": "mean ||[p,rotvec](F_r X inv(Q_r) Q_i inv(X)) - [p,rotvec](F_i)||, r!=i",
+  "changed_from_original": "single reference replaced by every FIT reference; world transform averaged over FIT only",
+  "objective_units": "original mixed metres/radians, unweighted group pairs; no fitted scale",
+  "transform_convention": "T_WT = T_WB @ T_BE @ T_ET; T_BE = T_BW @ T_WT @ inverse(T_ET)",
+  "tracker_quaternion_convention": "raw-xyzw",
+  "position_unit": "m",
+  "rotation_matrix_convention": "active",
+  "T_ET": [
+    [
+      0.9983940384458168,
+      0.033645549806569516,
+      -0.04557763677580296,
+      0.014918873508778553
+    ],
+    [
+      0.022207425876283295,
+      -0.9725811718755253,
+      -0.231500959715462,
+      0.04080403856039796
+    ],
+    [
+      -0.05211692845710269,
+      0.2301170160840876,
+      -0.9717664249585667,
+      0.160023052620409
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "T_FT": [
+    [
+      0.9983940384458168,
+      0.033645549806569516,
+      -0.04557763677580296,
+      -0.018881126491221444
+    ],
+    [
+      0.022207425876283295,
+      -0.9725811718755253,
+      -0.231500959715462,
+      0.04080403856039796
+    ],
+    [
+      -0.05211692845710269,
+      0.2301170160840876,
+      -0.9717664249585667,
+      -0.05247694737959099
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "T_WB": [
+    [
+      -0.9967406771165723,
+      0.07991441446087905,
+      -0.011032177598846837,
+      0.35389301888680963
+    ],
+    [
+      -0.011608932836971654,
+      -0.0067561427955535255,
+      0.9999097895374931,
+      -0.1509404291253691
+    ],
+    [
+      0.0798326703773858,
+      0.9967788324878804,
+      0.007661843414918552,
+      -0.5038984658228095
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "T_BW": [
+    [
+      -0.9967406771165723,
+      -0.011608932836971654,
+      0.0798326703773858,
+      0.39121487009366923
+    ],
+    [
+      0.07991441446087905,
+      -0.0067561427955535255,
+      0.9967788324878804,
+      0.47297439597636876
+    ],
+    [
+      -0.011032177598846837,
+      0.9999097895374931,
+      0.007661843414918552,
+      0.15869181449695008
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "session": {
+    "event": "session",
+    "schema": "tracker-tron2-pairs-v2",
+    "arm": "left",
+    "created_at": "2026-10-27T23:01:52.696185+08:00",
+    "robot_id": "DACH_TRON2A_253",
+    "position_unit": "m",
+    "quaternion_order": "wxyz",
+    "robot_pose_source": "response_get_joint_state+official_model_fk",
+    "transform_convention": "T_WT = T_WB @ T_BE @ T_ET",
+    "pairing": "host_receive_time_nearest; not hardware synchronized",
+    "calibration_validated": false,
+    "mock": false,
+    "tracker_index": 0,
+    "robot_ip": "10.192.1.2",
+    "map_label": "现有 Tracker 地图，连接未重启",
+    "mount_label": "左腕 Tracker＋支架100g；左右 O6 已拆；多位置完整左臂协调",
+    "diagnostic_statuses": [
+      18
+    ],
+    "sampling_plan": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/plan.json",
+    "robot_kinematics": {
+      "model_path": "/home/zmy/Dexverse_workspace/DexVerse/model/tron2-robot-description/tron2a/DACH_TRON2A/xml/robot.xml",
+      "model_sha256": "4606c9f961568ef4b545f0a25c048dbdf2c2997f7a590fcaa15a8c525b6e8a8e",
+      "base_frame": "base_Link",
+      "wrist_frame": "wrist_roll_L_Link",
+      "tcp_offset_m": [
+        -0.0338,
+        0.0,
+        -0.2125
+      ],
+      "joint_names": [
+        "proximal_pitch_L_Joint",
+        "proximal_roll_L_Joint",
+        "proximal_yaw_L_Joint",
+        "elbow_L_Joint",
+        "wrist_yaw_L_Joint",
+        "wrist_pitch_L_Joint",
+        "wrist_roll_L_Joint",
+        "proximal_pitch_R_Joint",
+        "proximal_roll_R_Joint",
+        "proximal_yaw_R_Joint",
+        "elbow_R_Joint",
+        "wrist_yaw_R_Joint",
+        "wrist_pitch_R_Joint",
+        "wrist_roll_R_Joint",
+        "head_pitch_Joint",
+        "head_yaw_Joint"
+      ],
+      "note": "实测关节角的模型正解；不是直接测量的笛卡尔真值，需独立验证"
+    },
+    "tracker_transport": {
+      "kind": "passive_hidraw",
+      "path": "/dev/hidraw6",
+      "mac": "23:32:ae:d4:f6:a1",
+      "device_writes": false
+    }
+  },
+  "fit_group_ids": [
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15,
+    10001,
+    10002,
+    10003,
+    10008,
+    10011,
+    10013,
+    10014,
+    10015,
+    10016,
+    10019,
+    10020,
+    10023,
+    20001,
+    20002,
+    20005,
+    20006,
+    20007,
+    20008,
+    20013,
+    30002,
+    30003,
+    30004,
+    30006,
+    30008,
+    30009,
+    30012,
+    30017,
+    30018,
+    30019,
+    30020,
+    30021,
+    30022,
+    30026,
+    30029,
+    30030,
+    30031
+  ],
+  "validation_group_ids": [],
+  "fit_sources": [
+    {
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "input_sha256": "0ba351650b1d9d283996fd2949b6563232639e8769828ef81033111988b142fd",
+      "original_calibration": "/home/zmy/Projects/Dexumi/tracker_calibrations/left_mapping_20261027_220113/calibration.json",
+      "fit_group_ids": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15
+      ],
+      "preserved_held_out_group_ids": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "source_map_label": "当前 Tracker 地图",
+      "source_mount_label": "左腕 Tracker+支架，O6已拆；自动腕部采样",
+      "rejected_group_count": 0
+    },
+    {
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "input_sha256": "dc1507e685454fb50899d4fee4a8258b99052b05647777b0bab09d1e351df519",
+      "original_calibration": "/home/zmy/Projects/Dexumi/tracker_calibrations/left_mapping_wide_20261027_221722/calibration.json",
+      "fit_group_ids": [
+        1,
+        2,
+        3,
+        8,
+        11,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        23
+      ],
+      "preserved_held_out_group_ids": [
+        25,
+        26,
+        27,
+        28,
+        30,
+        32
+      ],
+      "source_map_label": "现有 Tracker 地图，连接未重启",
+      "source_mount_label": "左腕 Tracker＋支架100g；左右 O6 已拆；多位置完整左臂协调",
+      "rejected_group_count": 0
+    },
+    {
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "input_sha256": "772ef5d12097a5dc75cb535b696422d96986bc6690fd0e9bb08631be47608c52",
+      "original_calibration": "/home/zmy/Projects/Dexumi/tracker_calibrations/left_mapping_large_20261027_223541/calibration.json",
+      "fit_group_ids": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        13
+      ],
+      "preserved_held_out_group_ids": [
+        18,
+        19,
+        20
+      ],
+      "source_map_label": "现有 Tracker 地图，连接未重启",
+      "source_mount_label": "左腕 Tracker＋支架100g；左右 O6 已拆；多位置完整左臂协调",
+      "rejected_group_count": 0
+    },
+    {
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "input_sha256": "e61bdc0e9e02bad49743c8c6f19c889adb20d49f0284716b55e77f31932b2c23",
+      "original_calibration": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/solutions/dexumi_20261027_231249_f3644a9c/calibration.json",
+      "fit_group_ids": [
+        2,
+        3,
+        4,
+        6,
+        8,
+        9,
+        12,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        29,
+        30,
+        31
+      ],
+      "preserved_held_out_group_ids": [
+        14,
+        15,
+        23,
+        24,
+        25,
+        32,
+        33
+      ],
+      "source_map_label": "现有 Tracker 地图，连接未重启",
+      "source_mount_label": "左腕 Tracker＋支架100g；左右 O6 已拆；多位置完整左臂协调",
+      "rejected_group_count": 0
+    }
+  ],
+  "group_provenance": [
+    {
+      "id": 2,
+      "source_group_id": 2,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 3,
+      "source_group_id": 3,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 5,
+      "source_group_id": 5,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 6,
+      "source_group_id": 6,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 7,
+      "source_group_id": 7,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 9,
+      "source_group_id": 9,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10,
+      "source_group_id": 10,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 11,
+      "source_group_id": 11,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 13,
+      "source_group_id": 13,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 14,
+      "source_group_id": 14,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 15,
+      "source_group_id": 15,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 4,
+      "source_group_id": 4,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 8,
+      "source_group_id": 8,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 12,
+      "source_group_id": 12,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 16,
+      "source_group_id": 16,
+      "session_index": 0,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10001,
+      "source_group_id": 1,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10002,
+      "source_group_id": 2,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10003,
+      "source_group_id": 3,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10008,
+      "source_group_id": 8,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10011,
+      "source_group_id": 11,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10013,
+      "source_group_id": 13,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10014,
+      "source_group_id": 14,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10015,
+      "source_group_id": 15,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10016,
+      "source_group_id": 16,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10019,
+      "source_group_id": 19,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10020,
+      "source_group_id": 20,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10023,
+      "source_group_id": 23,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 10025,
+      "source_group_id": 25,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10026,
+      "source_group_id": 26,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10027,
+      "source_group_id": 27,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10028,
+      "source_group_id": 28,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10030,
+      "source_group_id": 30,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 10032,
+      "source_group_id": 32,
+      "session_index": 1,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 20001,
+      "source_group_id": 1,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20002,
+      "source_group_id": 2,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20005,
+      "source_group_id": 5,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20006,
+      "source_group_id": 6,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20007,
+      "source_group_id": 7,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20008,
+      "source_group_id": 8,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20013,
+      "source_group_id": 13,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 20018,
+      "source_group_id": 18,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 20019,
+      "source_group_id": 19,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 20020,
+      "source_group_id": 20,
+      "session_index": 2,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30002,
+      "source_group_id": 2,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30003,
+      "source_group_id": 3,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30004,
+      "source_group_id": 4,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30006,
+      "source_group_id": 6,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30008,
+      "source_group_id": 8,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30009,
+      "source_group_id": 9,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30012,
+      "source_group_id": 12,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30017,
+      "source_group_id": 17,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30018,
+      "source_group_id": 18,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30019,
+      "source_group_id": 19,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30020,
+      "source_group_id": 20,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30021,
+      "source_group_id": 21,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30022,
+      "source_group_id": 22,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30026,
+      "source_group_id": 26,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30029,
+      "source_group_id": 29,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30030,
+      "source_group_id": 30,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30031,
+      "source_group_id": 31,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "fit"
+    },
+    {
+      "id": 30014,
+      "source_group_id": 14,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30015,
+      "source_group_id": 15,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30023,
+      "source_group_id": 23,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30024,
+      "source_group_id": 24,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30025,
+      "source_group_id": 25,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30032,
+      "source_group_id": 32,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    },
+    {
+      "id": 30033,
+      "source_group_id": 33,
+      "session_index": 3,
+      "input_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/samples.jsonl",
+      "role": "cross_development"
+    }
+  ],
+  "same_map_mount_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+  "merge_plan": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/offline_review_and_merge_plan.json",
+  "merge_plan_sha256": "f2f0f8bbcc1e3ea944938653d8deedb5e6b6d99838b7219df267a5269bc80349",
+  "optimization": {
+    "objective_mixed_m_rad": 0.017207858669019162,
+    "translation_bound_hit": false
+  },
+  "fit_metrics": {
+    "summary": {
+      "count": 47,
+      "tracker_position_error_mm": {
+        "mean": 7.352591734426057,
+        "median": 6.030332813575105,
+        "rmse": 8.462516276719114,
+        "p95": 16.46820419189439,
+        "max": 18.066912471908104
+      },
+      "wrist_position_error_mm": {
+        "mean": 7.019952689885536,
+        "median": 5.691063821868381,
+        "rmse": 8.03903281083448,
+        "p95": 15.642872470182978,
+        "max": 16.285056520774145
+      },
+      "rotation_error_deg": {
+        "mean": 0.4269541258253099,
+        "median": 0.3979380244888221,
+        "rmse": 0.4946497530973,
+        "p95": 0.9687527166794396,
+        "max": 1.0462528944257492
+      }
+    },
+    "per_group": [
+      {
+        "id": 2,
+        "label": "左腕偏转 [12.0, 0.0, 0.0] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.749553170882833,
+        "wrist_position_error_mm": 4.352991711625684,
+        "wrist_position_delta_mm": [
+          3.1300063899759034,
+          2.717085148531251,
+          -1.3300545612202619
+        ],
+        "rotation_error_deg": 0.25705280264387764
+      },
+      {
+        "id": 3,
+        "label": "左腕偏转 [-3.315, 0.0, 0.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.238238635440685,
+        "wrist_position_error_mm": 5.6752943054443525,
+        "wrist_position_delta_mm": [
+          3.183429895767753,
+          4.414347916928824,
+          -1.6088107472438662
+        ],
+        "rotation_error_deg": 0.24855930836071297
+      },
+      {
+        "id": 5,
+        "label": "左腕偏转 [0.0, -8.0, 0.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.343392600235833,
+        "wrist_position_error_mm": 6.250681817274421,
+        "wrist_position_delta_mm": [
+          2.491273583236031,
+          5.504121061925188,
+          -1.6028819201509836
+        ],
+        "rotation_error_deg": 0.14456253108290026
+      },
+      {
+        "id": 6,
+        "label": "左腕偏转 [0.0, 0.0, 12.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.871653866654123,
+        "wrist_position_error_mm": 5.297352985885063,
+        "wrist_position_delta_mm": [
+          2.5132328144554794,
+          4.372830669165939,
+          -1.6198646289771745
+        ],
+        "rotation_error_deg": 0.2269334974841522
+      },
+      {
+        "id": 7,
+        "label": "左腕偏转 [0.0, 0.0, -12.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.439795297405108,
+        "wrist_position_error_mm": 4.515942689355433,
+        "wrist_position_delta_mm": [
+          2.8031378705051235,
+          3.449183062105482,
+          -0.7995577881350635
+        ],
+        "rotation_error_deg": 0.45608027783179605
+      },
+      {
+        "id": 9,
+        "label": "左腕偏转 [-3.315, 12.0, 0.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.615682585894731,
+        "wrist_position_error_mm": 6.1773242488964,
+        "wrist_position_delta_mm": [
+          3.585260607471885,
+          4.939690903480315,
+          -0.9511545776516167
+        ],
+        "rotation_error_deg": 0.3519217011860427
+      },
+      {
+        "id": 10,
+        "label": "左腕偏转 [12.0, 0.0, 12.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.920834088836659,
+        "wrist_position_error_mm": 7.476304446850943,
+        "wrist_position_delta_mm": [
+          1.9895790907848432,
+          7.0634431880648165,
+          -1.4298508847064018
+        ],
+        "rotation_error_deg": 0.20135030461508863
+      },
+      {
+        "id": 11,
+        "label": "左腕偏转 [-3.315, 0.0, -12.0] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.030332813575105,
+        "wrist_position_error_mm": 5.850959846947472,
+        "wrist_position_delta_mm": [
+          3.073390350618599,
+          4.936841394463904,
+          -0.6446704035581036
+        ],
+        "rotation_error_deg": 0.18006878041437233
+      },
+      {
+        "id": 13,
+        "label": "左腕偏转 [0.0, 12.0, -12.0] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.944009445772767,
+        "wrist_position_error_mm": 5.207460087208933,
+        "wrist_position_delta_mm": [
+          3.2216280208522408,
+          4.090960199844895,
+          -0.052897054915651553
+        ],
+        "rotation_error_deg": 0.4909930064257266
+      },
+      {
+        "id": 14,
+        "label": "左腕偏转 [8.0, 8.0, -8.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.5986070603044595,
+        "wrist_position_error_mm": 6.584207361558845,
+        "wrist_position_delta_mm": [
+          2.395738224663213,
+          6.09454696121603,
+          -0.6846329501460635
+        ],
+        "rotation_error_deg": 0.1769261615929873
+      },
+      {
+        "id": 15,
+        "label": "左腕偏转 [-2.21, -6.0, 8.0] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.033821016573808,
+        "wrist_position_error_mm": 6.124194466692886,
+        "wrist_position_delta_mm": [
+          1.9315649409415436,
+          5.602740836519294,
+          -1.544056301951563
+        ],
+        "rotation_error_deg": 0.20056807692398645
+      },
+      {
+        "id": 10001,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.00145570814351,
+        "wrist_position_error_mm": 3.159774207153232,
+        "wrist_position_delta_mm": [
+          1.3005565470050606,
+          2.841166149231716,
+          -0.469574936184769
+        ],
+        "rotation_error_deg": 0.3373619495850768
+      },
+      {
+        "id": 10002,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-0.039, 0.168, -0.21, -0.0, 0.1, 0.247, 19.992] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 3.5195483657674878,
+        "wrist_position_error_mm": 3.222435244054564,
+        "wrist_position_delta_mm": [
+          2.4009016770089597,
+          -0.32098965540347524,
+          2.1252589678870946
+        ],
+        "rotation_error_deg": 0.5694325339104553
+      },
+      {
+        "id": 10003,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [0.05, -0.216, 0.269, 0.0, -0.128, -0.316, -19.99] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 2.8954822308712154,
+        "wrist_position_error_mm": 1.9383068192041955,
+        "wrist_position_delta_mm": [
+          1.1684449220261683,
+          1.3845820576673662,
+          0.6889864404691498
+        ],
+        "rotation_error_deg": 0.4656122241731308
+      },
+      {
+        "id": 10008,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [1.324, 0.231, -0.68, -1.057, -3.304, 16.52, -17.226] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.704504388141063,
+        "wrist_position_error_mm": 4.096187914275739,
+        "wrist_position_delta_mm": [
+          3.0025038739036614,
+          2.574103426820712,
+          1.0666383943408395
+        ],
+        "rotation_error_deg": 0.5666008049178711
+      },
+      {
+        "id": 10011,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [12.261, 16.978, -0.223, -11.343, 13.19, 8.41, -14.843] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.76620821504832,
+        "wrist_position_error_mm": 4.931259667898322,
+        "wrist_position_delta_mm": [
+          3.716306369233424,
+          -1.0273527178595865,
+          3.0742373485699304
+        ],
+        "rotation_error_deg": 0.410717149777399
+      },
+      {
+        "id": 10013,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [8.784, 20.909, -5.834, -10.703, 13.999, -5.645, 4.664] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 3.0416175415443707,
+        "wrist_position_error_mm": 3.3929349430468987,
+        "wrist_position_delta_mm": [
+          2.006318225930892,
+          2.1565150779111475,
+          1.6840835557620226
+        ],
+        "rotation_error_deg": 0.2854630701192602
+      },
+      {
+        "id": 10014,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [12.997, 11.679, 4.994, -8.792, 31.98, -1.573, 12.671] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 3.7993948005751426,
+        "wrist_position_error_mm": 3.7640163635695005,
+        "wrist_position_delta_mm": [
+          1.1788359885120392,
+          1.1528525544811097,
+          3.3836512652804798
+        ],
+        "rotation_error_deg": 0.16199973273710175
+      },
+      {
+        "id": 10015,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [15.18, 7.349, 10.392, -11.543, 12.192, 10.823, 21.487] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.099361964039007,
+        "wrist_position_error_mm": 4.1419670022433275,
+        "wrist_position_delta_mm": [
+          2.834416071495649,
+          1.2796964367344787,
+          2.7357545962912733
+        ],
+        "rotation_error_deg": 0.13980840700959551
+      },
+      {
+        "id": 10016,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [15.093, 9.168, 8.482, -12.123, 7.64, 13.641, -12.898] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.406067325847072,
+        "wrist_position_error_mm": 5.691063821868381,
+        "wrist_position_delta_mm": [
+          4.229917031489117,
+          0.18537043703725775,
+          3.8028472402096383
+        ],
+        "rotation_error_deg": 0.469555694498548
+      },
+      {
+        "id": 10019,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-13.68, 10.205, -6.77, 15.048, 14.779, 5.44, -14.043] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 4.879739056896023,
+        "wrist_position_error_mm": 4.371777525902567,
+        "wrist_position_delta_mm": [
+          -3.656625617684539,
+          1.2099840596656586,
+          -2.068203665849894
+        ],
+        "rotation_error_deg": 0.4072224651811824
+      },
+      {
+        "id": 10020,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-10.396, 4.678, 1.339, 13.536, 9.937, 17.927, 5.229] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.158743938696763,
+        "wrist_position_error_mm": 4.417867120077884,
+        "wrist_position_delta_mm": [
+          -3.5077665732518026,
+          2.1341175045809235,
+          -1.6305416385004878
+        ],
+        "rotation_error_deg": 0.3052538860887683
+      },
+      {
+        "id": 10023,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-16.417, 15.858, -16.036, 12.457, -3.304, 13.817, -6.921] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.358801452922524,
+        "wrist_position_error_mm": 5.088595878803429,
+        "wrist_position_delta_mm": [
+          -2.9408336415732705,
+          2.055739535498813,
+          -3.6082184624206537
+        ],
+        "rotation_error_deg": 0.39746738298908724
+      },
+      {
+        "id": 20001,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 3.3197278090739113,
+        "wrist_position_error_mm": 2.3467532096762147,
+        "wrist_position_delta_mm": [
+          -0.8389896063059066,
+          1.8952635611755309,
+          -1.1006012453729648
+        ],
+        "rotation_error_deg": 0.3608564276568947
+      },
+      {
+        "id": 20002,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-0.066, 0.28, -0.349, -0.0, 0.167, 0.411, 34.988] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.38171658298114,
+        "wrist_position_error_mm": 5.596406212988486,
+        "wrist_position_delta_mm": [
+          -2.7663028627287756,
+          4.182045402915113,
+          -2.4855235304440946
+        ],
+        "rotation_error_deg": 0.40347672941260493
+      },
+      {
+        "id": 20005,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [0.849, -7.469, 8.126, 4.57, 31.081, -13.083, 9.211] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.891393821089025,
+        "wrist_position_error_mm": 5.5661175462533565,
+        "wrist_position_delta_mm": [
+          -3.3609702315698375,
+          4.293926751049143,
+          -1.1170213506623006
+        ],
+        "rotation_error_deg": 0.2264842278767766
+      },
+      {
+        "id": 20006,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-28.017, 1.432, 1.34, 55.243, 13.107, -9.204, 28.429] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 10.475316601448693,
+        "wrist_position_error_mm": 10.867179879290656,
+        "wrist_position_delta_mm": [
+          -10.56436073893774,
+          1.9632738615113776,
+          -1.6234027384345318
+        ],
+        "rotation_error_deg": 0.33130136554256334
+      },
+      {
+        "id": 20007,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-28.571, 3.542, -4.396, 55.243, 18.414, -6.164, -5.796] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 8.673188227461244,
+        "wrist_position_error_mm": 8.67285199502309,
+        "wrist_position_delta_mm": [
+          -8.604447993006303,
+          0.8402656073834558,
+          0.6897754506172832
+        ],
+        "rotation_error_deg": 0.04555110079884699
+      },
+      {
+        "id": 20008,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-24.28, -3.918, 13.556, 51.052, 18.714, 15.721, 32.453] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 8.596061933633694,
+        "wrist_position_error_mm": 8.737661910515566,
+        "wrist_position_delta_mm": [
+          -8.549314291900867,
+          1.786961208505189,
+          -0.2504604561039403
+        ],
+        "rotation_error_deg": 0.18880988605452492
+      },
+      {
+        "id": 20013,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-38.386, 14.106, 15.77, 68.956, 26.902, -0.153, 29.718] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 16.033229383587653,
+        "wrist_position_error_mm": 16.10166303359744,
+        "wrist_position_delta_mm": [
+          -11.984732689267474,
+          -10.104162192384747,
+          -3.679081570759829
+        ],
+        "rotation_error_deg": 0.3979380244888221
+      },
+      {
+        "id": 30002,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-13.106, 2.572, -0.209, -19.405, 4.928, 11.201, -29.863] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 9.045365545406916,
+        "wrist_position_error_mm": 9.927422849636628,
+        "wrist_position_delta_mm": [
+          6.6092864023712945,
+          -4.808488729069777,
+          5.634668919229084
+        ],
+        "rotation_error_deg": 0.5360075287523209
+      },
+      {
+        "id": 30003,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-17.548, 10.059, -12.786, -16.548, 25.978, -7.812, -23.098] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 6.495137103408626,
+        "wrist_position_error_mm": 6.723183774947372,
+        "wrist_position_delta_mm": [
+          5.454395834084746,
+          -1.9967190509038306,
+          3.3858350799459007
+        ],
+        "rotation_error_deg": 0.16088995967941208
+      },
+      {
+        "id": 30004,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-11.061, -2.67, 3.178, -17.614, 30.883, 24.895, -24.291] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 9.021345866579095,
+        "wrist_position_error_mm": 9.422948775044336,
+        "wrist_position_delta_mm": [
+          6.343111460817452,
+          -2.0608571056034144,
+          6.656558315153542
+        ],
+        "rotation_error_deg": 0.43238282801869865
+      },
+      {
+        "id": 30006,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-10.837, -2.403, 5.772, -21.691, -8.778, 26.903, -9.585] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 9.825929179396269,
+        "wrist_position_error_mm": 10.928393151496733,
+        "wrist_position_delta_mm": [
+          7.343089095240951,
+          -5.690845160091662,
+          5.755267220285728
+        ],
+        "rotation_error_deg": 0.5229597867630432
+      },
+      {
+        "id": 30008,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-42.067, -13.171, -11.724, 9.756, -6.937, 14.389, -30.067] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 2.027223876640442,
+        "wrist_position_error_mm": 1.4681964688502012,
+        "wrist_position_delta_mm": [
+          -1.0491175638706052,
+          0.01891261882279449,
+          -1.0269350131199493
+        ],
+        "rotation_error_deg": 0.5556522009794894
+      },
+      {
+        "id": 30009,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-46.088, -9.52, -20.709, 14.831, 17.753, -8.641, -25.18] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 5.334300873036548,
+        "wrist_position_error_mm": 5.435453595884788,
+        "wrist_position_delta_mm": [
+          -2.091047447618677,
+          4.331609226732397,
+          -2.5315682632927468
+        ],
+        "rotation_error_deg": 0.10794482822307666
+      },
+      {
+        "id": 30012,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-41.841, -7.849, -19.682, 6.236, -13.779, 44.824, -9.281] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 2.925535393430594,
+        "wrist_position_error_mm": 3.0614305926104763,
+        "wrist_position_delta_mm": [
+          1.3467579237207428,
+          0.9520873733823432,
+          -2.579172348198669
+        ],
+        "rotation_error_deg": 0.5204268848220298
+      },
+      {
+        "id": 30017,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-55.631, 34.043, -27.506, 28.179, 42.928, -1.437, -13.692] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 17.96858302109605,
+        "wrist_position_error_mm": 16.285056520774145,
+        "wrist_position_delta_mm": [
+          -0.9092661180670758,
+          -16.14848331144986,
+          -1.8981010908719342
+        ],
+        "rotation_error_deg": 0.6920494240195059
+      },
+      {
+        "id": 30018,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-52.962, 30.278, -17.546, 28.179, 37.136, -4.177, 15.93] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 18.066912471908104,
+        "wrist_position_error_mm": 15.651121433421753,
+        "wrist_position_delta_mm": [
+          -3.3507970719940383,
+          -14.762745449588277,
+          -3.9738026997689078
+        ],
+        "rotation_error_deg": 0.8693210128114863
+      },
+      {
+        "id": 30019,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-65.162, 44.175, -54.962, 22.325, 53.714, 40.218, -1.249] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 16.523304073458963,
+        "wrist_position_error_mm": 15.623624889292499,
+        "wrist_position_delta_mm": [
+          1.2556043983824594,
+          -15.41689518228373,
+          -2.2001034554218895
+        ],
+        "rotation_error_deg": 0.6528481572832313
+      },
+      {
+        "id": 30020,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-57.766, 37.478, -40.421, 27.05, 83.333, 9.629, -5.603] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 13.000405352915095,
+        "wrist_position_error_mm": 11.0278933393056,
+        "wrist_position_delta_mm": [
+          0.5189631984239274,
+          -10.558917836794135,
+          -3.1391659429875762
+        ],
+        "rotation_error_deg": 0.8790315297103247
+      },
+      {
+        "id": 30021,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-72.043, 42.358, -65.179, 28.179, 61.552, 3.289, -31.222] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 15.818099140079225,
+        "wrist_position_error_mm": 14.588821231255178,
+        "wrist_position_delta_mm": [
+          3.4604119825601964,
+          -14.081784586595036,
+          -1.600811258459331
+        ],
+        "rotation_error_deg": 1.0359729630083194
+      },
+      {
+        "id": 30022,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-71.15, 41.879, -58.953, 26.657, 24.51, 0.228, 1.488] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 16.339637801577055,
+        "wrist_position_error_mm": 13.400027826155966,
+        "wrist_position_delta_mm": [
+          0.3816912594293287,
+          -12.975506701981276,
+          -3.324347056350832
+        ],
+        "rotation_error_deg": 1.0462528944257492
+      },
+      {
+        "id": 30026,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-63.633, 4.544, -72.45, 39.393, 52.971, 29.034, 18.764] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 7.23928805328302,
+        "wrist_position_error_mm": 8.700248659248466,
+        "wrist_position_delta_mm": [
+          -3.558506002870554,
+          7.425447414361061,
+          2.80964276320809
+        ],
+        "rotation_error_deg": 1.0072046539519182
+      },
+      {
+        "id": 30029,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-52.299, -8.76, -26.752, 46.429, 13.465, -22.46, -0.485] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 7.179715125532389,
+        "wrist_position_error_mm": 7.195124098966086,
+        "wrist_position_delta_mm": [
+          -4.456630734007705,
+          4.571653146517328,
+          3.3178669063358597
+        ],
+        "rotation_error_deg": 0.8263337161478288
+      },
+      {
+        "id": 30030,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-45.562, -15.023, -7.307, 41.699, 25.764, 9.843, -4.192] deg",
+        "pair_count": 19,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 8.044789640791283,
+        "wrist_position_error_mm": 7.969803269862389,
+        "wrist_position_delta_mm": [
+          -5.143535563762458,
+          3.3113742868659672,
+          5.108483766921742
+        ],
+        "rotation_error_deg": 0.29276377800757675
+      },
+      {
+        "id": 30031,
+        "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-44.446, -8.953, -17.669, 32.249, -9.49, 44.824, -12.401] deg",
+        "pair_count": 20,
+        "tracking_statuses": [
+          2
+        ],
+        "tracker_position_error_mm": 3.9287590701410764,
+        "wrist_position_error_mm": 2.9114916846843344,
+        "wrist_position_delta_mm": [
+          -1.8164095352872778,
+          1.5583991018784105,
+          1.6579603340755902
+        ],
+        "rotation_error_deg": 0.5228722558054059
+      }
+    ]
+  },
+  "flange_coverage": {
+    "group_count": 47,
+    "group_ids": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      10001,
+      10002,
+      10003,
+      10008,
+      10011,
+      10013,
+      10014,
+      10015,
+      10016,
+      10019,
+      10020,
+      10023,
+      20001,
+      20002,
+      20005,
+      20006,
+      20007,
+      20008,
+      20013,
+      30002,
+      30003,
+      30004,
+      30006,
+      30008,
+      30009,
+      30012,
+      30017,
+      30018,
+      30019,
+      30020,
+      30021,
+      30022,
+      30026,
+      30029,
+      30030,
+      30031
+    ],
+    "position_min_m": [
+      0.28769522620953747,
+      0.09515603306983618,
+      -0.08553006155040885
+    ],
+    "position_max_m": [
+      0.5364392072627319,
+      0.4083612502756715,
+      0.06518770908658084
+    ],
+    "position_extent_mm": [
+      248.7439810531944,
+      313.2052172058353,
+      150.71777063698968
+    ],
+    "centered_position_singular_values_mm": [
+      727.0536609992496,
+      518.5880259009732,
+      144.22833172060137
+    ],
+    "position_smallest_largest_singular_ratio": 0.19837370947610183,
+    "pairwise_distance_mm": {
+      "count": 1081,
+      "mean": 153.93813023764247,
+      "p95": 319.38140861647656,
+      "max": 335.82782205089705
+    },
+    "pairwise_rotation_deg": {
+      "count": 1081,
+      "mean": 39.46343144842403,
+      "p95": 76.08492040809304,
+      "max": 112.56899840960227
+    },
+    "relative_rotation_singular_values_rad": [
+      20.206939952773332,
+      12.01448110024094,
+      10.040248941219689
+    ],
+    "rotvec_branch_pair_count": 0,
+    "rotvec_branch_pairs": []
+  },
+  "scale_fitted": false,
+  "hardware_connected": false,
+  "applied_to_replay": false,
+  "validation_policy": "all old held sets are cross-development; final new poses must not influence this frozen fit",
+  "warnings": [
+    "世界地图/安装一致性基于持续连接与未拆装声明；没有硬件地图UUID证明。",
+    "SDK腕部数据来自实测关节角+模型FK，不是独立笛卡尔真值。",
+    "不得将当前裸腕Tracker安装矩阵直接用于历史真人腕部episode。",
+    "此候选尚需全新姿态验收；未修改主标定、控制参数或回放配置。"
+  ]
+}

@@ -22,3 +22,23 @@
 .robot-replay-card{width:min(760px,96vw)}.robot-replay-warning{margin:16px 18px;color:#fcd34d;font-size:12px}.robot-replay-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 8px;margin:0 4px 16px}.robot-replay-fields .field input{width:100%;height:38px;border:1px solid var(--line);background:#090b0c;border-radius:7px;color:var(--ink);padding:0 11px}.robot-replay-check{display:flex;align-items:center;justify-content:space-between;gap:12px}.robot-replay-check span{margin:0}.robot-replay-check input{width:18px!important;height:18px!important}.robot-replay-actions{display:flex;gap:8px;margin:10px 18px;align-items:center}.robot-replay-actions input{min-width:0;flex:1;height:38px;border:1px solid var(--line);background:#090b0c;border-radius:7px;color:var(--ink);padding:0 11px}.robot-replay-actions button{border:1px solid var(--line);border-radius:7px;background:#18221c;color:#dff9e5;padding:9px 12px;cursor:pointer}.robot-replay-actions button:disabled{opacity:.4;cursor:not-allowed}.robot-replay-state{margin:14px 18px 6px;color:var(--green2);font-size:12px}.robot-replay-output{white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto;margin:0 18px 18px;padding:12px;border:1px solid var(--line);border-radius:7px;background:#080b0c;color:#cdd5d0;font:11px/1.5 ui-monospace,monospace}
 .robot-replay-hint{color:var(--muted);font-size:11px;line-height:1.4}
 @media(max-width:700px){.robot-replay-fields{grid-template-columns:1fr}.robot-replay-actions{flex-wrap:wrap}.robot-replay-actions input{flex-basis:100%}}
+/* 独立的腕部只读采集页。 */
+.wrist-card{padding:24px;max-width:1200px;margin:0 auto}
+.wrist-card>p{color:#aeb8b3;line-height:1.7}
+.wrist-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin:20px 0}
+.wrist-fields .field{display:flex;flex-direction:column;gap:8px}
+.wrist-fields input{width:100%;box-sizing:border-box}
+.wrist-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0}
+.wrist-card button{padding:9px 14px;border:1px solid #343d38;border-radius:7px;background:#19201c;color:#e1e8e3;cursor:pointer}
+.wrist-card button:hover:not(:disabled){border-color:#56a576;background:#23372a}
+.wrist-card button:disabled{opacity:.42;cursor:default}
+#wristConnect,#wristSample{background:#235d39;border-color:#367c4f;color:#e5ffed}
+.wrist-live{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.wrist-live>div{padding:16px;background:#0a0d0e;border:1px solid #2b3230;border-radius:10px}
+.wrist-live pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:12px}
+.wrist-pending{color:#f6bd60}
+.wrist-file{overflow-wrap:anywhere;font-size:12px}
+.wrist-table-wrap{overflow:auto}
+.wrist-table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
+.wrist-table th,.wrist-table td{padding:12px;border-bottom:1px solid #2b3230}
+.wrist-table small{display:block;color:#95a09a;margin-top:5px}

@@ -134,7 +134,20 @@ class D405Camera:
         cfg.enable_stream(rs.stream.color, self.c.image_width, self.c.image_height, rs.format.rgb8, self.c.camera_fps)
         profile = self.pipeline.start(cfg); self.align = rs.align(rs.stream.color) if self.c.depth_aligned_to_color else None
         dev = profile.get_device(); sensor = dev.first_depth_sensor(); depth_scale = sensor.get_depth_scale()
-        for _ in range(15): self.pipeline.wait_for_frames(1500)
+        # USB2-linked D405 devices can miss an occasional startup frame.  Do
+        # not abort the whole recorder during warmup; require one valid frame
+        # before returning and let the normal read path enforce completeness.
+        warmed = False
+        for _ in range(15):
+            try:
+                frames = self.pipeline.wait_for_frames(1500)
+                warmed = bool(frames.get_color_frame() and frames.get_depth_frame())
+                if warmed:
+                    break
+            except RuntimeError:
+                continue
+        if not warmed:
+            raise RuntimeError("D405 warmup failed: no complete RGB-D frame")
         color = profile.get_stream(rs.stream.color).as_video_stream_profile().get_intrinsics()
         depth = profile.get_stream(rs.stream.depth).as_video_stream_profile().get_intrinsics()
         intr = lambda x: {"width": x.width, "height": x.height, "fx": x.fx, "fy": x.fy, "ppx": x.ppx, "ppy": x.ppy, "model": str(x.model), "coeffs": list(x.coeffs)}
@@ -191,7 +204,46 @@ class D435IHeadCamera:
         if self.pipeline: self.pipeline.stop()
 
 
+class MissingD405Camera:
+    """Keep O6 telemetry usable while explicitly marking camera data invalid."""
+    def __init__(self, config: CollectionConfig):
+        self.c = config
+
+    def start(self) -> Dict[str, Any]:
+        return {"serial": "MISSING-D405", "depth_scale": .001,
+                "rgb_intrinsics": {}, "depth_intrinsics": {}, "valid": False}
+
+    def read(self) -> Dict[str, Any]:
+        now = time.monotonic_ns()
+        return {"rgb": np.zeros((self.c.image_height, self.c.image_width, 3), np.uint8),
+                "depth": np.zeros((self.c.image_height, self.c.image_width), np.uint16),
+                "frame_number": -1, "device_timestamp": now / 1e6,
+                "unified_timestamp_ns": now, "host_receive_timestamp_ns": now,
+                "valid": False}
+
+    def stop(self) -> None:
+        pass
+
+
 class RecorderApp:
+    @staticmethod
+    def _d405_is_present(config: CollectionConfig) -> bool:
+        """Use the real D405 whenever its configured serial is enumerable.
+
+        O6 can run without a D405, but the previous unconditional fallback
+        hid a connected camera behind invalid placeholder frames.
+        """
+        if not config.d405_serial:
+            return False
+        try:
+            import pyrealsense2 as rs
+            return any(
+                device.get_info(rs.camera_info.serial_number) == config.d405_serial
+                for device in rs.context().query_devices()
+            )
+        except Exception:
+            return False
+
     def __init__(self, config: CollectionConfig, mode: str, action_port: int,
                  enable_keyboard: bool = True):
         self.c, self.mode, self.action_port = config, mode, action_port
@@ -201,7 +253,11 @@ class RecorderApp:
         )}
         self.stop_event = threading.Event(); self.writer: Optional[EpisodeWriter] = None; self.writer_lock = threading.Lock()
         self.ready_event = threading.Event()
-        self.camera = MockCamera(config) if mode == "mock" else D405Camera(config)
+        self.camera = (
+            MockCamera(config) if mode == "mock" else
+            D405Camera(config) if self._d405_is_present(config) else
+            MissingD405Camera(config) if config.allow_missing_d405 else D405Camera(config)
+        )
         self.head_camera = ((MockHeadCamera(config) if mode == "mock" else D435IHeadCamera(config))
                             if config.enable_head_camera else None)
         self.camera_meta: Dict[str, Any] = {}; self.head_camera_meta: Dict[str, Any] = {}
@@ -882,7 +938,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--right-hand-source", choices=("udp", "direct"), default="udp", help="udp: receive right_fingers from controller; direct: recorder opens AVP stream")
     p.add_argument("--vision-hand-side", choices=("left", "right"), default="right", help="Vision Pro input hand; output channels remain unchanged")
     p.add_argument("--avp-ip", default="10.227.197.16"); p.add_argument("--d405-serial", default="")
-    p.add_argument("--width", type=int, default=640); p.add_argument("--height", type=int, default=480); p.add_argument("--camera-fps", type=int, default=30)
+    p.add_argument("--width", type=int, default=480); p.add_argument("--height", type=int, default=270); p.add_argument("--camera-fps", type=int, default=15)
     p.add_argument("--enable-head-camera", action="store_true", help="Capture a head-mounted D435i RGB-D stream")
     p.add_argument("--head-camera-serial", default="", help="D435i serial number")
     p.add_argument("--head-width", type=int, default=640); p.add_argument("--head-height", type=int, default=480); p.add_argument("--head-camera-fps", type=int, default=30)
@@ -907,9 +963,8 @@ def main() -> None:
     a = parse_args(); hand_gap = a.hand_state_max_gap_ms if a.hand_state_max_gap_ms is not None else 35.0
     if a.control_source == "linkerforce" and (
         a.hand_type not in {"o6", "inspire"}
-        or (a.hand_type == "o6" and a.vision_hand_side != "left")
     ):
-        raise SystemExit("LinkerForce 支持 Inspire 左右手，以及 O6 左手")
+        raise SystemExit("LinkerForce 支持 O6/Inspire 左右手")
     c = CollectionConfig(control_source=a.control_source, target_hand_model=a.hand_type, avp_ip=a.avp_ip, enable_right_hand=not a.disable_vision, right_hand_source=a.right_hand_source, vision_hand_side=a.vision_hand_side, enable_hand_io=not a.disable_hand, hand_source=a.hand_source, hand_type=a.hand_type, hand_side=a.vision_hand_side, hand_serial_port=a.hand_serial_port, hand_can_interface=a.hand_can_interface, enable_exoskeleton_operator=a.enable_exoskeleton or a.control_source == "linkerforce", enable_tactile=a.enable_tactile, d405_serial=a.d405_serial, image_width=a.width, image_height=a.height, camera_fps=a.camera_fps, enable_head_camera=a.enable_head_camera, head_camera_serial=a.head_camera_serial, head_image_width=a.head_width, head_image_height=a.head_height, head_camera_fps=a.head_camera_fps, head_camera_max_gap_ms=a.head_camera_max_gap_ms, output_dir=a.output_dir, task_name=a.task_name, enable_realtime_dashboard=not a.no_dashboard, dashboard_host=a.dashboard_host, dashboard_port=a.dashboard_port, enable_vive_tracker=a.enable_vive, tracker_mode=a.tracker_mode, tracker_index=a.tracker_index, hand_state_max_gap_ms=hand_gap, max_episode_duration_s=a.max_episode_duration, max_episode_size_gb=a.max_episode_size_gb)
     RecorderApp(c, a.mode, a.action_port).run(a.record, a.duration)
 

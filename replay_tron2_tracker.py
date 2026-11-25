@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """将一段 TransHandR VIVE Tracker 轨迹用于 TRON2 腕部回放。
 
-HDF5 中的 Tracker 位姿尚未标定到 TRON2 基座坐标系。本程序以首个有效帧为参考，
-把相对运动叠加到机器人当前腕部位姿；默认只做离线预览，不连接机器人。
+本程序以首个有效帧为参考，把相对运动叠加到机器人当前腕部位姿。
+--tracker-calibration 使用标定文件的 R_BW 转换相对平移和旋转，并按文件约定
+解释 Tracker 四元数；旧真人腕部数据不套用机器人法兰的 T_ET 安装平移。
+采集地图与标定地图的坐标轴须一致。未指定标定文件时保留 --axis-map 旧行为。
+默认只做离线预览，不连接机器人。
 
 示例
 ----
@@ -50,10 +53,30 @@ DEFAULT_DATA_ROOT = Path(
 )
 DEFAULT_ROBOT_IP = "10.192.1.2"
 
-# TRON2 高层笛卡尔控制的已公布工作空间，单位：米。
+# MoveP 文档给出的工作空间，单位：米。运动臂暂保守复用，不能据此
+# 宣称已确认当前固件的 ServoP 可达边界。左臂回放时，右腕仅保持启动
+# 实测位姿，不用此范围验收右腕，也不自动移动右臂以满足该范围。
 WORKSPACE = {
     "left": np.array([[0.250, 0.732], [-0.213, 0.900], [-0.673, 0.500]]),
     "right": np.array([[0.250, 0.732], [-0.900, 0.213], [-0.673, 0.500]]),
+}
+
+# 回放、训练数据转换及部署应共用这套动作语义。这里约定的是解码后
+# 送给机器人控制器的目标，不规定 ACT 内部必须使用何种旋转表示。
+SERVOP_ACTION_CONTRACT = {
+    "version": 1,
+    "arm_control": "servop",
+    "position_frame": "robot_base",
+    "position_unit": "m",
+    "orientation_order": "wxyz",
+    "pose_reference": "robot_sdk_end_effector",
+    "target_type": "absolute_wrist_pose",
+    "tracker_reference": "first_valid_frame",
+    "translation_reference": "startup_wrist_pose",
+    "rotation_composition": "delta_rotation_times_anchor_rotation",
+    "held_arm_target": "startup_measured_pose",
+    "head_control": "not_commanded",
+    "o6_source": "dexterous_hand/joint_positions",
 }
 
 # 软件限差只能在收到反馈之后停止后续指令，不能阻止首条指令已造成的运动。
@@ -61,6 +84,7 @@ POST_STOP_OBSERVE_SECONDS = 0.5  # 秒：停止发送指令后，只读观察双
 FEEDBACK_INTERVAL_SECONDS = 0.05  # 秒：发送 ServoP 时，发起腕位姿反馈查询的最短间隔。
 FEEDBACK_TIMEOUT_SECONDS = 0.5  # 秒：腕位姿反馈超时即停止后续指令；这不是硬件急停。
 POSE_PROBE_RETRY_SECONDS = 0.15  # 秒：腕位姿查询未获回复时，允许重试的等待时间。
+SNAPSHOT_RETRY_INTERVAL_SECONDS = 0.5  # 秒：同步只读快照的重试间隔；总超时仍由单次 request 限定。
 MOVING_ARM_ERROR_M = 0.5  # 米：轨迹阶段运动臂实测腕位置相对当前目标的最大误差。
 HELD_ARM_DRIFT_M = 0.1 # 米：轨迹阶段，未计划运动臂实测腕位置相对起点的最大偏移。
 LEFT_ARM_ANGLE_ERROR_DEG = 30.0  # 度：轨迹阶段，左腕相对目标/起点的在线姿态误差上限。
@@ -76,6 +100,7 @@ class TrackerTrajectory:
     quaternions: np.ndarray  # 四元数顺序：w、x、y、z
     hand_side: str
     original_frames: int
+    quaternion_order: str = "wxyz"  # HDF5 声明的存储顺序；不等于 HID 原始字段已正确解释。
 
     @property
     def duration_s(self) -> float:
@@ -153,7 +178,26 @@ class ReplayInterrupted(Exception):
     """用户请求停止轨迹发送时抛出；这不代表硬件急停。"""
 
 
-def parse_args() -> argparse.Namespace:
+def add_tracker_mapping_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--tracker-calibration", type=Path,
+        help="标定 JSON：使用 R_BW 转换相对位置/旋转；与 --axis-map 互斥，旧真人数据不套用 T_ET",
+    )
+    parser.add_argument(
+        "--tracker-quaternion", choices=("pyvut-legacy", "wxyz"),
+        help="标定模式的输入解释；默认遵循标定约定。pyvut-legacy 纠正旧保存排列，wxyz 表示已正确解码",
+    )
+
+
+def validate_tracker_mapping_arguments(args: argparse.Namespace) -> None:
+    calibration = getattr(args, "tracker_calibration", None)
+    if calibration is not None and args.axis_map is not None:
+        raise ValueError("--tracker-calibration 与 --axis-map 不能同时使用，避免重复转换坐标轴")
+    if getattr(args, "tracker_quaternion", None) is not None and calibration is None:
+        raise ValueError("--tracker-quaternion 仅用于 --tracker-calibration 模式")
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--episode", type=int, help="episode number, e.g. 65")
@@ -166,6 +210,7 @@ def parse_args() -> argparse.Namespace:
         help=("tracker axes expressed in robot axes, e.g. 'z,-x,-y'; "
               "preview defaults to x,y,z, execution requires an explicit value"),
     )
+    add_tracker_mapping_arguments(parser)
     parser.add_argument(
         "--scale", type=float, default=0.25,
         help="translation scale applied to tracker displacement (default: 0.25)",
@@ -177,7 +222,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--rate", type=float, default=300.0,
-        help="ServoP output rate after interpolation (default: 300 Hz)",
+        help="ServoP command output rate (default: 300 Hz)",
+    )
+    parser.add_argument(
+        "--interpolation", choices=("linear", "none"), default="linear",
+        help="linear：位置线性/旋转SLERP；none：原帧到期后更新目标，帧间重复上一帧",
     )
     parser.add_argument(
         "--speed", type=float, default=1.0,
@@ -214,6 +263,14 @@ def parse_args() -> argparse.Namespace:
         metavar="SECONDS",
         help="腕位姿反馈失联多久停止后续指令（0.5 至 3 秒，默认 0.5）",
     )
+    parser.add_argument('--z-compensation', action='store_true',
+                        help='显式启用有界Z位置修正；不是关节力矩或重力前馈')
+    parser.add_argument('--z-adaptation', choices=('stationary', 'continuous'), default='stationary',
+                        help='默认仅静止更新；continuous实验模式允许自由空间运动中更新，仍限幅限速')
+    parser.add_argument('--z-max-correction-mm', type=float, default=20.,
+                        help='Z位置修正上限，5至20mm，默认20')
+    parser.add_argument('--settle-handover', action='store_true',
+                        help='配合--z-compensation，先恢复接管Z再开始轨迹；不能消除首瞬下沉')
     live_mode.add_argument(
         "--record-idle", type=float, metavar="SECONDS",
         help="只读记录双腕静止位姿，不发送运动指令（1 至 60 秒）",
@@ -226,7 +283,7 @@ def parse_args() -> argparse.Namespace:
         "--countdown", type=int, default=15,
         help="seconds after confirmation before ServoP starts (default: 15)",
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def episode_path(args: argparse.Namespace) -> Path:
@@ -270,6 +327,10 @@ def load_tracker(path: Path, max_gap_s: float) -> TrackerTrajectory:
         )
         positions = np.asarray(f["vive_tracker/pos"][:, 0], dtype=np.float64)
         quaternions = np.asarray(f["vive_tracker/quat"][:, 0], dtype=np.float64)
+        quaternion_order = f["vive_tracker"].attrs.get("quat_order", "unknown")
+        if isinstance(quaternion_order, bytes):
+            quaternion_order = quaternion_order.decode("utf-8")
+        quaternion_order = "".join(c for c in str(quaternion_order).lower() if c.isalpha())
         valid = np.asarray(f["vive_tracker/valid"][:, 0], dtype=bool)
         hand_side = str(f.attrs.get("hand_side", "left")).lower()
 
@@ -306,6 +367,7 @@ def load_tracker(path: Path, max_gap_s: float) -> TrackerTrajectory:
         quaternions=quaternions,
         hand_side=hand_side if hand_side in {"left", "right"} else "left",
         original_frames=len(valid),
+        quaternion_order=quaternion_order,
     )
 
 
@@ -413,18 +475,93 @@ def relative_motion(
     return delta_positions, np.asarray(delta_quaternions), np.asarray(angles)
 
 
+def prepare_tracker_motion(
+    trajectory: TrackerTrajectory, args: argparse.Namespace, side: str,
+    *, default_axis_map: str, require_explicit_axes: bool = False,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """离线、只读生成位移与空间相对旋转；首帧始终为零位移/单位旋转。"""
+    validate_tracker_mapping_arguments(args)
+    if getattr(args, "tracker_calibration", None) is None:
+        if require_explicit_axes and args.axis_map is None:
+            raise ValueError("live robot modes require an explicit --axis-map or --tracker-calibration")
+        args.axis_map = args.axis_map or default_axis_map
+        args.tracker_mapping_info = {"mode": "axis-map", "axis_map": args.axis_map}
+        return relative_motion(trajectory, parse_axis_map(args.axis_map),
+                               args.scale, args.orientation_scale)
+
+    from tracker_replay_mapping import load_calibration, calibrated_relative_motion
+
+    if trajectory.quaternion_order != "wxyz":
+        raise ValueError(
+            "标定回放要求 HDF5 vive_tracker.quat_order 声明 WXYZ；"
+            f"实际为 {trajectory.quaternion_order!r}，不能猜测存储顺序"
+        )
+    if trajectory.hand_side != side:
+        raise ValueError("标定回放的目标手侧与采集数据不一致")
+    calibration = load_calibration(args.tracker_calibration, arm=side)
+    quaternion_format = args.tracker_quaternion or (
+        "pyvut-legacy" if calibration["tracker_quaternion_convention"] == "raw-xyzw" else "wxyz"
+    )
+    delta = calibrated_relative_motion(
+        trajectory, calibration, args.scale, args.orientation_scale,
+        mode="tracker-relative", quaternion_format=quaternion_format,
+    )
+    args.tracker_mapping_info = {
+        "mode": "calibrated-tracker-relative",
+        "calibration_file": str(Path(args.tracker_calibration).expanduser().resolve()),
+        "calibration_sha256": calibration["sha256"],
+        "robot_id": calibration.get("robot_id"),
+        "R_BW": np.asarray(calibration["T_BW"])[:3, :3].tolist(),
+        "input_quaternion_format": quaternion_format,
+        "stored_quaternion_order": trajectory.quaternion_order,
+        "position_reference": "tracker_origin_displacement_from_first_valid_frame",
+        "orientation_reference": "spatial_delta_from_first_valid_frame",
+        "anchor": "startup_wrist_pose",
+        "T_ET_applied": False,
+        "T_BW_translation_applied": False,
+        "source_frame_requirement": "recording and calibration world axes must agree",
+    }
+    print(f"Tracker 标定文件: {args.tracker_mapping_info['calibration_file']}")
+    print(f"标定 SHA256: {calibration['sha256']}")
+    print(f"Tracker 四元数解释: {quaternion_format}；HDF5 原始数据保持不变。")
+    print("映射: 新标定 R_BW 同时转换相对平移与旋转；首帧锚定准备/启动腕位姿。")
+    print("采集地图与标定地图的坐标轴须一致；真人腕部旧数据不套用机器人 T_ET 安装平移。")
+    return delta
+
+
+def check_tracker_mapping_robot(args: argparse.Namespace, robot_id: str) -> None:
+    expected = getattr(args, "tracker_mapping_info", {}).get("robot_id")
+    if expected and expected != robot_id:
+        raise RuntimeError(f"标定针对机器人 {expected}，当前连接 {robot_id}，不发送运动")
+
+
 def sample_relative_trajectory(
     trajectory: TrackerTrajectory,
     delta_positions: np.ndarray,
     delta_quaternions: np.ndarray,
     output_rate: float,
     speed: float,
+    interpolation: str = "linear",
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """保持发送时钟；none仅选择已到期的原帧，不生成帧间位姿。"""
     if output_rate <= 0 or speed <= 0:
         raise ValueError("--rate and --speed must be positive")
+    if interpolation not in ("linear", "none"):
+        raise ValueError("--interpolation must be linear or none")
     replay_duration = trajectory.duration_s / speed
     count = max(2, int(math.ceil(replay_duration * output_rate)) + 1)
     replay_times = np.linspace(0.0, replay_duration, count)
+    if interpolation == "none":
+        # 原帧在到期后的首个发送周期生效，不提前采用下一帧；末帧不受浮点误差影响。
+        source_due = trajectory.timestamps_s / speed
+        indices = np.searchsorted(source_due, replay_times, side="right") - 1
+        indices = np.clip(indices, 0, len(source_due) - 1)
+        indices[-1] = len(source_due) - 1
+        if len(np.unique(indices)) != len(source_due):
+            raise ValueError("不插值模式的发送频率不足以覆盖全部原始Tracker帧；"
+                             "请降低 --speed 或提高 --rate，不会静默跳帧")
+        return (replay_times, delta_positions[indices].copy(),
+                delta_quaternions[indices].copy())
     source_times = replay_times * speed
     output_positions = np.column_stack(
         [np.interp(source_times, trajectory.timestamps_s, delta_positions[:, i])
@@ -512,6 +649,8 @@ class Tron2JsonClient:
         self._pose_probe_sent_at = 0.0
         self._pose_samples: list[PoseSample] = []
         self._pose_probe_error: Optional[str] = None
+        # 同步位姿查询与异步 ServoP 探测分开登记，避免正常快照被误记为未匹配回复。
+        self._snapshot_pose_guids: set[str] = set()
         self.robot.subscribeJsonMessage(self._on_message)
 
     def _on_message(self, payload: str) -> None:
@@ -532,7 +671,7 @@ class Tron2JsonClient:
                         self.accid = incoming_accid
                         self._robot_identity_ready = True
             self._messages.append(message)
-            if title.lower() == "notify_servop":
+            if title.lower() in {"notify_servop", "notify_servoj"}:
                 data = message.get("data", {})
                 result = data.get("result", "unknown failure") if isinstance(data, dict) else data
                 if result != "success":
@@ -553,7 +692,8 @@ class Tron2JsonClient:
                             robot_timestamp_ms=message.get("data", {}).get("timestamp"),
                             **pose_for_trace(pose),
                         )
-            elif title == "response_get_servo_pose" and self.trace is not None:
+            elif (title == "response_get_servo_pose" and self.trace is not None
+                  and message.get("guid") not in getattr(self, "_snapshot_pose_guids", set())):
                 reply_data = message.get("data")
                 self.trace.record(
                     "pose_probe_unmatched_reply",
@@ -576,6 +716,10 @@ class Tron2JsonClient:
                 raise RuntimeError(self._robot_identity_error)
 
     def send(self, title: str, data: object, *, guid: Optional[str] = None) -> str:
+        # 已观察到 ServoJ 发送值与真机电机目标不一致；本回放客户端禁止
+        # 再走该入口，不能仅改变默认参数而留下可误触的真机发送分支。
+        if title == "request_servoj":
+            raise RuntimeError("ServoJ 回放已停用：真机目标限幅异常尚未解决；仅支持 ServoP")
         if self._robot_identity_error:
             raise RuntimeError(self._robot_identity_error)
         if not self._robot_identity_ready:
@@ -604,24 +748,69 @@ class Tron2JsonClient:
     def request(
         self, title: str, data: dict, response_title: str, timeout: float = 3.0
     ) -> dict:
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError("request timeout must be finite and positive")
+        # 只对白名单里的无副作用查询重试。MoveJ/MoveH/ServoP 及其它命令
+        # 即使超时也绝不自动重发，否则可能重复触发已经被机器人接受的运动。
+        retry_read = not data and {
+            "request_get_servo_pose": "response_get_servo_pose",
+            "request_get_move_pose": "response_get_move_pose",
+            "request_get_joint_state": "response_get_joint_state",
+        }.get(title) == response_title
         with self._condition:
             start = len(self._messages)
-            guid = self.send(title, data)
             # 其他客户端的腕部位姿回复也会被广播，因此按 GUID 匹配；
-            # 厂商的其他回复不一定回传 GUID，仍按消息类型匹配。
+            # joint_state 若带 GUID 也核对；旧固件不带 GUID 时保留类型匹配。
             correlate_guid = response_title in {
                 "response_get_move_pose", "response_get_servo_pose"
             }
             deadline = time.monotonic() + timeout
-            while True:
-                for message in self._messages[start:]:
-                    if (message.get("title") == response_title
-                            and (not correlate_guid or message.get("guid") == guid)):
-                        return message
-                remaining = deadline - time.monotonic()
-                if remaining <= 0:
-                    raise TimeoutError(f"no {response_title} within {timeout:.1f}s")
-                self._condition.wait(remaining)
+            if not hasattr(self, "_snapshot_pose_guids"):
+                self._snapshot_pose_guids = set()
+            guid = None
+            attempts = 0
+            next_query_at = time.monotonic()
+            try:
+                while True:
+                    now = time.monotonic()
+                    if now >= deadline:
+                        if retry_read and self.trace is not None:
+                            self.trace.record("snapshot_query_timeout", request=title,
+                                              attempts=attempts, timeout_s=timeout)
+                        raise TimeoutError(f"no {response_title} within {timeout:.1f}s")
+                    for message in self._messages[start:]:
+                        if message.get("title") != response_title:
+                            continue
+                        strict_guid = correlate_guid or (retry_read and bool(message.get("guid")))
+                        if not strict_guid or message.get("guid") == guid:
+                            if retry_read and attempts > 1 and self.trace is not None:
+                                self.trace.record("snapshot_query_recovered", request=title,
+                                                  attempts=attempts, request_guid=guid)
+                            return message
+                    start = len(self._messages)
+                    if attempts == 0 or (retry_read and now >= next_query_at):
+                        if guid is not None:
+                            self._snapshot_pose_guids.discard(guid)
+                        guid = uuid.uuid4().hex
+                        if correlate_guid:
+                            self._snapshot_pose_guids.add(guid)
+                        attempts += 1
+                        if retry_read and self.trace is not None:
+                            self.trace.record("snapshot_query_sent", request=title, guid=guid,
+                                              attempt=attempts,
+                                              remaining_s=max(0., deadline - now))
+                        self.send(title, data, guid=guid)
+                        next_query_at = time.monotonic() + SNAPSHOT_RETRY_INTERVAL_SECONDS
+                        # 回调可能在发送调用内已经到达，先扫描回复再等待。
+                        continue
+                    remaining = deadline - time.monotonic()
+                    if retry_read:
+                        remaining = min(remaining, next_query_at - time.monotonic())
+                    if remaining > 0:
+                        self._condition.wait(remaining)
+            finally:
+                if guid is not None:
+                    self._snapshot_pose_guids.discard(guid)
 
     def current_pose(self, label: str = "snapshot") -> DualArmPose:
         response = self.request(
@@ -722,9 +911,33 @@ def check_workspace(side: str, positions: np.ndarray) -> None:
     if np.any(outside):
         index = int(np.flatnonzero(outside)[0])
         raise ValueError(
-            f"{side} target {index} outside documented workspace: "
+            f"{side} target {index} outside conservative workspace (MoveP reference): "
             f"{positions[index].round(4).tolist()}"
         )
+
+
+def check_servop_hold_position(side: str, position: np.ndarray) -> None:
+    """右保持臂只核对有效坐标；不将 MoveP 参考范围作为左臂执行条件。"""
+    if side not in WORKSPACE:
+        raise ValueError(f"unknown held arm: {side}")
+    position = np.asarray(position, dtype=float)
+    if position.shape != (3,) or not np.isfinite(position).all():
+        raise ValueError(f"ServoP 保持臂 {side} 的腕位置必须为三个有限坐标")
+    if side == "right":
+        # 用户仅规划左臂；右腕目标仍来自本次启动读数。这里只取消并未
+        # 验证适用于 ServoP 的右腕 MoveP 包围盒检查，不修改真实反馈
+        # 偏移/姿态/超时检查，不意味着此保持姿态已通过真机验证。
+        return
+    try:
+        check_workspace(side, position[None, :])
+    except ValueError as exc:
+        raise ValueError(
+            f"ServoP 保持臂 {side} 的当前腕位置未通过保守工作空间预检："
+            f"{np.asarray(position).round(4).tolist()} m。"
+            "该参考范围取自 MoveP 文档，并不证明 ServoP 必然不支持此姿态；"
+            "但当前固件在此位置的保持行为尚未验证，因此不发送轨迹，"
+            "不会自动抬臂、归位或切换 ServoJ"
+        ) from exc
 
 
 def print_summary(
@@ -746,6 +959,10 @@ def print_summary(
         f"重放: {side} 臂, {len(replay_times)} 帧 @ {args.rate:g}Hz, "
         f"时长 {replay_times[-1]:.3f}s, 速度 {args.speed:g}x"
     )
+    print(f"Tracker目标插值: {args.interpolation}；原始有效帧 {len(trajectory.timestamps_s)}")
+    if args.interpolation == "none":
+        print("不生成帧间位姿；原帧按时间戳到期更新，发送周期内重复上一帧。")
+        print(f"原帧最大平移目标阶跃: {np.linalg.norm(np.diff(delta_positions, axis=0), axis=1).max()*1000:.2f}mm")
     print(
         "相对平移范围 (m): min="
         f"{delta_positions.min(axis=0).round(4).tolist()}, max="
@@ -753,7 +970,8 @@ def print_summary(
     )
     print(
         f"最大位移 {displacement_norms.max():.4f}m; "
-        f"最大相对转角 {angles_deg.max():.2f}deg; axis-map={args.axis_map}"
+        f"最大相对转角 {angles_deg.max():.2f}deg; "
+        f"mapping={getattr(args, 'tracker_mapping_info', {}).get('mode', args.axis_map)}"
     )
     if args.execute:
         mode = (
@@ -1032,6 +1250,24 @@ def execute_replay(
     confirmation_word: str = "DIRECT",
     hand_replay: HandReplaySession | None = None,
 ) -> bool:
+    if getattr(args,'pose_compensation',False):
+        from tron2_pose_replay import execute_pose_compensated_replay
+        return execute_pose_compensated_replay(client,anchor,side,replay_times,delta_positions,delta_quaternions,args,
+            confirmation_word=confirmation_word,hand_replay=hand_replay)
+    if getattr(args, 'settle_handover', False) and not getattr(args, 'z_compensation', False):
+        raise ValueError('--settle-handover 必须显式配合 --z-compensation')
+    if getattr(args, 'z_adaptation', 'stationary') != 'stationary' and not getattr(args, 'z_compensation', False):
+        raise ValueError('--z-adaptation continuous 必须显式配合 --z-compensation')
+    if getattr(args, 'z_compensation', False):
+        from tron2_z_replay import execute_z_compensated_replay
+        return execute_z_compensated_replay(
+            client, anchor, side, replay_times, delta_positions, delta_quaternions, args,
+            confirmation_word=confirmation_word, hand_replay=hand_replay,
+        )
+    control = getattr(args, "arm_control", "servop")
+    if control != "servop":
+        raise ValueError("回放仅支持 ServoP；ServoJ 因真机目标限幅异常已停用")
+    control_label = "ServoP 双腕轨迹"
     if side == "left":
         anchor_position, anchor_quaternion = anchor.left_position, anchor.left_quaternion
     else:
@@ -1041,9 +1277,12 @@ def execute_replay(
         [anchor_position + delta for delta in delta_positions], dtype=np.float64
     )
     check_workspace(side, target_positions)
+    held_side = "right" if side == "left" else "left"
+    # 在用户确认、O6 接管和倒计时前检查，不能到发送首帧时才发现保持臂未验证。
+    check_servop_hold_position(held_side, getattr(anchor, f"{held_side}_position"))
 
     answer = input(
-        "将向 TRON2 双臂发送 ServoP，直接回放 Tracker 轨迹"
+        f"将向 TRON2 发送 {control_label}，回放 Tracker 轨迹"
         + ("，并同步回放 O6 左手" if hand_replay is not None else "") + "。"
         + f"输入 {confirmation_word} 继续: "
     )
@@ -1059,7 +1298,7 @@ def execute_replay(
     )
     for remaining in range(args.countdown, 0, -1):
         print(
-            f"\r{remaining:2d}s 后开始 ServoP 直接轨迹；"
+            f"\r{remaining:2d}s 后开始 {control_label}；"
             "请离开电脑并拿好遥控器急停...",
             end="",
             flush=True,
@@ -1069,18 +1308,24 @@ def execute_replay(
     check_anchor_stable(anchor, pre_start_move)
     servo_anchor = client.current_servo_pose(label="pre_start_servo")
     check_anchor_stable(pre_start_move, servo_anchor)
-    _, pre_start_dq = client.joint_snapshot(label="pre_replay")
+    pre_start_q, pre_start_dq = client.joint_snapshot(label="pre_replay")
     if float(np.max(np.abs(pre_start_dq[:14]))) > 0.05:
         raise RuntimeError("双臂关节仍在运动，取消直接回放")
     anchor = servo_anchor
     anchor_position = getattr(anchor, f"{side}_position")
     anchor_quaternion = getattr(anchor, f"{side}_quaternion")
-    held_side = "right" if side == "left" else "left"
     target_positions = anchor_position[None, :] + delta_positions
     check_workspace(side, target_positions)
-    check_workspace(
-        held_side, getattr(anchor, f"{held_side}_position")[None, :]
-    )
+    check_servop_hold_position(held_side, getattr(anchor, f"{held_side}_position"))
+    if client.trace is not None:
+        client.trace.record("replay_contract", **SERVOP_ACTION_CONTRACT,
+                            moving_arm=side, held_arm=held_side,
+                            tracker_interpolation=getattr(args, "interpolation", "linear"),
+                            tracker_mapping=getattr(args, "tracker_mapping_info", None),
+                            with_o6_hand=hand_replay is not None,
+                            head_start_rad=(pre_start_q[14:16].tolist()
+                                            if len(pre_start_q) >= 16 else None),
+                            **pose_for_trace(anchor))
     guard = FeedbackGuard(
         anchor, side, feedback_timeout_s=args.feedback_timeout,
     )
@@ -1097,20 +1342,22 @@ def execute_replay(
             hand_replay.require_healthy()
         failure = client.failure()
         if failure:
-            raise RuntimeError(f"TRON2 ServoP rejected the trajectory: {failure}")
+            raise RuntimeError(f"TRON2 {control.upper()} rejected the trajectory: {failure}")
         moving = np.concatenate((moving_position, moving_quaternion))
         held = np.concatenate((
             getattr(anchor, f"{held_side}_position"),
             getattr(anchor, f"{held_side}_quaternion"),
         ))
         left, right = (moving, held) if side == "left" else (held, moving)
+        # 只包含双腕 XYZ+WXYZ；头部既不进入模型动作，也不进入该运动报文。
         client.send("request_servop", servop_data(left, right))
         now = time.monotonic()
         if now >= next_probe_at:
             client.probe_pose()
             next_probe_at = now + FEEDBACK_INTERVAL_SECONDS
+        latest = client.latest_pose_sample()
         guard.observe(
-            client.latest_pose_sample(), moving_position, moving_quaternion,
+            latest, moving_position, moving_quaternion,
             current_phase,
         )
         guard.require_fresh(now)
@@ -1158,10 +1405,11 @@ def execute_replay(
             hand_replay.start_at(start_ns)
             start = start_ns / 1e9
         else:
-            start = time.monotonic()
+            start_ns = time.monotonic_ns()
+            start = start_ns / 1e9
         if client.trace is not None:
             client.trace.record("replay_start", side=side,
-                                start_monotonic_ns=int(start * 1e9))
+                                start_monotonic_ns=start_ns, arm_control="servop")
         if getattr(args, "web_control", False):
             print('ROBOT_REPLAY_EVENT {"phase":"replaying"}', flush=True)
         print("开始直接回放 Tracker 轨迹。请持续观察机器人。")
@@ -1197,7 +1445,7 @@ def execute_replay(
         if client.trace is not None:
             client.trace.record("control_abort", phase=phase, message=str(exc))
         print(
-            f"已停止发送后续 ServoP：{exc}。如机器人仍异常运动，请立即使用实体急停。",
+            f"已停止发送后续 {control.upper()}：{exc}。如机器人仍异常运动，请立即使用实体急停。",
             file=sys.stderr, flush=True,
         )
         # 只读记录中止后的状态；记录失败不能掩盖原始超限原因。
@@ -1214,7 +1462,7 @@ def execute_replay(
     try:
         failure = client.failure()
         if failure:
-            raise RuntimeError(f"TRON2 ServoP rejected the trajectory: {failure}")
+            raise RuntimeError(f"TRON2 {control.upper()} rejected the trajectory: {failure}")
         observe_after_stop(moving_position, moving_quaternion, "trajectory")
         final_pose = client.current_servo_pose(label="final")
         _, final_dq = client.joint_snapshot(label="post_replay")
@@ -1235,10 +1483,22 @@ def execute_replay(
     )
 
 
-def main() -> int:
-    args = parse_args()
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
     trace: Optional[TraceRecorder] = None
     try:
+        validate_tracker_mapping_arguments(args)
+        if args.settle_handover and not args.z_compensation:
+            raise ValueError('--settle-handover 必须显式配合 --z-compensation')
+        if args.z_adaptation != 'stationary' and not args.z_compensation:
+            raise ValueError('--z-adaptation continuous 必须显式配合 --z-compensation')
+        if (not math.isfinite(args.z_max_correction_mm)
+                or not 5 <= args.z_max_correction_mm <= 20):
+            raise ValueError('--z-max-correction-mm 必须为5至20之间的有限数值')
+        if not args.z_compensation and args.z_max_correction_mm != 20.:
+            raise ValueError('修改Z修正上限时须同时指定 --z-compensation')
+        if args.z_compensation and (args.rate != 300. or args.arm == 'right'):
+            raise ValueError('Z位置修正仅支持300Hz左臂ServoP')
         if not math.isfinite(args.feedback_timeout) or not (
             FEEDBACK_TIMEOUT_SECONDS <= args.feedback_timeout <= 3.0
         ):
@@ -1258,18 +1518,9 @@ def main() -> int:
                 "live robot modes require an explicit --arm left or right"
             )
         side = args.arm or trajectory.hand_side
-        if live_mode and args.axis_map is None:
-            raise ValueError(
-                "live robot modes require an explicit --axis-map; "
-                "calibrate tracker axes first"
-            )
-        args.axis_map = args.axis_map or "x,y,z"
-        axis_map = parse_axis_map(args.axis_map)
-        delta_positions, delta_quaternions, angles_deg = relative_motion(
-            trajectory,
-            axis_map,
-            args.scale,
-            args.orientation_scale,
+        delta_positions, delta_quaternions, angles_deg = prepare_tracker_motion(
+            trajectory, args, side, default_axis_map="x,y,z",
+            require_explicit_axes=live_mode,
         )
         max_displacement = float(np.linalg.norm(delta_positions, axis=1).max())
         if max_displacement > args.max_displacement:
@@ -1289,6 +1540,7 @@ def main() -> int:
                 delta_quaternions,
                 args.rate,
                 args.speed,
+                args.interpolation,
             )
         )
         print_summary(
@@ -1303,8 +1555,10 @@ def main() -> int:
             trace.record(
                 "plan", episode=str(trajectory.source), side=side,
                 axis_map=args.axis_map, scale=args.scale,
+                tracker_mapping=args.tracker_mapping_info,
                 orientation_scale=args.orientation_scale,
                 speed=args.speed, rate=args.rate,
+                tracker_interpolation=args.interpolation,
                 max_displacement_m=max_displacement,
                 expected_final_delta_m=sampled_positions[-1].tolist(),
                 direct_replay=args.execute,
@@ -1316,6 +1570,7 @@ def main() -> int:
             print(f"记录文件: {trace.path}")
         client = Tron2JsonClient(args.robot_ip, trace=trace)
         client.wait_for_identity()
+        check_tracker_mapping_robot(args, client.accid)
         anchor = client.current_pose(label="anchor")
         anchor_position = (
             anchor.left_position if side == "left" else anchor.right_position

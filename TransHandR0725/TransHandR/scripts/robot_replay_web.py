@@ -103,6 +103,7 @@ class RobotReplayManager:
 
     def _command(self, path: Path, options: dict[str, Any], execute: bool) -> list[str]:
         cmd = [self.python, "-u", str(REPLAY_SCRIPT), "--file", str(path),
+               "--arm-control", "servop", "--orientation-scale", "0",
                "--axis-map", options["axis_map"], "--scale", str(options["scale"]),
                "--speed", str(options["speed"]),
                "--max-displacement", str(options["max_displacement"]),
@@ -134,6 +135,7 @@ class RobotReplayManager:
     def status(self) -> dict[str, Any]:
         with self.lock:
             return {"phase": self.phase, "kind": self.task_kind,
+                    "arm_control": "servop",
                     "o6_can": self.o6_can,
                     "id": self.episode_id,
                     "exit_code": self.exit_code, "trace_file": self.trace_file,

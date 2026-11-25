@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { STLLoader } from '/assets/vendor/STLLoader.js';
 import { OrbitControls } from '/assets/vendor/OrbitControls.js';
 
-const URDF_URL = '/assets/o6/linkerhand_o6_left.urdf';
+const MODEL_ROOT = '/assets/o6';
 const COMMAND_JOINTS = [
   'thumb_cmc_pitch', 'thumb_cmc_yaw', 'index_mcp_pitch',
   'middle_mcp_pitch', 'ring_mcp_pitch', 'pinky_mcp_pitch',
@@ -336,6 +336,7 @@ class O6HandViewer {
     this.active = false;
     this.ready = false;
     this.loading = null;
+    this.side = 'left';
     this.joints = new Map();
     this.targetAngles = new Map();
     this.distalMeshes = new Map();
@@ -352,7 +353,8 @@ class O6HandViewer {
       ? PALM_PREVIEW : '';
   }
 
-  setVisible(visible) {
+  setVisible(visible, side = 'left') {
+    this.side = side === 'right' ? 'right' : 'left';
     this.active = visible;
     if (visible && !this.loading) this.loading = this.init();
   }
@@ -401,7 +403,7 @@ class O6HandViewer {
   }
 
   async loadUrdf() {
-    const response = await fetch(URDF_URL);
+    const response = await fetch(`${MODEL_ROOT}/${this.side}/linkerhand_o6_${this.side}.urdf`);
     if (!response.ok) throw new Error(`URDF ${response.status}`);
     const documentXml = new DOMParser().parseFromString(await response.text(), 'application/xml');
     if (documentXml.querySelector('parsererror')) throw new Error('invalid O6 URDF');
@@ -422,7 +424,7 @@ class O6HandViewer {
         applyOrigin(visualGroup, visual.querySelector(':scope > origin'));
         link.add(visualGroup);
         const filename = meshXml.getAttribute('filename').replace(/^\.\//, '');
-        const url = `/assets/o6/${filename}`;
+        const url = `/assets/o6/${this.side}/${filename}`;
         meshJobs.push(loader.loadAsync(url).then((geometry) => {
           geometry.computeVertexNormals();
           const material = new THREE.MeshStandardMaterial({
@@ -734,7 +736,7 @@ const container = document.getElementById('o6HandModel');
 const status = document.getElementById('o6ModelState');
 const viewer = new O6HandViewer(container, status);
 window.o6HandViewer = {
-  setVisible: (visible) => viewer.setVisible(Boolean(visible)),
+  setVisible: (visible, side) => viewer.setVisible(Boolean(visible), side),
   update: (data) => viewer.update(data),
   resetCamera: () => viewer.resetCamera(),
 };

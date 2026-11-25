@@ -1,0 +1,16 @@
+# Temporal sweep: 6.25 s ACT horizon at 20 Hz.
+data_root: /home/zmy/workplace/insert-data/transhandr_demo/o6
+foreground_root: /home/zmy/Projects/Dexumi/artifacts/top_foreground_pipeline_20261116/batch_foreground
+allow_experimental_foreground: true
+deduplicate_identical_timestamps: true
+task: cup_stacking_top_foreground_experiment
+episodes: [66, 67, 72, 73, 74, 75, 77, 78, 82, 83, 84, 85, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+calibration: /home/zmy/Projects/Dexumi/tracker_calibrations/left_mapping_final_20261027/calibration.json
+quaternion_format: pyvut-legacy
+time_scale: 0.4
+action_hz: 20.0
+chunk_size: 125
+history_steps: 2
+image_size: [480, 640]
+seed: 0
+device: cuda

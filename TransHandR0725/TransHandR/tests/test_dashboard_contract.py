@@ -5,6 +5,21 @@ ROOT = Path(__file__).resolve().parents[1]
 DASHBOARD = ROOT / "scripts" / "dashboard"
 
 
+def test_robot_preparation_describes_left_only_and_unvalidated_o6_start():
+    html = (DASHBOARD / "index.html").read_text(encoding="utf-8")
+    assert "只准备左臂" in html
+    assert "不自动归位" in html
+    assert "已在正式起点" in html
+    assert "固定使用 ServoP" in html
+    assert "不发送头部目标" in html
+    assert "右腕不做 MoveP 工作空间验收" in html
+    assert "沿基座 Z 抬高 8 cm" in html
+    assert "新高度尚未实测" in html
+    assert "ServoJ 因真机目标限幅异常已停用" in html
+    assert "左臂 IK + ServoJ" not in html
+    assert "双臂 MoveJ 到保存起点" not in html
+
+
 def test_source_specific_visuals_and_single_channel_selector():
     html = (DASHBOARD / "index.html").read_text(encoding="utf-8")
     javascript = (DASHBOARD / "dashboard.js").read_text(encoding="utf-8")

@@ -25,10 +25,10 @@ serial:
   exclude_ports: []
   left:
     baudrate: 2000000
-    port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.4.1:1.0-port0
+    port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
   right:
     baudrate: 2000000
-    port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.2:1.0-port0
+    port: /dev/ttyUSB0
   serial_debug: false
 system:
   can:

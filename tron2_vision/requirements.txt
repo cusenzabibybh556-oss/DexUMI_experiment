@@ -1,0 +1,2 @@
+-r ../tron2_act/requirements.txt
+Pillow>=9,<13

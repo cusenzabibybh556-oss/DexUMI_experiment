@@ -21,10 +21,10 @@ from PIL import Image
 
 
 ASSET_DIR = Path(__file__).with_name("dashboard")
-O6_MODEL_DIR = (
+O6_MODEL_ROOT = (
     Path(__file__).resolve().parents[3]
     / "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/linkerhand_retarget"
-    / "assets/robots/hands/linker_hand/o6_left"
+    / "assets/robots/hands/linker_hand"
 ).resolve()
 INSPIRE_MODEL_ROOT = (
     Path(__file__).resolve().parents[1] / "dataset/robot/inspire_hand"
@@ -77,6 +77,7 @@ class DashboardServer:
         self.system_control = system_control
         self.calibration_control = calibration_control
         self.robot_replay = robot_replay
+        self.wrist_calibration = None
         self.httpd: Optional[ThreadingHTTPServer] = None
 
     def _resolve_episode(self, episode_id: str) -> Path:
@@ -180,10 +181,11 @@ class DashboardServer:
 
             def do_GET(self) -> None:
                 parsed = urlparse(self.path); path, query = parsed.path, parse_qs(parsed.query)
-                if path in ("/", "/overview", "/data"):
+                if path in ("/", "/overview", "/data", "/wrist-calibration"):
                     return self._send((ASSET_DIR / "index.html").read_bytes(), "text/html; charset=utf-8")
                 assets = {"/assets/dashboard.css": ("dashboard.css", "text/css; charset=utf-8"),
                           "/assets/dashboard.js": ("dashboard.js", "application/javascript; charset=utf-8"),
+                          "/assets/wrist_calibration.js": ("wrist_calibration.js", "application/javascript; charset=utf-8"),
                           "/assets/inspire_hand_viewer.js": ("inspire_hand_viewer.js", "application/javascript; charset=utf-8"),
                           "/assets/o6_hand_viewer.js": ("o6_hand_viewer.js", "application/javascript; charset=utf-8"),
                           "/assets/vendor/three.module.min.js": ("vendor/three.module.min.js", "application/javascript"),
@@ -198,8 +200,11 @@ class DashboardServer:
                     })
                 if path.startswith("/assets/o6/"):
                     relative = path.removeprefix("/assets/o6/")
-                    model_asset = (O6_MODEL_DIR / relative).resolve()
-                    if O6_MODEL_DIR not in model_asset.parents or not model_asset.is_file():
+                    side, separator, asset_name = relative.partition("/")
+                    model_root = (O6_MODEL_ROOT / f"o6_{side}") if side in {"left", "right"} and separator else None
+                    model_asset = (model_root / asset_name).resolve() if model_root else None
+                    if (model_asset is None or model_root not in model_asset.parents
+                            or not model_asset.is_file()):
                         return self._send(b"not found", "text/plain", HTTPStatus.NOT_FOUND)
                     mime = "model/stl" if model_asset.suffix.lower() == ".stl" else "application/xml"
                     return self._send(model_asset.read_bytes(), mime, extra={
@@ -229,6 +234,27 @@ class DashboardServer:
                 if path == "/api/system/config" and owner.system_config_provider:
                     return self._json(owner.system_config_provider())
                 if path == "/api/episodes": return self._json({"episodes": owner._episodes()})
+                if path == "/api/wrist-calibration/status":
+                    if owner.wrist_calibration is None:
+                        return self._json({"enabled": False, "phase": "unavailable"})
+                    return self._json({"local": ipaddress.ip_address(self.client_address[0]).is_loopback,
+                                       **owner.wrist_calibration.status()})
+                if path == "/api/wrist-calibration/download":
+                    if owner.wrist_calibration is None:
+                        return self._json({"error": "腕部采集未启用"}, 404)
+                    try:
+                        return self._send(owner.wrist_calibration.export(), "application/x-ndjson", extra={
+                            "Content-Disposition": 'attachment; filename="wrist_calibration_samples.jsonl"'})
+                    except (ValueError, FileNotFoundError, OSError) as exc:
+                        return self._json({"error": str(exc)}, 404)
+                if path == "/api/wrist-calibration/solution-download":
+                    if owner.wrist_calibration is None:
+                        return self._json({"error": "腕部采集未启用"}, 404)
+                    try:
+                        return self._send(owner.wrist_calibration.export_solution(), "application/zip", extra={
+                            "Content-Disposition": 'attachment; filename="wrist_calibration_solution.zip"'})
+                    except (ValueError, FileNotFoundError, OSError) as exc:
+                        return self._json({"error": str(exc)}, 404)
                 if path == "/api/robot-replay/status":
                     if owner.robot_replay is None:
                         return self._json({"enabled": False, "phase": "unavailable"})
@@ -285,6 +311,15 @@ class DashboardServer:
 
             def do_POST(self) -> None:
                 path = urlparse(self.path).path
+                if path.startswith("/api/wrist-calibration/"):
+                    if owner.wrist_calibration is None:
+                        return self._json({"error": "腕部采集未启用"}, 404)
+                    if not self._local_robot_request():
+                        return self._json({"error": "设备连接与采样仅允许本机同源网页操作"}, 403)
+                    try:
+                        return self._json(owner.wrist_calibration.command(path.rsplit("/", 1)[-1], self._payload()))
+                    except (ValueError, RuntimeError, OSError) as exc:
+                        return self._json({"error": str(exc)}, 409)
                 if path.startswith("/api/robot-replay/"):
                     if owner.robot_replay is None:
                         return self._json({"error": "真机回放服务未启用"}, 404)
@@ -326,6 +361,8 @@ class DashboardServer:
         threading.Thread(target=self.httpd.serve_forever, name="dashboard", daemon=True).start()
 
     def stop(self) -> None:
+        if self.wrist_calibration is not None:
+            self.wrist_calibration.shutdown()
         if self.robot_replay is not None:
             self.robot_replay.shutdown()
         if self.httpd: self.httpd.shutdown(); self.httpd.server_close()

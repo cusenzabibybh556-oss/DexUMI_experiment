@@ -44,6 +44,7 @@ from teleoperation_profiles import get_profile, public_profiles
 from collect_transhandr_multisource import RECORD_CHANNELS, RecorderApp
 from realtime_multisource_dashboard import DashboardServer
 from robot_replay_web import RobotReplayManager
+from wrist_calibration_web import WristCalibrationManager
 from linkerhand_retarget.motion.linkerforce.calibration_store import CalibrationStore
 
 
@@ -122,11 +123,21 @@ class TeleoperationPlatform:
             Path(self.config["recording_dir"]), self.system_config, self.update_system_config,
             self.system_control, self.calibration_control,
         )
+        self.dashboard.wrist_calibration = WristCalibrationManager(
+            self._allow_wrist_capture,
+            (DEXUMI_ROOT if mode == "hardware" else self.output_dir) / "tracker_calibrations",
+            mock=mode == "mock",
+        )
         if mode == "hardware":
             self.dashboard.robot_replay = RobotReplayManager(
                 self.dashboard._resolve_episode, self._allow_robot_replay,
                 can_start_o6_bridge=self._allow_replay_only_o6_bridge,
             )
+
+    def _allow_wrist_capture(self) -> None:
+        with self.lock:
+            if self.state != "STOPPED" or self.recorder is not None:
+                raise RuntimeError("请先停止采集系统，再独立连接腕部标定设备，避免重复占用 Tracker")
 
     def _allow_robot_replay(self) -> None:
         with self.lock:
@@ -152,7 +163,7 @@ class TeleoperationPlatform:
             fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as exc:
             handle.close()
-            raise RuntimeError("真机恢复/回放正在运行，不能启动或清理平台设备进程") from exc
+            raise RuntimeError("真机恢复/回放或腕部标定采集正在运行，不能启动或清理平台设备进程") from exc
         return handle
 
     def _load_config(self) -> Dict[str, Any]:
@@ -495,7 +506,9 @@ class TeleoperationPlatform:
         required = [c["d405_serial"]]
         if "d435i" in selected:
             required.append(c["d435i_serial"])
-        missing = [serial for serial in required if serial and serial not in serials]
+        allow_missing_d405 = c["control_source"] == "linkerforce" and c["target_hand_model"] == "o6"
+        missing = [serial for serial in required
+                   if serial and serial not in serials and not (allow_missing_d405 and serial == c["d405_serial"])]
         if missing:
             raise RuntimeError("未找到相机: " + ", ".join(missing))
         if c["control_source"] == "linkerforce":
@@ -547,7 +560,8 @@ class TeleoperationPlatform:
             hand_serial_port=c["hand_serial"], hand_can_interface=c["can_interface"],
             enable_exoskeleton_operator=exo, enable_tactile=profile.tactile_shape is not None,
             enable_inspire_force=exo and c["target_hand_model"] == "inspire",
-            d405_serial=c["d405_serial"], enable_head_camera="d435i" in selected,
+            d405_serial=c["d405_serial"], allow_missing_d405=(exo and c["target_hand_model"] == "o6"),
+            enable_head_camera="d435i" in selected,
             head_camera_serial=c["d435i_serial"], enable_vive_tracker="vive_tracker" in selected,
             tracker_mode="DONGLE_USB", output_dir=c["recording_dir"], task_name=c["task_name"],
             enable_realtime_dashboard=False, selected_channels=selected,
@@ -784,6 +798,8 @@ class TeleoperationPlatform:
                 state="CANCELLED", instruction="标定已取消", error="")
 
     def start_system(self) -> None:
+        if self.dashboard.wrist_calibration.status()["active"]:
+            raise RuntimeError("请先结束腕部标定采集，再启动采集系统")
         with self._replay_boundary():
             self._start_system_unlocked()
 

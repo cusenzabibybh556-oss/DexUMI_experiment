@@ -1,0 +1,72 @@
+{
+  "schema": "tron2-act-cup-task-scene-v1",
+  "note": "Approximate initial appearance from train episode 73; scene geometry is not a real-world calibration. No demonstration frames or future states are supplied during rollout.",
+  "table_color": [
+    0.045,
+    0.05,
+    0.045
+  ],
+  "cup_positions": [
+    [
+      0.58,
+      0.275
+    ],
+    [
+      0.58,
+      -0.005
+    ]
+  ],
+  "cup_colors": [
+    [
+      0.72,
+      0.31,
+      0.28
+    ],
+    [
+      0.64,
+      0.57,
+      0.42
+    ]
+  ],
+  "cup_inner_colors": [
+    [
+      0.42,
+      0.1,
+      0.075
+    ],
+    [
+      0.32,
+      0.27,
+      0.17
+    ]
+  ],
+  "camera_position": [
+    0.2,
+    0.175,
+    1.55
+  ],
+  "camera_target": [
+    0.6,
+    0.175,
+    0.85
+  ],
+  "camera_up": [
+    1,
+    0,
+    1
+  ],
+  "camera_focal_length": 20.0,
+  "o6_mount_z_rotation_deg": -90.0,
+  "initial_o6_sdk": [
+    246.43234252929688,
+    185.39085388183594,
+    230.0,
+    211.0,
+    196.0,
+    179.0
+  ],
+  "initial_o6_source": "Median of first valid measured O6 observation of each of the 20 training episodes; no validation/test episode used",
+  "servo_preview_s": 0.0,
+  "servo_preview_note": "PhysX has no modeled 124ms command transport delay; feedback, feedforward and all correction/IK guards are retained",
+  "simulator_ik_solver": "bounded"
+}

@@ -1,0 +1,251 @@
+{
+  "independent_offline_recalculation": true,
+  "hardware_connected": false,
+  "refitted": false,
+  "sample_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/final_validation_20261027_231813/20261027_231814_43fd39f2/samples.jsonl",
+  "sample_sha256": "6834eee06862646cf0faeb7d793d0746310271074e21a4b5473a64edf0795f75",
+  "raw_sample_event_count": 13,
+  "accuracy_group_ids": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "normal_status2_group_ids": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "diagnostic_status18_group_ids": [
+    3,
+    10
+  ],
+  "excluded_start_transit_return_ids": [
+    1,
+    2,
+    12,
+    13
+  ],
+  "checks": {
+    "new_session_after_freeze": true,
+    "fit_rmse_mm": 8.03903281083448,
+    "ids_verified": true,
+    "sha_verified": true,
+    "per_group_and_summary_match_to_1e_minus9": true,
+    "mapping_identity_matches": true,
+    "all_matrices_unchanged": true,
+    "new_samples_not_in_fit_sources": true
+  },
+  "matrix_results": {
+    "frozen_candidate": {
+      "file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/offline_audit/global_multi_reference_calibration.json",
+      "sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5",
+      "sha_matches_frozen_record": true,
+      "statistics": {
+        "normal_status2_only": {
+          "count": 7,
+          "position_rmse_mm": 7.642281458594694,
+          "position_max_mm": 12.098841313356033,
+          "rotation_rmse_deg": 0.6253306082154333,
+          "rotation_max_deg": 0.8984733257477615
+        },
+        "including_status18_diagnostic_only": {
+          "count": 9,
+          "position_rmse_mm": 7.302675954509121,
+          "position_max_mm": 12.098841313356033,
+          "rotation_rmse_deg": 0.59775411260692,
+          "rotation_max_deg": 0.8984733257477615
+        }
+      },
+      "per_group_recomputed": [
+        {
+          "id": 3,
+          "raw_statuses": [
+            2,
+            18
+          ],
+          "position_mm": 5.371837328541594,
+          "angle_deg": 0.44200506678981916
+        },
+        {
+          "id": 4,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 2.894600963239687,
+          "angle_deg": 0.45837861944356184
+        },
+        {
+          "id": 5,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 10.677060640884733,
+          "angle_deg": 0.7264763389764024
+        },
+        {
+          "id": 6,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 9.92298501906926,
+          "angle_deg": 0.8984733257477615
+        },
+        {
+          "id": 7,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 3.707036841395136,
+          "angle_deg": 0.6153102497534417
+        },
+        {
+          "id": 8,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 12.098841313356033,
+          "angle_deg": 0.5898124450449417
+        },
+        {
+          "id": 9,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 2.5029984094092654,
+          "angle_deg": 0.641398736839648
+        },
+        {
+          "id": 10,
+          "raw_statuses": [
+            18
+          ],
+          "position_mm": 6.501829537762174,
+          "angle_deg": 0.5321209882920594
+        },
+        {
+          "id": 11,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 4.647387070788687,
+          "angle_deg": 0.2329327728353614
+        }
+      ],
+      "position_5mm_rmse_gate_passed": false
+    },
+    "original_comparison": {
+      "file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/solutions/dexumi_20261027_231249_f3644a9c/calibration.json",
+      "sha256": "c4226575530d17683c5caf710e339f90b3fe1271aad36a75c844582bd5547d09",
+      "sha_matches_frozen_record": true,
+      "statistics": {
+        "normal_status2_only": {
+          "count": 7,
+          "position_rmse_mm": 11.529953146556718,
+          "position_max_mm": 14.689562377897657,
+          "rotation_rmse_deg": 1.033510604725377,
+          "rotation_max_deg": 1.30233863944743
+        },
+        "including_status18_diagnostic_only": {
+          "count": 9,
+          "position_rmse_mm": 10.74247424646538,
+          "position_max_mm": 14.689562377897657,
+          "rotation_rmse_deg": 1.007050895088863,
+          "rotation_max_deg": 1.30233863944743
+        }
+      },
+      "per_group_recomputed": [
+        {
+          "id": 3,
+          "raw_statuses": [
+            2,
+            18
+          ],
+          "position_mm": 6.593062255803794,
+          "angle_deg": 0.7176953995156781
+        },
+        {
+          "id": 4,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 9.223444220419946,
+          "angle_deg": 0.8691380852693266
+        },
+        {
+          "id": 5,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 14.316239904275726,
+          "angle_deg": 1.30233863944743
+        },
+        {
+          "id": 6,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 13.203741813510042,
+          "angle_deg": 1.2613156797118756
+        },
+        {
+          "id": 7,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 10.59290447339736,
+          "angle_deg": 1.067862764598529
+        },
+        {
+          "id": 8,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 14.689562377897657,
+          "angle_deg": 1.0250701628975207
+        },
+        {
+          "id": 9,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 10.828666602091326,
+          "angle_deg": 0.9469700052170895
+        },
+        {
+          "id": 10,
+          "raw_statuses": [
+            18
+          ],
+          "position_mm": 8.034896986414376,
+          "angle_deg": 1.065489404287462
+        },
+        {
+          "id": 11,
+          "raw_statuses": [
+            2
+          ],
+          "position_mm": 4.578253199073594,
+          "angle_deg": 0.5888574445047291
+        }
+      ],
+      "position_5mm_rmse_gate_passed": false
+    }
+  },
+  "conclusion": "冻结候选在7组全新status2姿态上约7.64mm RMSE/12.10mm最大、0.63°RMSE；较原broad改善，但未通过5mm RMSE标准。只能描述当前采样区域约1cm级的系统一致性映射，不能宣称外部物理定位真值精度。",
+  "limitations": [
+    "其他2组保留原始status18作诊断，不计入正常精度。",
+    "机器人参考位姿来自实测关节角+官方模型FK，不是独立Cartesian真值。",
+    "相同地图与安装连续性由实验过程声明支持；矩阵只适用于当前安装与地图。",
+    "未把新验收数据用于拟合、参考组选择或尺度修正。"
+  ]
+}

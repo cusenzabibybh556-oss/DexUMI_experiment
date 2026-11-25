@@ -66,9 +66,11 @@ class CollectionConfig:
     enable_inspire_force: bool = False
 
     d405_serial: str = ""
-    image_width: int = 640
-    image_height: int = 480
-    camera_fps: int = 30
+    allow_missing_d405: bool = False
+    # Temporary USB2-safe D405 profile. Restore 640x480@30 after moving to USB3.
+    image_width: int = 480
+    image_height: int = 270
+    camera_fps: int = 15
     depth_aligned_to_color: bool = True
 
     enable_head_camera: bool = False

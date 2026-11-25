@@ -1,0 +1,461 @@
+{
+  "result": "completed",
+  "candidates": {
+    "frozen_candidate": {
+      "file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/offline_audit/global_multi_reference_calibration.json",
+      "sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5"
+    },
+    "original_comparison": {
+      "file": "/home/zmy/Projects/Dexumi/tracker_calibrations/broad_20261027_230150_0285f444/20261027_230152_25bc98b9/solutions/dexumi_20261027_231249_f3644a9c/calibration.json",
+      "sha256": "c4226575530d17683c5caf710e339f90b3fe1271aad36a75c844582bd5547d09"
+    }
+  },
+  "final_q_rad": [
+    -0.19669993221759796,
+    0.21269965171813965,
+    -0.043199896812438965,
+    -1.7113999128341675,
+    -1.170699954032898,
+    -0.11460001021623611,
+    -0.1171000674366951,
+    0.1192999929189682,
+    0.06360018253326416,
+    0.25060009956359863,
+    -0.10070020705461502,
+    -0.10159999877214432,
+    -0.33739978075027466,
+    0.08000001311302185,
+    0.949785053730011,
+    0.014100074768066406
+  ],
+  "final_dq_rad_s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "return_max_joint_error_deg": 0.65889468885279,
+  "sample_file": "/home/zmy/Projects/Dexumi/tracker_calibrations/final_validation_20261027_231813/20261027_231814_43fd39f2/samples.jsonl",
+  "validation_group_ids": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "rejected_groups": [],
+  "metrics": {
+    "frozen_candidate": {
+      "normal_status2_only": {
+        "count": 7,
+        "tracker_position_error_mm": {
+          "mean": 7.153224794869261,
+          "median": 4.693922401213676,
+          "rmse": 8.41151011866806,
+          "p95": 12.513330072298588,
+          "max": 12.578000292755558
+        },
+        "wrist_position_error_mm": {
+          "mean": 6.635844322591832,
+          "median": 4.647387070789133,
+          "rmse": 7.642281458594568,
+          "p95": 11.672307111614339,
+          "max": 12.098841313355667
+        },
+        "rotation_error_deg": {
+          "mean": 0.5946832126630183,
+          "median": 0.6153102497534454,
+          "rmse": 0.6253306082154344,
+          "p95": 0.8468742297163542,
+          "max": 0.8984733257477617
+        }
+      },
+      "including_status18_diagnostic_only": {
+        "count": 9,
+        "tracker_position_error_mm": {
+          "mean": 6.876858589232949,
+          "median": 5.748402607385597,
+          "rmse": 7.924453497973665,
+          "p95": 12.491773332146265,
+          "max": 12.578000292755558
+        },
+        "wrist_position_error_mm": {
+          "mean": 6.480508569383029,
+          "median": 5.371837328541873,
+          "rmse": 7.30267595450908,
+          "p95": 11.53012904436723,
+          "max": 12.098841313355667
+        },
+        "rotation_error_deg": {
+          "mean": 0.5707676159692218,
+          "median": 0.5898124450449437,
+          "rmse": 0.5977541126069199,
+          "p95": 0.8296745310392184,
+          "max": 0.8984733257477617
+        }
+      },
+      "per_group": [
+        {
+          "id": 3,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-34.666, 10.141, -26.93, -9.035, 31.661, 33.416, -31.28] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2,
+            18
+          ],
+          "tracker_position_error_mm": 5.748402607385597,
+          "wrist_position_error_mm": 5.371837328541873,
+          "wrist_position_delta_mm": [
+            4.56739757036384,
+            -2.7652668651864944,
+            0.5906055221990697
+          ],
+          "rotation_error_deg": 0.4420050667898132
+        },
+        {
+          "id": 4,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-43.643, 4.241, -34.36, 12.764, 26.19, 44.607, -27.48] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 4.059515649521676,
+          "wrist_position_error_mm": 2.894600963239869,
+          "wrist_position_delta_mm": [
+            2.153143623676912,
+            -0.5225123135321752,
+            1.8627045268683613
+          ],
+          "rotation_error_deg": 0.45837861944356084
+        },
+        {
+          "id": 5,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-58.692, 22.958, -32.975, 28.626, 44.829, 23.714, -31.28] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 11.568940142059777,
+          "wrist_position_error_mm": 10.677060640884578,
+          "wrist_position_delta_mm": [
+            -0.1341008242542463,
+            -10.371873822097532,
+            -2.5309828755937582
+          ],
+          "rotation_error_deg": 0.7264763389764035
+        },
+        {
+          "id": 6,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-58.443, 17.031, -23.084, 33.434, 41.532, -9.678, 0.715] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 12.362432891232325,
+          "wrist_position_error_mm": 9.922985019068879,
+          "wrist_position_delta_mm": [
+            -3.917067427858467,
+            -8.4666951291113,
+            -3.3819059781369787
+          ],
+          "rotation_error_deg": 0.8984733257477617
+        },
+        {
+          "id": 7,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-49.642, 6.805, -44.551, 16.942, 35.977, 18.088, 17.931] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 2.80414416689723,
+          "wrist_position_error_mm": 3.7070368413949835,
+          "wrist_position_delta_mm": [
+            -0.783521287977873,
+            3.5651718986228347,
+            -0.6463481012699279
+          ],
+          "rotation_error_deg": 0.6153102497534454
+        },
+        {
+          "id": 8,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-62.541, 26.302, -40.305, 26.446, 17.288, 25.553, -5.905] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 12.578000292755558,
+          "wrist_position_error_mm": 12.098841313355667,
+          "wrist_position_delta_mm": [
+            -1.9343094287344043,
+            -10.639397517993476,
+            -5.4261983573939965
+          ],
+          "rotation_error_deg": 0.5898124450449437
+        },
+        {
+          "id": 9,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-46.627, 7.18, -39.173, 9.731, -11.057, 44.607, -19.726] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 2.005618020404585,
+          "wrist_position_error_mm": 2.502998409409717,
+          "wrist_position_delta_mm": [
+            2.12677772603731,
+            0.29220692226808453,
+            -1.2870247301888793
+          ],
+          "rotation_error_deg": 0.6413987368396483
+        },
+        {
+          "id": 10,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-41.853, 15.821, -36.894, -10.115, 6.858, 19.243, -16.813] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            18
+          ],
+          "tracker_position_error_mm": 6.070751131626112,
+          "wrist_position_error_mm": 6.501829537762554,
+          "wrist_position_delta_mm": [
+            5.600161455479258,
+            -2.0220874148093175,
+            -2.612114372985197
+          ],
+          "rotation_error_deg": 0.5321209882920555
+        },
+        {
+          "id": 11,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-30.065, -7.528, -2.932, -8.37, 13.53, 2.783, -18.015] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 4.693922401213676,
+          "wrist_position_error_mm": 4.647387070789133,
+          "wrist_position_delta_mm": [
+            4.235754291007532,
+            -1.6985926905706967,
+            0.8782795930050297
+          ],
+          "rotation_error_deg": 0.23293277283536326
+        }
+      ],
+      "refitted": false
+    },
+    "original_comparison": {
+      "normal_status2_only": {
+        "count": 7,
+        "tracker_position_error_mm": {
+          "mean": 10.326954615225459,
+          "median": 9.0219044605547,
+          "rmse": 11.081700495865636,
+          "p95": 15.011942324124805,
+          "max": 15.228048131619133
+        },
+        "wrist_position_error_mm": {
+          "mean": 11.061830370094926,
+          "median": 10.828666602091177,
+          "rmse": 11.529953146556545,
+          "p95": 14.577565635810894,
+          "max": 14.689562377897499
+        },
+        "rotation_error_deg": {
+          "mean": 1.0087932545209273,
+          "median": 1.025070162897521,
+          "rmse": 1.0335106047253757,
+          "p95": 1.2900317515267614,
+          "max": 1.3023386394474288
+        }
+      },
+      "including_status18_diagnostic_only": {
+        "count": 9,
+        "tracker_position_error_mm": {
+          "mean": 9.153280402573447,
+          "median": 8.553549746133983,
+          "rmse": 10.059007389666233,
+          "p95": 14.93990705496003,
+          "max": 15.228048131619133
+        },
+        "wrist_position_error_mm": {
+          "mean": 10.228974648098056,
+          "median": 10.592904473397201,
+          "rmse": 10.742474246465228,
+          "p95": 14.540233388448693,
+          "max": 14.689562377897499
+        },
+        "rotation_error_deg": {
+          "mean": 0.9827486206055145,
+          "median": 1.025070162897521,
+          "rmse": 1.0070508950888617,
+          "p95": 1.2859294555532055,
+          "max": 1.3023386394474288
+        }
+      },
+      "per_group": [
+        {
+          "id": 3,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-34.666, 10.141, -26.93, -9.035, 31.661, 33.416, -31.28] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2,
+            18
+          ],
+          "tracker_position_error_mm": 4.809278127676062,
+          "wrist_position_error_mm": 6.593062255803641,
+          "wrist_position_delta_mm": [
+            -2.3009251568203437,
+            1.2819687400055653,
+            -6.044068950736947
+          ],
+          "rotation_error_deg": 0.7176953995156758
+        },
+        {
+          "id": 4,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-43.643, 4.241, -34.36, 12.764, 26.19, 44.607, -27.48] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 7.32586281959885,
+          "wrist_position_error_mm": 9.223444220419664,
+          "wrist_position_delta_mm": [
+            -6.449227748620223,
+            4.501119433803325,
+            -4.818641777125363
+          ],
+          "rotation_error_deg": 0.8691380852693258
+        },
+        {
+          "id": 5,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-58.692, 22.958, -32.975, 28.626, 44.829, 23.714, -31.28] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 14.507695439971375,
+          "wrist_position_error_mm": 14.316239904275484,
+          "wrist_position_delta_mm": [
+            -9.945438631819625,
+            -5.495475417355122,
+            -8.708772896035645
+          ],
+          "rotation_error_deg": 1.3023386394474288
+        },
+        {
+          "id": 6,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-58.443, 17.031, -23.084, 33.434, 41.532, -9.678, 0.715] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 15.228048131619133,
+          "wrist_position_error_mm": 13.203741813509893,
+          "wrist_position_delta_mm": [
+            -8.958345350414731,
+            -4.799629865027355,
+            -8.429139909817001
+          ],
+          "rotation_error_deg": 1.2613156797118708
+        },
+        {
+          "id": 7,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-49.642, 6.805, -44.551, 16.942, 35.977, 18.088, 17.931] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.0219044605547,
+          "wrist_position_error_mm": 10.592904473397201,
+          "wrist_position_delta_mm": [
+            -4.5351886710365275,
+            7.323347261812413,
+            -6.165247260534246
+          ],
+          "rotation_error_deg": 1.0678627645985277
+        },
+        {
+          "id": 8,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-62.541, 26.302, -40.305, 26.446, 17.288, 25.553, -5.905] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 13.985549723834264,
+          "wrist_position_error_mm": 14.689562377897499,
+          "wrist_position_delta_mm": [
+            -10.260819660655951,
+            -3.721373881030332,
+            -9.83108331686916
+          ],
+          "rotation_error_deg": 1.025070162897521
+        },
+        {
+          "id": 9,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-46.627, 7.18, -39.173, 9.731, -11.057, 44.607, -19.726] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 8.553549746133983,
+          "wrist_position_error_mm": 10.828666602091177,
+          "wrist_position_delta_mm": [
+            -5.025090578667735,
+            7.369181672378655,
+            -6.140329513544707
+          ],
+          "rotation_error_deg": 0.9469700052170875
+        },
+        {
+          "id": 10,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-41.853, 15.821, -36.894, -10.115, 6.858, 19.243, -16.813] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            18
+          ],
+          "tracker_position_error_mm": 5.281563188906749,
+          "wrist_position_error_mm": 8.03489698641439,
+          "wrist_position_delta_mm": [
+            1.3777147577108684,
+            3.6830532734362653,
+            -7.006895904300786
+          ],
+          "rotation_error_deg": 1.0654894042874627
+        },
+        {
+          "id": 11,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-30.065, -7.528, -2.932, -8.37, 13.53, 2.783, -18.015] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 3.6660719848659014,
+          "wrist_position_error_mm": 4.578253199073559,
+          "wrist_position_delta_mm": [
+            0.33797662932477657,
+            1.3440203940581208,
+            -4.36346001851895
+          ],
+          "rotation_error_deg": 0.5888574445047311
+        }
+      ],
+      "refitted": false
+    }
+  }
+}

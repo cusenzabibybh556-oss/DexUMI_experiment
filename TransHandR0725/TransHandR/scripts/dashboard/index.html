@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>DexUMI · 多模态数据采集</title>
-  <link rel="stylesheet" href="/assets/dashboard.css?v=13">
+  <link rel="stylesheet" href="/assets/dashboard.css?v=14">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="/overview"><span class="brand-mark">DX</span><span><b>DexUMI</b><small>MULTIMODAL CAPTURE</small></span></a>
-    <nav><button class="nav active" data-view="overview">▦ 概览</button><button class="nav" data-view="data">◉ 数据</button></nav>
+    <nav><button class="nav active" data-view="overview">▦ 概览</button><button class="nav" data-view="data">◉ 数据</button><button class="nav" data-view="wrist-calibration">◎ 腕部标定</button></nav>
     <div class="top-status"><i id="statusDot"></i><span id="connection">连接中</span></div>
   </header>
 
@@ -77,6 +77,36 @@
         <div id="episodeList" class="episode-list"><div class="empty">正在加载…</div></div>
       </article>
     </section>
+    <section id="wrist-calibrationView" class="view">
+      <article class="card wrist-card">
+        <h1>左腕标定位姿采集 <span id="wristMode" class="count">只读</span></h1>
+        <p>调整姿态并保持静止，再采集一组 Tracker 与 TRON2 实测位姿。不需要相机或数据手套，不发送机器人运动指令。</p>
+        <div class="wrist-fields">
+          <label class="field">机器人 IP<input id="wristRobotIp" value="10.192.1.2"></label>
+          <label class="field">Tracker 编号<input id="wristTrackerIndex" type="number" min="0" max="4" value="0"></label>
+          <label class="field">地图 / 建图批次备注<input id="wristMapLabel" maxlength="120" placeholder="例如 10月27日实验桌地图"></label>
+          <label class="field">安装方式备注<input id="wristMountLabel" maxlength="120" placeholder="例如 左腕固定支架 A"></label>
+        </div>
+        <div class="wrist-actions"><button id="wristConnect" onclick="startWristCapture()">连接设备</button><button id="wristStop" onclick="stopWristCapture()" disabled>结束采集并断开</button><button id="wristDownload" onclick="location.href='/api/wrist-calibration/download'" disabled>下载原始样本</button></div>
+        <p id="wristState" role="status">请先停止概览页的采集系统，再连接设备。</p><p id="wristError" class="error hidden" role="alert"></p>
+        <div class="wrist-live"><div><b>Tracker · 原始跟踪坐标</b><pre id="wristTrackerLive">等待连接</pre></div><div><b>TRON2 左腕 · 基座坐标</b><pre id="wristRobotLive">等待连接</pre></div></div>
+        <div class="wrist-fields">
+          <label class="field">采样前倒计时（秒）<input id="wristCountdown" type="number" min="0" max="30" value="3"></label>
+          <label class="field">静止采样时长（秒）<input id="wristDuration" type="number" min="0.5" max="10" step="0.5" value="2"></label>
+          <label class="field">本组姿态备注<input id="wristLabel" maxlength="120" placeholder="例如 掌心向下 / 轻微侧转"></label>
+        </div>
+        <div class="wrist-actions"><button id="wristSample" onclick="sampleWristPose()" disabled>采集一组</button><span id="wristCount">已保存 0 组</span></div>
+        <p>status=20 等未确认状态会原样保存并标记待确认。重建地图或更换安装位置后请新建会话。结束采集后可离线求解；结果单独保存，不自动替换回放参数。</p>
+        <p id="wristFile" class="wrist-file"></p>
+        <div class="wrist-table-wrap"><table class="wrist-table"><thead><tr><th>组号 / 备注</th><th>Tracker / 机器人帧</th><th>配对数</th><th>状态与质量</th><th>操作</th></tr></thead><tbody id="wristSamples"></tbody></table></div>
+        <h2>离线求解与误差报告</h2>
+        <p>计算安装变换 T_ET 和地图变换 T_WB。至少需要 3 个不同旋转姿态；建议采 12–20 组，达到 9 组时自动留出至少 3 组做独立验证。</p>
+        <label><input id="wristSolveStatus20" type="checkbox"> 仅诊断：纳入 status=20，结果标记待确认</label>
+        <div class="wrist-actions"><button id="wristSolve" onclick="solveWristCalibration()" disabled>求解并查看误差</button><button id="wristSolutionDownload" onclick="location.href='/api/wrist-calibration/solution-download'" disabled>下载变换和误差报告</button></div>
+        <p id="wristSolutionState" role="status">结束采集后可求解</p>
+        <pre id="wristSolutionOutput" style="white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;font-size:12px"></pre>
+      </article>
+    </section>
   </main>
 
   <div id="deviceSettingsModal" class="modal hidden" onclick="modalBackdropClose(event, 'deviceSettingsModal')"><div class="settings-modal">
@@ -123,7 +153,7 @@
   </div></div>
   <div id="robotReplayModal" class="modal hidden"><div class="modal-card robot-replay-card">
     <div class="modal-head"><div><h2>TRON2 固定起点真机回放</h2><p id="robotReplayEpisode">—</p></div><button class="icon" onclick="closeRobotReplay()">×</button></div>
-    <p class="robot-replay-warning">只限本机网页操作。先离线预检；点击准备会让双臂 MoveJ 到保存起点，确认 REPLAY 后再启动左腕与可选 O6 左手。当前固定姿态倍率 0、ServoP 300 Hz。软件停止不等于实体急停；现场必须清空运动范围并持有急停。</p>
+    <p class="robot-replay-warning">只限本机网页操作。准备流程只准备左臂，右臂不自动归位。当前目标较 10 月 22 日掌心向下参考沿基座 Z 抬高 8 cm（原先 3 cm，再上调 5 cm），朝向不变；新高度尚未实测。已在正式起点时跳过 MoveJ；偏离起点的未验证恢复运动仍会拒绝。固定使用 ServoP：左腕发送轨迹，右腕保持启动实测位姿，不发送头部目标；固定右腕不等于硬件锁死。ServoJ 因真机目标限幅异常已停用。右腕不做 MoveP 工作空间验收，仍保留反馈有效性、异常偏移及超时检查；不自动抬臂、改负载或换接口，保持行为未作实机验证。当前先做 scale=0.1 的离线/只读检查，通过不代表 IK 可达或碰撞验证，软件停止不等于实体急停。</p>
     <div class="robot-replay-fields">
       <label class="field"><span>平移倍率 scale</span><input id="robotScale" type="number" min="0" max="1" step="any" value="1" required oninput="robotReplayChanged()"></label>
       <label class="field"><span>速度倍率 speed</span><input id="robotSpeed" type="number" min="0.05" max="1" step="any" value="0.2" required oninput="robotReplayChanged()"></label>
@@ -143,6 +173,7 @@
   <script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
   <script type="module" src="/assets/inspire_hand_viewer.js?v=4"></script>
   <script type="module" src="/assets/o6_hand_viewer.js?v=16"></script>
-  <script src="/assets/dashboard.js?v=21"></script>
+  <script src="/assets/dashboard.js?v=22"></script>
+  <script src="/assets/wrist_calibration.js?v=3"></script>
 </body>
 </html>

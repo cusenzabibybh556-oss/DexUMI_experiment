@@ -111,7 +111,7 @@ class O6ReplayBridge:
                         + ", ".join(map(str, others)) + "；拒绝重复持有 CAN"
                     )
                 ready_marker = f"hand_type=left, can={self.interface}"
-                log_deadline = time.monotonic() + 1.0
+                log_deadline = time.monotonic() + 5.0
                 while True:
                     log = self.log_path.read_text(encoding="utf-8", errors="replace")
                     if "Hardware version number not recognized" in log:

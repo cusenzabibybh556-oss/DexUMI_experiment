@@ -1,0 +1,697 @@
+{
+  "frozen_sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5",
+  "cross_development_only": true,
+  "refitted": false,
+  "scale_fitted": false,
+  "datasets": [
+    {
+      "input": "/home/zmy/Projects/Dexumi/tracker_calibrations/auto_20261027_215417_aad49c1d/20261027_215418_7f9d8fe8/samples.jsonl",
+      "input_sha256": "0ba351650b1d9d283996fd2949b6563232639e8769828ef81033111988b142fd",
+      "same_map_mount_basis": "explicit manifest attestation plus matching hardware/model identity",
+      "continuity_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+      "selected_group_ids": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "unavailable_group_ids": [],
+      "rejected_groups": [],
+      "refitted": false,
+      "metrics_status2_only": {
+        "count": 4,
+        "tracker_position_error_mm": {
+          "mean": 5.95136110025181,
+          "median": 5.869656257341266,
+          "rmse": 5.96050049649836,
+          "p95": 6.380695968608075,
+          "max": 6.434025004427393
+        },
+        "wrist_position_error_mm": {
+          "mean": 5.361513246011876,
+          "median": 5.384640626020817,
+          "rmse": 5.371508277698082,
+          "p95": 5.735067942890456,
+          "max": 5.766040606430363
+        },
+        "rotation_error_deg": {
+          "mean": 0.3343923302088381,
+          "median": 0.3391422617453833,
+          "rmse": 0.34028688068662094,
+          "p95": 0.4060886754091576,
+          "max": 0.41196689211588705
+        }
+      },
+      "metrics_including_status18_diagnostic": {
+        "count": 4,
+        "tracker_position_error_mm": {
+          "mean": 5.95136110025181,
+          "median": 5.869656257341266,
+          "rmse": 5.96050049649836,
+          "p95": 6.380695968608075,
+          "max": 6.434025004427393
+        },
+        "wrist_position_error_mm": {
+          "mean": 5.361513246011876,
+          "median": 5.384640626020817,
+          "rmse": 5.371508277698082,
+          "p95": 5.735067942890456,
+          "max": 5.766040606430363
+        },
+        "rotation_error_deg": {
+          "mean": 0.3343923302088381,
+          "median": 0.3391422617453833,
+          "rmse": 0.34028688068662094,
+          "p95": 0.4060886754091576,
+          "max": 0.41196689211588705
+        }
+      },
+      "per_group": [
+        {
+          "id": 4,
+          "label": "左腕偏转 [0.0, 12.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.6321068818973155,
+          "wrist_position_error_mm": 5.2097250692106485,
+          "wrist_position_delta_mm": [
+            3.4152020348559575,
+            3.8650238438457665,
+            -0.7343167193938349
+          ],
+          "rotation_error_deg": 0.3727787807376907
+        },
+        {
+          "id": 8,
+          "label": "左腕偏转 [12.0, 12.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 6.434025004427393,
+          "wrist_position_error_mm": 5.766040606430363,
+          "wrist_position_delta_mm": [
+            3.0260142181510186,
+            4.798280593335091,
+            -1.0329402568278327
+          ],
+          "rotation_error_deg": 0.41196689211588705
+        },
+        {
+          "id": 12,
+          "label": "左腕偏转 [0.0, 12.0, 12.0] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 6.078498098965274,
+          "wrist_position_error_mm": 5.559556182830984,
+          "wrist_position_delta_mm": [
+            2.2540344102736087,
+            5.069373369554736,
+            -0.3597880868038694
+          ],
+          "rotation_error_deg": 0.24731790522869845
+        },
+        {
+          "id": 16,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.660814415717258,
+          "wrist_position_error_mm": 4.910731125575508,
+          "wrist_position_delta_mm": [
+            2.1945640426198065,
+            4.2255102564219,
+            -1.2017620078075553
+          ],
+          "rotation_error_deg": 0.30550574275307596
+        }
+      ]
+    },
+    {
+      "input": "/home/zmy/Projects/Dexumi/tracker_calibrations/wide_20261027_221722_e755d1b1/20261027_221724_45b607eb/samples.jsonl",
+      "input_sha256": "dc1507e685454fb50899d4fee4a8258b99052b05647777b0bab09d1e351df519",
+      "same_map_mount_basis": "explicit manifest attestation plus matching hardware/model identity",
+      "continuity_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+      "selected_group_ids": [
+        25,
+        26,
+        27,
+        28,
+        30,
+        32
+      ],
+      "unavailable_group_ids": [],
+      "rejected_groups": [],
+      "refitted": false,
+      "metrics_status2_only": {
+        "count": 6,
+        "tracker_position_error_mm": {
+          "mean": 9.652508669765536,
+          "median": 9.667617437289579,
+          "rmse": 9.659837139703525,
+          "p95": 10.132477309709195,
+          "max": 10.195983740002736
+        },
+        "wrist_position_error_mm": {
+          "mean": 10.00707450677597,
+          "median": 9.947674277576368,
+          "rmse": 10.033769172691473,
+          "p95": 11.07709218444167,
+          "max": 11.276265730958105
+        },
+        "rotation_error_deg": {
+          "mean": 0.439135122449489,
+          "median": 0.4080389498412964,
+          "rmse": 0.47122043323679713,
+          "p95": 0.6579868003281371,
+          "max": 0.6590073158880144
+        }
+      },
+      "metrics_including_status18_diagnostic": {
+        "count": 6,
+        "tracker_position_error_mm": {
+          "mean": 9.652508669765536,
+          "median": 9.667617437289579,
+          "rmse": 9.659837139703525,
+          "p95": 10.132477309709195,
+          "max": 10.195983740002736
+        },
+        "wrist_position_error_mm": {
+          "mean": 10.00707450677597,
+          "median": 9.947674277576368,
+          "rmse": 10.033769172691473,
+          "p95": 11.07709218444167,
+          "max": 11.276265730958105
+        },
+        "rotation_error_deg": {
+          "mean": 0.439135122449489,
+          "median": 0.4080389498412964,
+          "rmse": 0.47122043323679713,
+          "p95": 0.6579868003281371,
+          "max": 0.6590073158880144
+        }
+      },
+      "per_group": [
+        {
+          "id": 25,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [3.211, 3.504, -11.833, 18.745, 11.078, 11.289, 25.774] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.440639690518688,
+          "wrist_position_error_mm": 10.47957154489236,
+          "wrist_position_delta_mm": [
+            -2.4809940545268416,
+            9.286990749523827,
+            4.173474701514194
+          ],
+          "rotation_error_deg": 0.654925253648505
+        },
+        {
+          "id": 26,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [2.826, 4.296, -13.187, 18.745, 12.106, 12.529, 6.024] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.683928390069276,
+          "wrist_position_error_mm": 9.2585764435414,
+          "wrist_position_delta_mm": [
+            -1.6447083856993006,
+            7.685171626196863,
+            4.894313962427094
+          ],
+          "rotation_error_deg": 0.3454784375091333
+        },
+        {
+          "id": 27,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [7.019, -3.035, -1.96, 18.275, 13.776, 19.935, 30.816] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 10.195983740002736,
+          "wrist_position_error_mm": 10.095894387304845,
+          "wrist_position_delta_mm": [
+            -2.222003978682774,
+            8.288742392917381,
+            5.3185083756806915
+          ],
+          "rotation_error_deg": 0.2729377974530879
+        },
+        {
+          "id": 28,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-0.402, 6.871, -18.368, 19.489, 7.477, -1.528, 22.427] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.941958018828567,
+          "wrist_position_error_mm": 11.276265730958105,
+          "wrist_position_delta_mm": [
+            -3.2478279884577965,
+            10.059094674578411,
+            3.9268812714975954
+          ],
+          "rotation_error_deg": 0.6590073158880144
+        },
+        {
+          "id": 30,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [6.781, -2.881, -1.996, 18.003, 8.775, 17.332, 11.619] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.651306484509881,
+          "wrist_position_error_mm": 9.13268476611122,
+          "wrist_position_delta_mm": [
+            -1.8361998816518454,
+            7.024940789880612,
+            5.539359884540202
+          ],
+          "rotation_error_deg": 0.23186246802473404
+        },
+        {
+          "id": 32,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [0.922, 5.145, -15.078, 19.662, 9.028, -1.37, 7.892] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 9.00123569466407,
+          "wrist_position_error_mm": 9.79945416784789,
+          "wrist_position_delta_mm": [
+            -2.64194434388354,
+            8.319291417121482,
+            4.454079297518397
+          ],
+          "rotation_error_deg": 0.47059946217345944
+        }
+      ]
+    },
+    {
+      "input": "/home/zmy/Projects/Dexumi/tracker_calibrations/large_20261027_223541_c71cef2d/20261027_223543_e1fdb933/samples.jsonl",
+      "input_sha256": "772ef5d12097a5dc75cb535b696422d96986bc6690fd0e9bb08631be47608c52",
+      "same_map_mount_basis": "explicit manifest attestation plus matching hardware/model identity",
+      "continuity_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+      "selected_group_ids": [
+        18,
+        19,
+        20
+      ],
+      "unavailable_group_ids": [],
+      "rejected_groups": [],
+      "refitted": false,
+      "metrics_status2_only": {
+        "count": 3,
+        "tracker_position_error_mm": {
+          "mean": 11.158646773762042,
+          "median": 10.517191772589086,
+          "rmse": 11.199856448973906,
+          "p95": 12.31563663634235,
+          "max": 12.515463843426048
+        },
+        "wrist_position_error_mm": {
+          "mean": 10.968854225300793,
+          "median": 10.972404582569789,
+          "rmse": 10.971681147199929,
+          "p95": 11.242114279746248,
+          "max": 11.272082023876965
+        },
+        "rotation_error_deg": {
+          "mean": 0.40741041048109317,
+          "median": 0.2973979000202635,
+          "rmse": 0.445126212535273,
+          "p95": 0.6240013199097122,
+          "max": 0.6602905887863176
+        }
+      },
+      "metrics_including_status18_diagnostic": {
+        "count": 3,
+        "tracker_position_error_mm": {
+          "mean": 11.158646773762042,
+          "median": 10.517191772589086,
+          "rmse": 11.199856448973906,
+          "p95": 12.31563663634235,
+          "max": 12.515463843426048
+        },
+        "wrist_position_error_mm": {
+          "mean": 10.968854225300793,
+          "median": 10.972404582569789,
+          "rmse": 10.971681147199929,
+          "p95": 11.242114279746248,
+          "max": 11.272082023876965
+        },
+        "rotation_error_deg": {
+          "mean": 0.40741041048109317,
+          "median": 0.2973979000202635,
+          "rmse": 0.445126212535273,
+          "p95": 0.6240013199097122,
+          "max": 0.6602905887863176
+        }
+      },
+      "per_group": [
+        {
+          "id": 18,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-27.15, 25.44, -4.409, 26.734, 32.925, -4.854, -27.971] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 10.443284705270989,
+          "wrist_position_error_mm": 10.972404582569789,
+          "wrist_position_delta_mm": [
+            -5.142826183841986,
+            -7.782791617965968,
+            -5.776950389063979
+          ],
+          "rotation_error_deg": 0.2645427426366985
+        },
+        {
+          "id": 19,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-22.157, 16.581, 11.083, 22.665, 20.647, 20.01, 0.738] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 10.517191772589086,
+          "wrist_position_error_mm": 10.662076069455622,
+          "wrist_position_delta_mm": [
+            -4.212393267784664,
+            -8.182023834543251,
+            -5.38424507608512
+          ],
+          "rotation_error_deg": 0.2973979000202635
+        },
+        {
+          "id": 20,
+          "label": "左臂关节[0, 1, 2, 3, 4, 5, 6]偏转 [-31.485, 26.104, -9.852, 30.252, 31.241, -37.537, 8.985] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 12.515463843426048,
+          "wrist_position_error_mm": 11.272082023876965,
+          "wrist_position_delta_mm": [
+            -7.785545583619657,
+            -4.712911395399755,
+            -6.650832977718041
+          ],
+          "rotation_error_deg": 0.6602905887863176
+        }
+      ]
+    },
+    {
+      "input": "/home/zmy/Projects/Dexumi/tracker_calibrations/validation_20261027_220113_8e590f8c/20261027_220113_a4dd5d67/samples.jsonl",
+      "input_sha256": "d745fe95c5b8656695e1f94fb74a33e58313972ada07c3795c292ff91e54f396",
+      "same_map_mount_basis": "explicit manifest attestation plus matching hardware/model identity",
+      "continuity_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+      "selected_group_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unavailable_group_ids": [],
+      "rejected_groups": [],
+      "refitted": false,
+      "metrics_status2_only": {
+        "count": 8,
+        "tracker_position_error_mm": {
+          "mean": 5.201857715730618,
+          "median": 5.094045704572039,
+          "rmse": 5.236839226096657,
+          "p95": 6.121106760475553,
+          "max": 6.331017103352283
+        },
+        "wrist_position_error_mm": {
+          "mean": 4.4091894029961125,
+          "median": 4.327344385297444,
+          "rmse": 4.45388270364973,
+          "p95": 5.376940842573059,
+          "max": 5.700685423844261
+        },
+        "rotation_error_deg": {
+          "mean": 0.3208264252075782,
+          "median": 0.31422578337473417,
+          "rmse": 0.3216548683096007,
+          "p95": 0.35910564666804323,
+          "max": 0.37066353007296676
+        }
+      },
+      "metrics_including_status18_diagnostic": {
+        "count": 8,
+        "tracker_position_error_mm": {
+          "mean": 5.201857715730618,
+          "median": 5.094045704572039,
+          "rmse": 5.236839226096657,
+          "p95": 6.121106760475553,
+          "max": 6.331017103352283
+        },
+        "wrist_position_error_mm": {
+          "mean": 4.4091894029961125,
+          "median": 4.327344385297444,
+          "rmse": 4.45388270364973,
+          "p95": 5.376940842573059,
+          "max": 5.700685423844261
+        },
+        "rotation_error_deg": {
+          "mean": 0.3208264252075782,
+          "median": 0.31422578337473417,
+          "rmse": 0.3216548683096007,
+          "p95": 0.35910564666804323,
+          "max": 0.37066353007296676
+        }
+      },
+      "per_group": [
+        {
+          "id": 1,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.064549284782712,
+          "wrist_position_error_mm": 4.312232339203154,
+          "wrist_position_delta_mm": [
+            1.7276345133916404,
+            3.928417525812855,
+            -0.42209297351880615
+          ],
+          "rotation_error_deg": 0.29993849626231617
+        },
+        {
+          "id": 2,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 6.331017103352283,
+          "wrist_position_error_mm": 5.700685423844261,
+          "wrist_position_delta_mm": [
+            2.3301838996196977,
+            4.828364363173937,
+            1.9377705932373672
+          ],
+          "rotation_error_deg": 0.3066134721549187
+        },
+        {
+          "id": 3,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.032719106801237,
+          "wrist_position_error_mm": 4.154382630457937,
+          "wrist_position_delta_mm": [
+            1.5391287002209375,
+            3.812711285789833,
+            -0.5943151820521353
+          ],
+          "rotation_error_deg": 0.32884360943813457
+        },
+        {
+          "id": 4,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.350462426868671,
+          "wrist_position_error_mm": 4.612284722939441,
+          "wrist_position_delta_mm": [
+            1.7824058530462317,
+            4.252443695875435,
+            0.11367653186278304
+          ],
+          "rotation_error_deg": 0.2944597209239217
+        },
+        {
+          "id": 5,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.123542124361368,
+          "wrist_position_error_mm": 4.342456431391734,
+          "wrist_position_delta_mm": [
+            2.1844273523067836,
+            3.6974167554607584,
+            -0.6436725390036868
+          ],
+          "rotation_error_deg": 0.3160530111512061
+        },
+        {
+          "id": 6,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 4.117355702188014,
+          "wrist_position_error_mm": 3.366885864781849,
+          "wrist_position_delta_mm": [
+            1.7207940291496526,
+            2.8910397459287474,
+            -0.1291414850888989
+          ],
+          "rotation_error_deg": 0.3123985555982623
+        },
+        {
+          "id": 7,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 20,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 5.731273266561626,
+          "wrist_position_error_mm": 4.775700905926541,
+          "wrist_position_delta_mm": [
+            1.8463157461289237,
+            4.370431569150707,
+            -0.5456786671979019
+          ],
+          "rotation_error_deg": 0.37066353007296676
+        },
+        {
+          "id": 8,
+          "label": "左腕偏转 [0.0, 0.0, 0.0] deg",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 4.863942710929029,
+          "wrist_position_error_mm": 4.008886905423984,
+          "wrist_position_delta_mm": [
+            1.6622354294908437,
+            3.6257331098511205,
+            -0.4027493185029679
+          ],
+          "rotation_error_deg": 0.3376410060588996
+        }
+      ]
+    },
+    {
+      "input": "/home/zmy/Projects/Dexumi/validation_results/horizontal_forearm_20261027_225142/20261027_225143_01ab9335/samples.jsonl",
+      "input_sha256": "6637095111f4148223c3adf7dd94fa39f3df67aa4c52c368d8272041177d13f5",
+      "same_map_mount_basis": "explicit manifest attestation plus matching hardware/model identity",
+      "continuity_evidence": "依据连续采样执行记录：原Tracker连接和地图未重启，左腕Tracker与支架未拆装；比较前仍核对机器人、MAC、模型与TCP身份。此为过程连续性声明，不是硬件地图UUID证明。",
+      "selected_group_ids": [
+        1
+      ],
+      "unavailable_group_ids": [],
+      "rejected_groups": [],
+      "refitted": false,
+      "metrics_status2_only": {
+        "count": 1,
+        "tracker_position_error_mm": {
+          "mean": 6.515266280065339,
+          "median": 6.515266280065339,
+          "rmse": 6.515266280065339,
+          "p95": 6.515266280065339,
+          "max": 6.515266280065339
+        },
+        "wrist_position_error_mm": {
+          "mean": 7.317628739189054,
+          "median": 7.317628739189054,
+          "rmse": 7.317628739189054,
+          "p95": 7.317628739189054,
+          "max": 7.317628739189054
+        },
+        "rotation_error_deg": {
+          "mean": 1.1560763075653218,
+          "median": 1.1560763075653218,
+          "rmse": 1.1560763075653218,
+          "p95": 1.1560763075653218,
+          "max": 1.1560763075653218
+        }
+      },
+      "metrics_including_status18_diagnostic": {
+        "count": 1,
+        "tracker_position_error_mm": {
+          "mean": 6.515266280065339,
+          "median": 6.515266280065339,
+          "rmse": 6.515266280065339,
+          "p95": 6.515266280065339,
+          "max": 6.515266280065339
+        },
+        "wrist_position_error_mm": {
+          "mean": 7.317628739189054,
+          "median": 7.317628739189054,
+          "rmse": 7.317628739189054,
+          "p95": 7.317628739189054,
+          "max": 7.317628739189054
+        },
+        "rotation_error_deg": {
+          "mean": 1.1560763075653218,
+          "median": 1.1560763075653218,
+          "rmse": 1.1560763075653218,
+          "p95": 1.1560763075653218,
+          "max": 1.1560763075653218
+        }
+      },
+      "per_group": [
+        {
+          "id": 1,
+          "label": "水平小臂姿态：独立检查，不参与已有矩阵拟合",
+          "pair_count": 19,
+          "tracking_statuses": [
+            2
+          ],
+          "tracker_position_error_mm": 6.515266280065339,
+          "wrist_position_error_mm": 7.317628739189054,
+          "wrist_position_delta_mm": [
+            -5.911390390516358,
+            2.6682257146731225,
+            3.3887646054386185
+          ],
+          "rotation_error_deg": 1.1560763075653218
+        }
+      ]
+    }
+  ],
+  "change_from_original_broad": {
+    "T_ET": {
+      "translation_mm": 5.108554900712642,
+      "rotation_deg": 0.3337074896673051
+    },
+    "T_BW": {
+      "translation_mm": 10.180078560133152,
+      "rotation_deg": 0.49568731043852354
+    }
+  }
+}

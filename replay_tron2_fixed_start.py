@@ -1,22 +1,33 @@
 #!/usr/bin/env python3
-"""从 2026-10-15 记录的双臂固定姿态准备，并回放左腕 Tracker 轨迹。
+"""仅准备 TRON2 左臂固定起点，并回放左腕 Tracker 轨迹。
 
-默认只做离线预检。加 --execute 后，若不在固定起点就倒计时自动 MoveJ；
-准备到位后等待输入 REPLAY，再倒计时发送 ServoP 轨迹。
+默认只做离线轨迹预检。加 --execute 后，已在正式起点时跳过 MoveJ；
+若不在起点，必须先验证恢复路径才允许 MoveJ。到位后输入 REPLAY，再倒计时回放。
+右臂没有固定起点：准备指令保持启动前实测关节角，不执行右臂归位。
+固定使用 ServoP：左腕发送轨迹，右腕保持启动时实测位姿，不发送头部目标。
+指定 --tracker-calibration 后，使用标定轴向与四元数约定生成相对轨迹；
+真人腕部数据不套用机器人法兰安装平移；不与 --axis-map 叠加。
+ServoJ 因真机目标裁剪异常已停用；切回 ServoP 不代表该异常已修复。
+右腕不做 MoveP 参考范围验收，不自动抬臂、归位或修改负载；保留反馈有效性、
+异常偏移及超时检查。这不代表右臂完全不受控制或其保持行为已通过真机验证。
+当前目标为大臂竖直、小臂水平、手与小臂对直且掌心向下的中立腕姿态；
+腕 pitch/roll 为零，完整目标 XYZ/朝向共同更新，本轮尚未实测到位。
+原 episode8 高度目标、5° 与 10 月 22 日参考独立保留。自动恢复路径
+尚未批准；需要恢复时先单独运行分段恢复试验，不从任意位置自动恢复。
 加 --with-o6-hand 时同步回放本 episode 的 O6 左手实测状态反馈；若再指定
 --o6-can can1，则由本任务独立启动并关闭回放专用桥接，无需启动手套采集。
 未指定 --o6-can 时仍须已有支持回放的 O6 桥接。回放结束后不自动切回
 手套；专用桥接关闭后硬件是否继续持位须现场确认。未加 --with-o6-hand 时
 仍只回放机械臂。
-此配置记录的是机器人 DACH_TRON2A_253 的一次实测姿态，不是通用安全姿态。
-MoveJ 与 ServoP 接管仍可能引起意外运动，必须在现场观察并备好实体急停。
+此配置源于机器人 DACH_TRON2A_253 的实测参考，不是通用安全姿态。
+MoveJ/ServoP 接管仍可能引起意外运动，必须在现场观察并备好实体急停。
 
 示例：
     python3 replay_tron2_fixed_start.py --episode 65
-    python3 replay_tron2_fixed_start.py --episode 65 --execute
-    python3 replay_tron2_fixed_start.py --episode 65 --with-o6-hand --execute
-    python3 replay_tron2_fixed_start.py --episode 65 --with-o6-hand --o6-can can1 --execute
-    python3 replay_tron2_fixed_start.py --episode 66 --scale 1.0 --execute
+    python3 replay_tron2_fixed_start.py --episode 65 --check-robot
+    python3 replay_tron2_fixed_start.py --episode 65 --scale 0.1 --max-displacement 0.04
+    python3 replay_tron2_fixed_start.py --episode 65 --with-o6-hand --o6-can can1
+执行模板和尚未完成的真机条件见 tron2_tracker_replay_commands.md。
 """
 
 from __future__ import annotations
@@ -34,47 +45,85 @@ import numpy as np
 
 from o6_hand_replay import O6HandReplaySession
 from o6_replay_bridge import O6ReplayBridge, validate_o6_can
-from prepare_tron2_arms import get_joint_state, move_stage
+from prepare_tron2_arms import move_stage
 from replay_tron2_tracker import (
     DEFAULT_DATA_ROOT,
     DEFAULT_ROBOT_IP,
     DualArmPose,
     FEEDBACK_TIMEOUT_SECONDS,
     ReplayInterrupted,
+    SERVOP_ACTION_CONTRACT,
     TraceRecorder,
     Tron2JsonClient,
     check_workspace,
+    check_servop_hold_position,
     default_trace_path,
     execute_replay,
+    add_tracker_mapping_arguments,
+    validate_tracker_mapping_arguments,
+    prepare_tracker_motion,
+    check_tracker_mapping_robot,
     load_tracker,
     parse_axis_map,
     quaternion_distance_deg,
-    relative_motion,
     sample_relative_trajectory,
 )
 
 
-# 2026-10-15 21:07:57（北京时间）只读查询 DACH_TRON2A_253：
-# 连续 4 次反馈确认停稳后，记录左右臂 q、ServoP 腕位姿。
-# 保存两个独立的 7 关节目标；旧 prepare_tron2_arms.py 的 READY_ARM_Q 不会被改动。
+# 2026-10-22 20:51:19（北京时间）只读查询 DACH_TRON2A_253：
+# 六次采样均停稳，头部真实画面和用户确认掌心向下、四指大致向前。
+# 腕位姿取 request_get_servo_pose；关节角取 request_get_joint_state。
+# 原始记录：camera_alignment_results/top_20261022_204900/left_start_20261022_205119.json
+# 原始参考保持不变。2026-10-30 恢复水平小臂、中立腕的完整几何约束，
+# 不再固定旧 episode8 高度目标的 XYZ/朝向。中立指手与小臂对直且掌心朝下；
+# 按模型轴定义腕 yaw=-90°、pitch/roll=0°。本轮规划不继承历史到位验收。
+# ServoP运行时不做本机IK；恢复与回放共用以下同一组目标。
 FIXED_ROBOT_ID = "DACH_TRON2A_253"
+FIXED_LEFT_REFERENCE_LABEL = "2026-10-22 20:51:19 O6 左臂掌心向下实测参考"
+FIXED_LEFT_REFERENCE_Q = np.array([
+    -0.139100090, 0.183299780, -0.068099856, -1.405000091,
+    -1.249800086, -0.204900086, 0.193499804,
+], dtype=np.float64)
+FIXED_LEFT_REFERENCE_POSITION = np.array([0.497985154, 0.186801851, -0.266951889])
+FIXED_LEFT_REFERENCE_QUATERNION = np.array([
+    -0.438100371, -0.444070641, 0.627195482, 0.466363761,
+])
+FIXED_LEFT_START_PROFILE = Path(__file__).parent / (
+    "validation_results/neutral_start_20261030/fixed_start_profile.json"
+)
+FIXED_LEFT_START_LABEL = "2026-10-30 水平小臂、中立腕、掌心朝下准备目标（待本轮实测）"
+FIXED_LEFT_START_VALIDATED = True  # 用户要求的完整几何目标已核对，非本轮实测到位。
+FIXED_LEFT_START_MEASURED = False  # 本轮尚未发送动作，历史同几何目标不替代本轮实测。
+FIXED_LEFT_PREPARE_PATH_VALIDATED = False  # 仅阻止尚未验证的 MoveJ 恢复，不拦截已到位分支。
 FIXED_LEFT_Q = np.array([
-    -0.463700, 0.263900, 0.108600, -1.181700,
-    -0.015800, 0.146700, -0.023400,
+    0.0, 0.0, 0.18322281083347552, -1.5707963267948966,
+    -1.5707963267948966, 0.0, 0.0,
 ], dtype=np.float64)
-FIXED_RIGHT_Q = np.array([
-    -0.392900, -0.183300, -0.121800, -1.232200,
-    -0.017900, 0.555500, -0.054314,
-], dtype=np.float64)
-FIXED_LEFT_POSITION = np.array([0.590808, 0.371680, -0.243641])
-FIXED_RIGHT_POSITION = np.array([0.547606, -0.345544, -0.353572])
-FIXED_LEFT_QUATERNION = np.array([0.722473, 0.148792, -0.674935, 0.018889])
-FIXED_RIGHT_QUATERNION = np.array([0.849163, -0.119934, -0.507944, -0.080816])
-FIXED_Q = np.concatenate((FIXED_LEFT_Q, FIXED_RIGHT_Q))
-# 右臂 MoveJ 阶段必须实际接近保存关节角；0.04 rad 的最终容差会把
-# 本次日志中 0.026 rad 的未运动偏差误判为“已到位”。
-# 这里采用 0.015 rad，并在下一步独立核验右腕位姿。
-RIGHT_PREPARE_JOINT_TOLERANCE_RAD = 0.015
+FIXED_LEFT_POSITION = np.array([0.45078943693329554, 0.2533290247458302, -0.3058899999999999])
+FIXED_LEFT_QUATERNION = np.array([
+    0.5436449623382834, 0.5436449623382833, -0.4521616468965567, -0.4521616468965567,
+])
+FIXED_LEFT_POSITION_OFFSET_M = FIXED_LEFT_POSITION - FIXED_LEFT_REFERENCE_POSITION
+FIXED_LEFT_HEIGHT_OFFSET_M = float(FIXED_LEFT_POSITION_OFFSET_M[2])  # 仅为新目标相对旧参考的Z差，不代表纯Z平移。
+
+
+def require_validated_left_start() -> None:
+    """连接前检查静态起点；是否需要准备运动须读取当前位置后判断。"""
+    if not FIXED_LEFT_START_VALIDATED:
+        raise RuntimeError(
+            "左臂固定起点尚未验证 O6 掌心朝下、四指向前及准备路径；"
+            "当前历史值仅供离线/只读核对，不会发送准备或回放运动。"
+            "请先确认新的左臂起点，再启用真机执行"
+        )
+
+
+def require_validated_prepare_path() -> None:
+    """仅在确实需要 MoveJ 时调用；已在起点不能被不存在的恢复运动拦截。"""
+    if not FIXED_LEFT_PREPARE_PATH_VALIDATED:
+        raise RuntimeError(
+            "当前左臂不在正式准备起点，且自动恢复路径尚未验证；"
+            "未发送 MoveJ。请先手动恢复到已记录起点，或完成恢复路径验证"
+        )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -83,8 +132,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     source.add_argument("--episode", type=int, help="episode 编号，如 65")
     source.add_argument("--file", type=Path, help="直接指定 HDF5 数据文件")
     parser.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT)
-    parser.add_argument("--axis-map", default="y,z,x",
-                        help="Tracker 到机器人坐标轴的候选映射，默认 y,z,x")
+    parser.add_argument("--axis-map", default=None,
+                        help="旧候选换轴；未指定标定文件时默认 y,z,x，与 --tracker-calibration 互斥")
+    add_tracker_mapping_arguments(parser)
     parser.add_argument("--scale", type=float, default=1.0,
                         help="平移倍率，默认 1.0")
     parser.add_argument("--orientation-scale", type=float, default=0.0,
@@ -92,14 +142,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--speed", type=float, default=0.2,
                         help="回放速度倍率，默认 0.2")
     parser.add_argument("--rate", type=float, default=300.0,
-                        help="ServoP 发送频率，默认 300 Hz")
+                        help="机械臂发送频率，默认 300 Hz")
+    parser.add_argument("--interpolation", choices=("linear", "none"), default="linear",
+                        help="linear：位置线性/旋转SLERP；none：原帧到期后更新目标，帧间重复上一帧")
+    parser.add_argument("--arm-control", choices=("servop",), default="servop",
+                        help="固定使用 ServoP；右腕保持实测位姿，不发送头部目标；ServoJ 已停用")
     parser.add_argument("--max-gap", type=float, default=0.15)
     parser.add_argument("--max-displacement", type=float, default=0.35,
                         help="相对起点最大位移，默认 0.35 m")
     parser.add_argument("--max-angle", type=float, default=90.0)
     parser.add_argument("--robot-ip", default=DEFAULT_ROBOT_IP)
     parser.add_argument("--move-duration", type=float, default=10.0,
-                        help="每只手臂的 MoveJ 时间，默认 10 秒")
+                        help="左臂准备 MoveJ 时间，默认 10 秒；右臂不归位")
     parser.add_argument("--countdown", type=int, default=5,
                         help="自动准备运动和确认回放后的倒计时各 5 秒")
     parser.add_argument("--joint-tolerance", type=float, default=0.04,
@@ -110,6 +164,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
                         help="固定腕姿态验收误差，默认 3°")
     parser.add_argument("--feedback-timeout", type=float,
                         default=FEEDBACK_TIMEOUT_SECONDS)
+    parser.add_argument("--z-compensation", action="store_true",
+                        help="有界Z位置修正，默认直接回放；可配合--settle-handover先恢复接管Z，不是力控制")
+    parser.add_argument('--z-adaptation', choices=('stationary', 'continuous'), default='stationary',
+                        help='Z学习策略：默认stationary仅静止更新；continuous为实验自由空间连续反馈，仍限20mm和1mm/s')
+    parser.add_argument('--settle-handover', action='store_true',
+                        help='配合--z-compensation，接管Z恢复后再开始轨迹；不是力矩连续修复')
+    parser.add_argument("--z-max-correction-mm", type=float, default=20.,
+                        help="Z位置修正硬上限，5–20mm，默认20；不会修改原始轨迹或标定")
     parser.add_argument("--trace-file", type=Path,
                         help="真机日志路径；默认自动创建且不覆盖旧日志")
     parser.add_argument("--with-o6-hand", action="store_true",
@@ -117,11 +179,21 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--o6-can",
                         help="独立启动回放专用 O6 桥接的 CAN 接口，如 can1；不启动手套采集")
     parser.add_argument("--web-control", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--ik-report", type=Path,
+                        help="--plan-ik 的 JSON 报告路径；同时保存同名 NPZ 完整离线轨迹，不覆盖旧文件")
+    parser.add_argument("--ik-min-margin-deg", type=float, default=0.0,
+                        help="离线 IK 候选至少保留的关节限位余量，默认 0°；择优仍最大化整段余量")
+    parser.add_argument("--ik-max-joint-speed", type=float, default=0.5,
+                        help="离线 IK 连续性检查速度上限，默认 0.5 rad/s；不是厂家速度限制")
+    from tron2_pose_replay import add_pose_arguments
+    add_pose_arguments(parser)
     mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--plan-ik", action="store_true",
+                      help="离线比较整段 IK 候选，优先选关节限位余量最大的路径；不连接或控制真机")
     mode.add_argument("--execute", action="store_true",
                       help="若不在固定起点，倒计时后自动 MoveJ；到位后输入 REPLAY 回放")
     mode.add_argument("--check-robot", action="store_true",
-                      help="只读查看机器人当前状态与固定起点的距离")
+                      help="只读查看机器人状态与左臂固定起点的距离")
     return parser.parse_args(argv)
 
 
@@ -132,8 +204,31 @@ def data_path(args: argparse.Namespace) -> Path:
 
 
 def validate_args(args: argparse.Namespace) -> None:
+    validate_tracker_mapping_arguments(args)
+    from tron2_pose_replay import validate_pose_options
+    validate_pose_options(args)
+    if getattr(args, 'settle_handover', False) and not args.z_compensation:
+        raise ValueError('--settle-handover 必须显式配合 --z-compensation')
+    if getattr(args, 'z_adaptation', 'stationary') != 'stationary' and not args.z_compensation:
+        raise ValueError('--z-adaptation continuous 必须显式配合 --z-compensation')
+    if args.arm_control != "servop":
+        raise ValueError("固定起点回放仅支持 ServoP；ServoJ 已停用")
+    if (not math.isfinite(args.z_max_correction_mm)
+            or not 5. <= args.z_max_correction_mm <= 20.):
+        raise ValueError("--z-max-correction-mm 必须为5至20之间的有限数值")
+    if not args.z_compensation and args.z_max_correction_mm != 20.:
+        raise ValueError("修改Z修正上限时须同时指定 --z-compensation")
+    if args.z_compensation and (args.rate != 300. or args.plan_ik):
+        raise ValueError("Z补偿直接回放使用300Hz；--plan-ik 为独立离线工具，不与Z补偿叠加")
     if args.web_control and not args.execute:
         raise ValueError("--web-control 仅能与 --execute 一同使用")
+    if args.ik_report is not None and not args.plan_ik:
+        raise ValueError("--ik-report 必须与 --plan-ik 一同使用")
+    if (not math.isfinite(args.ik_min_margin_deg) or args.ik_min_margin_deg < 0
+            or not math.isfinite(args.ik_max_joint_speed) or args.ik_max_joint_speed <= 0):
+        raise ValueError("离线 IK 余量须为非负数，速度上限须为正数，且均须有限")
+    if not args.plan_ik and (args.ik_min_margin_deg != 0 or args.ik_max_joint_speed != .5):
+        raise ValueError("--ik-min-margin-deg / --ik-max-joint-speed 只用于 --plan-ik，不会改变 ServoP 固件")
     if args.o6_can is not None:
         validate_o6_can(args.o6_can)
         if not args.with_o6_hand:
@@ -164,15 +259,16 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("--angle-tolerance 必须在 0.1 至 5° 之间")
     if not FEEDBACK_TIMEOUT_SECONDS <= args.feedback_timeout <= 3.0:
         raise ValueError("--feedback-timeout 必须在 0.5 至 3 秒之间")
-    parse_axis_map(args.axis_map)
+    if args.axis_map is not None:
+        parse_axis_map(args.axis_map)
 
 
 def check_fixed_arm_pose(pose, side: str, position_tolerance: float,
                          angle_tolerance: float) -> None:
-    wanted_position = FIXED_LEFT_POSITION if side == "left" else FIXED_RIGHT_POSITION
-    wanted_quaternion = (
-        FIXED_LEFT_QUATERNION if side == "left" else FIXED_RIGHT_QUATERNION
-    )
+    if side != "left":
+        raise ValueError("只有左臂有固定起点；右臂不得恢复历史目标")
+    wanted_position = FIXED_LEFT_POSITION
+    wanted_quaternion = FIXED_LEFT_QUATERNION
     actual_position = getattr(pose, f"{side}_position")
     actual_quaternion = getattr(pose, f"{side}_quaternion")
     position_error = float(np.linalg.norm(actual_position - wanted_position))
@@ -188,13 +284,12 @@ def check_fixed_arm_pose(pose, side: str, position_tolerance: float,
 
 def check_fixed_pose(pose, position_tolerance: float,
                      angle_tolerance: float) -> None:
-    """固定起点以保存的双腕位姿为准，不从本次漂移位置静默重锚定。"""
-    for side in ("left", "right"):
-        check_fixed_arm_pose(pose, side, position_tolerance, angle_tolerance)
+    """只核验保存的左腕目标；右腕不参与历史固定起点验收。"""
+    check_fixed_arm_pose(pose, "left", position_tolerance, angle_tolerance)
 
 
 def already_at_fixed_start(q: np.ndarray, pose, args: argparse.Namespace) -> bool:
-    if float(np.max(np.abs(q[:14] - FIXED_Q))) > args.joint_tolerance:
+    if float(np.max(np.abs(q[:7] - FIXED_LEFT_Q))) > args.joint_tolerance:
         return False
     try:
         check_fixed_pose(pose, args.position_tolerance, args.angle_tolerance)
@@ -227,62 +322,81 @@ def acquire_replay_lock():
     return lock
 
 
+def check_right_hold(q: np.ndarray, pose: DualArmPose,
+                     held_q: np.ndarray, held_pose: DualArmPose,
+                     args: argparse.Namespace) -> float:
+    """只观察右臂相对本次起点的偏移；超限时不发送右臂纠正或归位指令。"""
+    joint_error = float(np.max(np.abs(q[7:14] - held_q)))
+    position_error = float(np.linalg.norm(
+        pose.right_position - held_pose.right_position
+    ))
+    angle_error = quaternion_distance_deg(
+        pose.right_quaternion, held_pose.right_quaternion
+    )
+    if (joint_error > args.joint_tolerance
+            or position_error > args.position_tolerance
+            or angle_error > args.angle_tolerance):
+        raise RuntimeError(
+            f"准备期间右臂偏离本次保持起点：关节 {joint_error:.4f} rad，"
+            f"腕位移 {position_error * 1000:.1f} mm / {angle_error:.2f}°；"
+            "不再发送后续运动指令，也不自动纠正右臂"
+        )
+    return joint_error
+
+
 def restore_fixed_start(client: Tron2JsonClient, q: np.ndarray, dq: np.ndarray,
                         pose: DualArmPose, args: argparse.Namespace,
                         trace: TraceRecorder | None = None) -> DualArmPose:
-    """将双臂恢复到保存的关节目标并验证腕位姿；只负责准备，不启动回放。"""
+    """只恢复左臂；MoveJ 的右臂部分保持本次实测关节角，不启动回放。"""
+    require_validated_left_start()
     if float(np.max(np.abs(dq[:14]))) > 0.05:
         raise RuntimeError("双臂关节仍在运动，不开始准备阶段")
+    held_right_q = q[7:14].copy()
 
     if already_at_fixed_start(q, pose, args):
-        print("双臂已在保存的固定起点附近，跳过两次 MoveJ。")
+        print("左臂已在保存的固定起点附近，跳过 MoveJ；右臂不归位。")
         if trace is not None:
             trace.record("prepare_skipped", reason="already_at_fixed_start")
     else:
+        require_validated_prepare_path()
         print("已指定 --execute：倒计时后自动准备固定起点，"
-              "先右臂 MoveJ，再左臂 MoveJ。准备前不再要求输入。")
+              "仅左臂 MoveJ；右臂保持启动前实测关节角，不归位。")
         print("请立即清空双臂运动范围并备好实体急停；"
               "MoveJ 期间 Ctrl+C 不保证机器人停止。")
         countdown(args.countdown)
 
-        first_target = q[:14].copy()
-        first_target[7:14] = FIXED_RIGHT_Q
+        # 倒计时后重新只读确认，防止发送基于过期右臂位置的保持目标。
+        current_q, current_dq = client.joint_snapshot(label="pre_left_prepare")
+        current_pose = client.current_servo_pose(label="pre_left_prepare")
+        if float(np.max(np.abs(current_dq[:14]))) > 0.05:
+            raise RuntimeError("准备倒计时后双臂仍在运动，不发送 MoveJ")
+        check_right_hold(current_q, current_pose, held_right_q, pose, args)
+        target = current_q[:14].copy()
+        target[:7] = FIXED_LEFT_Q
+        # 厂商 MoveJ 需要 14 个关节目标；保留本次右臂读数不是硬件锁死。
+        target[7:14] = held_right_q
         if trace is not None:
-            trace.record("prepare_stage", side="right", target_q=first_target.tolist())
-        move_stage(client, "固定准备 1/2", "right", first_target, slice(7, 14),
-                   args.move_duration, RIGHT_PREPARE_JOINT_TOLERANCE_RAD)
-
-        after_right_q, after_right_dq = client.joint_snapshot(label="after_right")
-        if float(np.max(np.abs(after_right_dq[:14]))) > 0.05:
-            raise RuntimeError("右臂准备后双臂仍在运动，不开始左臂准备")
-        right_pose = client.current_servo_pose(label="after_right")
-        print("右臂 MoveJ 后与保存的固定起点的腕位姿误差：")
-        check_fixed_arm_pose(right_pose, "right", args.position_tolerance,
-                             args.angle_tolerance)
-        second_target = after_right_q[:14].copy()
-        second_target[:7] = FIXED_LEFT_Q
-        # MoveJ 消息包含双臂 14 个目标；右臂必须保持保存的固定起点，
-        # 不能把一次未到位的实测关节角作为第二阶段的新目标。
-        second_target[7:14] = FIXED_RIGHT_Q
-        if trace is not None:
-            trace.record("prepare_stage", side="left", target_q=second_target.tolist())
-        move_stage(client, "固定准备 2/2", "left", second_target, slice(0, 7),
+            trace.record("prepare_stage", side="left", target_q=target.tolist(),
+                         right_hold_q=held_right_q.tolist())
+        move_stage(client, "左臂固定准备", "left", target, slice(0, 7),
                    args.move_duration, args.joint_tolerance)
 
     final_q, final_dq = client.joint_snapshot(label="after_prepare")
-    joint_error = float(np.max(np.abs(final_q[:14] - FIXED_Q)))
+    joint_error = float(np.max(np.abs(final_q[:7] - FIXED_LEFT_Q)))
     if joint_error > args.joint_tolerance:
         raise RuntimeError(
-            f"固定起点关节最大误差 {joint_error:.4f} rad 超过 "
+            f"左臂固定起点关节最大误差 {joint_error:.4f} rad 超过 "
             f"{args.joint_tolerance:.4f} rad"
         )
     if float(np.max(np.abs(final_dq[:14]))) > 0.05:
         raise RuntimeError("准备后双臂关节尚未停稳")
     anchor = client.current_servo_pose(label="fixed_start")
-    print("准备后与保存的固定起点的双腕误差：")
+    print("准备后与保存的左臂固定起点的误差：")
     check_fixed_pose(anchor, args.position_tolerance, args.angle_tolerance)
+    right_error = check_right_hold(final_q, anchor, held_right_q, pose, args)
     if trace is not None:
-        trace.record("fixed_start_verified", joint_max_error_rad=joint_error)
+        trace.record("fixed_start_verified", joint_max_error_rad=joint_error,
+                     right_hold_joint_error_rad=right_error, preparation_arm="left")
     return anchor
 
 
@@ -300,9 +414,8 @@ def main(argv: list[str] | None = None) -> int:
         trajectory = load_tracker(data_path(args), args.max_gap)
         if trajectory.hand_side != "left":
             raise ValueError("固定起点脚本只回放左腕；该 episode 的 Tracker 手侧不是 left")
-        axis_map = parse_axis_map(args.axis_map)
-        delta_positions, delta_quaternions, angles = relative_motion(
-            trajectory, axis_map, args.scale, args.orientation_scale
+        delta_positions, delta_quaternions, angles = prepare_tracker_motion(
+            trajectory, args, "left", default_axis_map="y,z,x"
         )
         max_displacement = float(np.linalg.norm(delta_positions, axis=1).max())
         if max_displacement > args.max_displacement:
@@ -316,6 +429,7 @@ def main(argv: list[str] | None = None) -> int:
             sample_relative_trajectory(
                 trajectory, delta_positions, delta_quaternions,
                 args.rate, args.speed,
+                args.interpolation,
             )
         )
         if args.with_o6_hand:
@@ -324,55 +438,106 @@ def main(argv: list[str] | None = None) -> int:
             )
         targets = FIXED_LEFT_POSITION[None, :] + sampled_positions
         check_workspace("left", targets)
-        check_workspace("right", FIXED_RIGHT_POSITION[None, :])
+        if args.pose_compensation:
+            from tron2_pose_reference import VERSION
+            print(f'将使用最新实验控制器：{VERSION}；不是旧连续Z版本。')
+        if args.z_compensation:
+            print(f'Z学习策略：{args.z_adaptation}；连续模式仅用于已确认无接触的自由空间。')
+            upper_targets = targets.copy()
+            upper_targets[:, 2] += args.z_max_correction_mm/1000.
+            check_workspace('left', upper_targets)
         print(f"数据文件: {trajectory.source}")
-        print(f"目标机器人: {FIXED_ROBOT_ID}; 固定起点: 2026-10-15 实测双臂姿态")
+        print(f"目标机器人: {FIXED_ROBOT_ID}; 固定起点: {FIXED_LEFT_START_LABEL}")
         print(f"left 固定腕位置 (m): {FIXED_LEFT_POSITION.tolist()}")
-        print(f"right 固定腕位置 (m): {FIXED_RIGHT_POSITION.tolist()}")
+        if not FIXED_LEFT_START_MEASURED:
+            print("当前准备目标尚未实测，需要先单独恢复试验及现场核对。")
+        print("右臂不自动归位；准备时保持本次实测关节角。")
+        print("回放控制：ServoP；左腕目标变化，右腕保持本次启动实测位姿；不发送头部目标。")
+        print("右腕不做 MoveP 工作空间验收；仍检查反馈有效性、异常偏移及超时。")
+        if args.z_compensation:
+            if args.settle_handover:
+                print(f"接管Z恢复：修正上限{args.z_max_correction_mm:g}mm；Z误差连续1秒不超过1mm后才启动轨迹，最多30秒。")
+                print("这是有界位置补偿，不能修复底层力矩切换或阻止首瞬下沉；名义锚点不变。")
+            else:
+                print(f"Z闭环直接回放：上限{args.z_max_correction_mm:g}mm；无整段IK包络预检、无预热。")
+                print("修正从0开始；初次接管下沉不会被提前补偿。")
+        if not FIXED_LEFT_START_VALIDATED:
+            print("注意：旧左臂起点尚未验证 O6 朝向，离线结果仅供参考；真机执行暂停。")
+        elif not FIXED_LEFT_PREPARE_PATH_VALIDATED:
+            print("注意：已在正式起点可跳过恢复；偏离起点时，未验证的 MoveJ 恢复仍被拦截。")
         print(f"计划: {len(replay_times)} 帧 @ {args.rate:g} Hz, "
               f"{replay_times[-1]:.3f} s, scale={args.scale:g}, "
-              f"speed={args.speed:g}, axis-map={args.axis_map}")
+              f"speed={args.speed:g}, mapping={args.tracker_mapping_info['mode']}")
+        print(f"Tracker目标插值: {args.interpolation}；原始有效帧 {len(trajectory.timestamps_s)}")
+        if args.interpolation == "none":
+            print("不生成帧间位姿；原帧按时间戳到期更新，发送周期内重复上一帧。")
+            max_step = np.linalg.norm(np.diff(delta_positions, axis=0), axis=1).max()
+            max_turn = max(quaternion_distance_deg(a, b) for a, b in
+                           zip(delta_quaternions[:-1], delta_quaternions[1:]))
+            print(f"原帧最大目标阶跃: {max_step*1000:.2f}mm / {max_turn:.2f}°")
         print(f"轨迹最大相对位移: {max_displacement:.4f} m")
+        print(f"轨迹最大相对转角: {float(angles.max()):.2f}°，orientation-scale={args.orientation_scale:g}")
         print("左腕目标范围 (m): "
               f"min={targets.min(axis=0).round(4).tolist()}, "
               f"max={targets.max(axis=0).round(4).tolist()}")
-        print("注意：工作空间包围盒检查不等于关节可达性或碰撞检查。")
+        print("注意：保守参考范围取自 MoveP 文档，不是已经验证的 ServoP 边界；"
+              "仅用于运动左臂；离线检查不等于 IK 可达性、碰撞或真机保持验证。")
         if hand_replay is not None:
             print(f"O6 左手实测状态: {len(hand_replay.states)} 帧，"
                   f"最后一帧时间 {hand_replay.due_ns[-1] / 1e9:.3f}s；"
                   "与 Tracker 使用同一回放时钟。")
+        if args.plan_ik:
+            from tron2_ik_report import write_ik_plan
+            write_ik_plan(args, trajectory.source, replay_times,
+                          sampled_positions, sampled_quaternions,
+                          FIXED_LEFT_Q, FIXED_LEFT_POSITION, FIXED_LEFT_QUATERNION)
+            return 0
+        if args.pose_compensation and not args.execute and not args.check_robot:
+            from tron2_pose_replay import prepare_pose_replay
+            offline_anchor = DualArmPose(FIXED_LEFT_POSITION.copy(),FIXED_LEFT_QUATERNION.copy(),
+                                        np.zeros(3),np.array([1.,0.,0.,0.]))
+            prepare_pose_replay(offline_anchor,np.r_[FIXED_LEFT_Q,np.zeros(9)],replay_times,
+                                sampled_positions,sampled_quaternions,args)
         if not args.execute and not args.check_robot:
-            print("离线预检完成；未连接机器人、未发送运动指令。")
+            print("全位姿名义/模型修正参考整段预检完成；未连接机器人或发送运动指令。" if args.pose_compensation else
+                  "轨迹信息读取完成；未执行整段IK预检，未连接机器人或发送运动指令。")
             return 0
 
         if args.execute:
+            require_validated_left_start()
             trace = TraceRecorder(args.trace_file or default_trace_path())
             if hand_replay is not None:
                 hand_replay.trace = trace
             trace.record(
                 "fixed_start_plan", episode=str(trajectory.source),
-                robot_id=FIXED_ROBOT_ID, fixed_q=FIXED_Q.tolist(),
+                robot_id=FIXED_ROBOT_ID, fixed_left_q=FIXED_LEFT_Q.tolist(),
                 fixed_left_position=FIXED_LEFT_POSITION.tolist(),
-                fixed_right_position=FIXED_RIGHT_POSITION.tolist(),
-                scale=args.scale, axis_map=args.axis_map,
+                fixed_left_reference_position=FIXED_LEFT_REFERENCE_POSITION.tolist(),
+                fixed_left_position_offset_m=FIXED_LEFT_POSITION_OFFSET_M.tolist(),
+                fixed_left_start_profile=str(FIXED_LEFT_START_PROFILE),
+                fixed_left_height_offset_m=FIXED_LEFT_HEIGHT_OFFSET_M,
+                fixed_left_start_measured=FIXED_LEFT_START_MEASURED,
+                preparation_arm="left", right_hold="measured_at_start",
+                right_movep_workspace_check=False,
+                scale=args.scale, orientation_scale=args.orientation_scale, axis_map=args.axis_map,
+                tracker_mapping=args.tracker_mapping_info,
                 speed=args.speed, with_o6_hand=bool(hand_replay),
-                o6_can=args.o6_can,
+                tracker_interpolation=args.interpolation,
+                z_compensation=args.z_compensation,
+                pose_compensation=args.pose_compensation,
+                controller_version=('pose-reference-v1-experimental-20261105' if args.pose_compensation
+                                    else 'legacy-continuous-z' if args.z_compensation and args.z_adaptation=='continuous'
+                                    else 'legacy-stationary-z' if args.z_compensation else 'legacy-direct-servop'),
+                z_adaptation=args.z_adaptation,
+                z_max_correction_mm=args.z_max_correction_mm if args.z_compensation else None,
+                o6_can=args.o6_can, arm_control=args.arm_control,
+                action_contract=SERVOP_ACTION_CONTRACT,
                 expected_final_delta_m=sampled_positions[-1].tolist(),
             )
             print(f"记录文件: {trace.path}")
-            if hand_replay is not None:
-                if args.o6_can is not None:
-                    print(f"正在检查 {args.o6_can} 并启动回放专用 O6 桥接；"
-                          "尚未连接 TRON2 或发送轨迹。")
-                    o6_bridge = O6ReplayBridge(
-                        args.o6_can, trace.path.with_suffix(".o6_bridge.log"), trace
-                    )
-                    o6_bridge.start(hand_replay)
-                else:
-                    hand_replay.probe_bridge()
-                    print("O6 回放桥接服务已发现；尚未接管手指或发送运动指令。")
         client = Tron2JsonClient(args.robot_ip, trace=trace)
         client.wait_for_identity()
+        check_tracker_mapping_robot(args, client.accid)
         if client.accid != FIXED_ROBOT_ID:
             raise RuntimeError(
                 f"连接的是 {client.accid}，固定姿态只针对 {FIXED_ROBOT_ID}；"
@@ -386,18 +551,43 @@ def main(argv: list[str] | None = None) -> int:
         print("当前腕位置 (m):")
         print(f"  left : {pose.left_position.round(4).tolist()}")
         print(f"  right: {pose.right_position.round(4).tolist()}")
+        if q.size >= 16:
+            print(f"当前头部 pitch/yaw（只读，rad）: {q[14:16].round(4).tolist()}")
         if args.check_robot:
-            print("当前与固定起点的双腕误差：")
+            print("当前与左臂固定起点的误差（右臂不要求回历史位置）：")
             try:
                 check_fixed_pose(pose, args.position_tolerance,
                                  args.angle_tolerance)
             except RuntimeError as exc:
                 print(f"提示：{exc}")
+            try:
+                check_workspace("left", pose.left_position[None, :] + sampled_positions)
+                check_servop_hold_position("right", pose.right_position)
+            except ValueError as exc:
+                print(f"ServoP 执行条件未满足：{exc}")
             print("只读预检结束；没有发送 MoveJ 或 ServoP。")
             return 0
+        # 右腕只核验有效坐标，不因 MoveP 参考包围盒而拦截左臂准备。
+        check_servop_hold_position("right", pose.right_position)
         anchor = restore_fixed_start(client, q, dq, pose, args, trace)
+        check_servop_hold_position("right", anchor.right_position)
+        if args.pose_compensation:
+            from tron2_pose_replay import prepare_pose_replay
+            live_q,live_dq=client.joint_snapshot(label='pose_reference_preflight')
+            if np.max(abs(live_dq))>.05:
+                raise RuntimeError('全位姿参考预检前关节未停稳')
+            prepare_pose_replay(anchor,live_q,replay_times,sampled_positions,sampled_quaternions,args,trace)
+        if hand_replay is not None:
+            if args.o6_can is not None:
+                o6_bridge = O6ReplayBridge(
+                    args.o6_can, trace.path.with_suffix(".o6_bridge.log"), trace
+                )
+                o6_bridge.start(hand_replay)
+            else:
+                hand_replay.probe_bridge()
+            print("O6 回放桥接已就绪；尚未发送手指轨迹。")
         print("固定起点已验证。回放将再要求输入 REPLAY 并倒计时；"
-              "ServoP 接管仍可能使双臂跳变。")
+              "首帧接管仍需现场观察，固定右腕目标不等于关节锁死；头部不参与回放。")
         web_event(args, "awaiting_replay")
         verified = execute_replay(
             client, anchor, "left", replay_times,

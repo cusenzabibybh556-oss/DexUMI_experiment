@@ -5,6 +5,7 @@ v2.8.0升级了映射器算法
 """
 import numpy as np
 import copy
+from collections import deque
 from linkerhand.handcore import HandCore
 from ..config.o6_config import FINGER_CONFIGS, MAPPING_ORDER, ROBOT_OPOSE_RIGHT, ROBOT_OPOSE_LEFT, ROBOT_ORIGINAL_RIGHT, ROBOT_ORIGINAL_LEFT, ROBOT_FIST_RIGHT, ROBOT_FIST_LEFT, MULTI_SEGMENT_CONFIG, MOTOR_CONSTRAINTS
 from typing import List
@@ -55,6 +56,13 @@ class RightHand:
         self.max_step = 255
         self.inspire_command_guard = InspireCommandGuard()
 
+        # The v2 glove's second thumb sensor can jitter around the open pose
+        # while the wearer's thumb is still.  This channel drives O6 thumb
+        # abduction directly, so reject short spikes and add a small open-pose
+        # deadband before the nonlinear mapper amplifies them.
+        self._thumb_abduction_history = deque(maxlen=9)
+        self._thumb_abduction_filtered = None
+
         # 目标机械手预设姿势，数值从URDF获取数据集，
         # 张开手的时候对应最小角度，
         # 握拳的时候对应最大角度
@@ -103,6 +111,8 @@ class RightHand:
         self.multi_state_mapper.add_state('opose', glove_opose, self.robot_opose)
         self.multi_state_mapper.add_state('fist', glove_fist, self.robot_fist)
         self.multi_state_mapper.set_state_order(MULTI_SEGMENT_CONFIG['states'])
+        self._thumb_abduction_history.clear()
+        self._thumb_abduction_filtered = None
 
     def set_glove_version(self, version: str):
         if not version:
@@ -188,6 +198,24 @@ class RightHand:
         
         return smoothed
 
+    def _filter_thumb_abduction(self, sample):
+        open_angle = float(self.calibrationoriginal[1])
+        span = abs(self.calibrationfistpose[1] - open_angle)
+        # Cap the neutral band at 5% of this wearer's calibrated travel.
+        deadband = min(0.18, 0.05 * span)
+        if self._thumb_abduction_filtered is None:
+            self._thumb_abduction_filtered = open_angle
+        if np.isfinite(sample):
+            self._thumb_abduction_history.append(sample)
+            target = float(np.median(self._thumb_abduction_history))
+            if abs(target - open_angle) <= deadband:
+                target = open_angle
+            # Limit the step toward the target. Snapping the accumulator
+            # back to open here would trap it when the band exceeds one step.
+            delta = target - self._thumb_abduction_filtered
+            self._thumb_abduction_filtered += float(np.clip(delta, -0.04, 0.04))
+        return self._thumb_abduction_filtered
+
     def joint_update(self, joint_arc):
         """
         右手映射 - 基于标定数据和预期机械手动作的映射器完成
@@ -208,6 +236,9 @@ class RightHand:
         #         f"最大角度={data['max_angle']:.3f}rad")
         # ========== 使用映射器进行精确映射 ==========
         if self.calibrationoriginal is not None and self.calibrationfistpose is not None and self.calibrationopose is not None:
+            if self.glove_version == 'v2' and self.target_profile == 'o6':
+                joint_arc = list(joint_arc)
+                joint_arc[1] = self._filter_thumb_abduction(joint_arc[1])
             # for i in range(20):
             #     self.multi_state_mapper.debug_value[i] = joint_arc[i]
             arc_value = self.multi_state_mapper.map_glove_to_robot(joint_arc)

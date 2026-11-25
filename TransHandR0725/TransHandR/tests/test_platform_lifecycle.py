@@ -232,9 +232,9 @@ def test_hardware_platform_cannot_clean_up_during_replay_lock(tmp_path, monkeypa
     platform = TeleoperationPlatform("hardware", "127.0.0.1", 0,
                                     free_udp_port(), tmp_path)
     with platform._replay_boundary():
-        with pytest.raises(RuntimeError, match="真机恢复/回放正在运行"):
+        with pytest.raises(RuntimeError, match="真机恢复/回放.*正在运行"):
             platform.stop_system()
-        with pytest.raises(RuntimeError, match="真机恢复/回放正在运行"):
+        with pytest.raises(RuntimeError, match="真机恢复/回放.*正在运行"):
             platform.start_system()
 
 

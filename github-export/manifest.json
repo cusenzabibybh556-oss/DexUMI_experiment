@@ -1,6 +1,7 @@
 {
   "source": "/home/zmy/Projects/Dexumi",
   "source_repositories": [
+    ".",
     "TransHandR0725/TransHandR",
     "TransHandR0725/TransHandR/inspire_hands",
     "TransHandR0725/TransHandR/linkerhand_20_lite_test/linkerhand_python_sdk",
@@ -14,9 +15,19 @@
     ".gitignore": 1,
     "DEXUMI_工程内容整理.md": 1,
     "README.md": 1,
-    "TransHandR0725": 1426,
+    "TransHandR0725": 1429,
+    "audit_dexumi_wrist_calibration.py": 1,
+    "audit_tron2_tracker_calibration.py": 1,
+    "auto_calibrate_tron2_tracker.py": 1,
+    "auto_calibrate_tron2_tracker_wide.py": 1,
+    "capture_tron2_tracker_calibration.py": 1,
+    "compare_tron2_calibration_scales.py": 1,
+    "configs": 16,
+    "dexumi_wrist_solver.py": 1,
     "docs": 1,
-    "linkerhand_telop_python-master": 1481,
+    "filter_tron2_tracker_status2.py": 1,
+    "fit_global_dexumi_reference.py": 1,
+    "linkerhand_telop_python-master": 1482,
     "o6_hand_replay.py": 1,
     "o6_replay_bridge.py": 1,
     "prepare_tron2_arms.py": 1,
@@ -34,59 +45,253 @@
     "replay_tron2_fixed_start.py": 1,
     "replay_tron2_tracker.py": 1,
     "restore_tron2_fixed_start.py": 1,
-    "test_o6_hand_replay.py": 1,
-    "test_o6_replay_bridge.py": 1,
-    "test_prepare_tron2_arms.py": 1,
+    "review_dexumi_rigid_methods.py": 1,
+    "solve_tron2_tracker_calibration.py": 1,
+    "test_auto_calibrate_tron2_tracker.py": 1,
+    "test_compare_tron2_calibration_scales.py": 1,
+    "test_dexumi_wrist_solver.py": 1,
+    "test_diagnose_tron2_servop.py": 1,
+    "test_diagnose_tron2_z_compensation.py": 1,
+    "test_filter_tron2_tracker_status2.py": 1,
+    "test_fit_global_dexumi_reference.py": 1,
     "test_replay_tron2_fixed_start.py": 1,
-    "test_replay_tron2_tracker.py": 1,
-    "test_restore_tron2_fixed_start.py": 1,
-    "test_robot_replay_web.py": 1,
-    "tools": 1,
+    "test_replay_tron2_servop.py": 1,
+    "test_replay_tron2_z_compensation_integration.py": 1,
+    "test_review_dexumi_rigid_methods.py": 1,
+    "test_simulate_tron2_z_feedback.py": 1,
+    "test_sweep_tron2_speed_scale.py": 1,
+    "test_tracker_replay_mapping.py": 1,
+    "test_tracker_wrist_capture.py": 1,
+    "test_tracker_wrist_solver.py": 1,
+    "test_tron2_broad_calibration_plan.py": 1,
+    "test_tron2_final_calibration_validation_plan.py": 1,
+    "test_tron2_hardware_residual.py": 1,
+    "test_tron2_ik_planner.py": 1,
+    "test_tron2_large_calibration_plan.py": 1,
+    "test_tron2_left_ik.py": 1,
+    "test_tron2_level_start_plan.py": 1,
+    "test_tron2_motor_observer.py": 1,
+    "test_tron2_payload.py": 1,
+    "test_tron2_pose_compensation.py": 1,
+    "test_tron2_pose_replay.py": 1,
+    "test_tron2_raw_ws_client.py": 1,
+    "test_tron2_restore_trial.py": 1,
+    "test_tron2_snapshot_retry.py": 1,
+    "test_tron2_z_compensation.py": 1,
+    "test_validate_tron2_dynamic_z.py": 1,
+    "test_validate_tron2_episode_batch.py": 1,
+    "test_wide_tracker_calibration.py": 1,
+    "tests": 7,
+    "tools": 35,
+    "tracker_calibrations": 13,
+    "tracker_passive_reader.py": 1,
+    "tracker_replay_mapping.py": 1,
+    "tron2_act": 22,
+    "tron2_broad_calibration_plan.py": 1,
+    "tron2_final_calibration_validation_plan.py": 1,
     "tron2_fixed_start_profiles.md": 1,
-    "tron2_tracker_replay_commands.tex": 1,
+    "tron2_hardware_residual.py": 1,
+    "tron2_ik_planner.py": 1,
+    "tron2_ik_report.py": 1,
+    "tron2_large_calibration_plan.py": 1,
+    "tron2_left_ik.py": 1,
+    "tron2_level_start_plan.py": 1,
+    "tron2_pose_compensation.py": 1,
+    "tron2_pose_reference.py": 1,
+    "tron2_pose_replay.py": 1,
+    "tron2_restore_trial.py": 1,
+    "tron2_timing_calibration.py": 1,
+    "tron2_tracker_replay_commands.md": 1,
+    "tron2_vision": 8,
+    "tron2_wide_calibration_plan.py": 1,
+    "tron2_z_compensation.py": 1,
+    "tron2_z_envelope.py": 1,
+    "tron2_z_replay.py": 1,
+    "validate_frozen_tron2_mapping.py": 1,
+    "validate_tron2_tracker_mapping.py": 1,
     "实验室工程案例记录_TransHandR多源采集与O6左手遥操作整合.md": 1,
     "实验室工程案例记录表_处理思路与适用边界.md": 1
   },
   "included": [
+    {
+      "path": "test_tron2_broad_calibration_plan.py",
+      "bytes": 3720,
+      "sha256": "67e20dc9a0a0782976ff4ec5dc51e47a3a06afeaff61192cdf6f59f6c67e7b8f"
+    },
+    {
+      "path": "test_tron2_final_calibration_validation_plan.py",
+      "bytes": 3375,
+      "sha256": "1968fa46d075659fcee3afdc04aad61c2437e50fbfec015535679853b08a9831"
+    },
+    {
+      "path": "test_diagnose_tron2_z_compensation.py",
+      "bytes": 17152,
+      "sha256": "d5c4b3929c925122e3f3458d2dcb62df01be454944a6a2471f35f982283e56e4"
+    },
+    {
+      "path": "test_tron2_pose_compensation.py",
+      "bytes": 5770,
+      "sha256": "9fcb8a92afc914f96cf25ce328be52b64319b2ac73d80a40252db82709751cac"
+    },
+    {
+      "path": "capture_tron2_tracker_calibration.py",
+      "bytes": 21760,
+      "sha256": "e06e9e88a2dd789776b0dadbd64ba10f127acf7a4c0eebf388065caeec7138f2"
+    },
+    {
+      "path": "dexumi_wrist_solver.py",
+      "bytes": 10158,
+      "sha256": "e1af9e8a5cd3522313c633f8f1a3bba68fb7d52bb809a46369ab223ff5feddfa"
+    },
+    {
+      "path": "test_tron2_motor_observer.py",
+      "bytes": 2988,
+      "sha256": "035e3aaedca9b8c8a0d82f8c59a7763e1158fc3594c116763a34fa14fc2da8c7"
+    },
+    {
+      "path": "audit_dexumi_wrist_calibration.py",
+      "bytes": 5875,
+      "sha256": "b39c7c83f21d4b1b84eef9b69dc76a9eb722bcc324ea32b04e67f870d2576886"
+    },
+    {
+      "path": "test_tracker_wrist_solver.py",
+      "bytes": 11078,
+      "sha256": "cf9da1b47e885f0634eb8ca17b5d1df866165113014a9eccc8f3c6292e7dc2be"
+    },
+    {
+      "path": "audit_tron2_tracker_calibration.py",
+      "bytes": 13253,
+      "sha256": "89f7abaa0b8521af03aff6b7d491de819f2fecd77f7f2b9f86d016c5ac78e35c"
+    },
+    {
+      "path": "test_replay_tron2_z_compensation_integration.py",
+      "bytes": 32419,
+      "sha256": "9dd07f68f43aa2d252daed569a70c344218480eb0ec505493820dfdba88b80dc"
+    },
+    {
+      "path": "test_validate_tron2_dynamic_z.py",
+      "bytes": 2675,
+      "sha256": "13e032d0bbd7eb4add64f4dc5ae73fe5b4fcc658762e98a5183b3ed4d236ce1e"
+    },
+    {
+      "path": "tron2_tracker_replay_commands.md",
+      "bytes": 5971,
+      "sha256": "bef3058477f4460db24a4e24abbdb82a2968ff4b2033ea47f3cd92666aec29fe"
+    },
+    {
+      "path": "test_fit_global_dexumi_reference.py",
+      "bytes": 1859,
+      "sha256": "f20950e5a9f80ea074a02fd09e38b043605ee0f7be8a40dde9e4cac81978b350"
+    },
+    {
+      "path": "tron2_final_calibration_validation_plan.py",
+      "bytes": 8459,
+      "sha256": "290c013ca4a350f20badbcc7a1ac1bedea5756ca483e480e8ee83b87e6d2ad68"
+    },
     {
       "path": "prepare_tron2_arms.py",
       "bytes": 8923,
       "sha256": "1d755b0508e08a08e10ee569a301ba89b30b15541fcc5d626cf0c255dbf57eb7"
     },
     {
+      "path": "tron2_ik_planner.py",
+      "bytes": 12091,
+      "sha256": "cc501d8bf3973029f8a45886a6e4b4d619e2cb734dd1ecef405fabd8ac93ec54"
+    },
+    {
+      "path": "test_simulate_tron2_z_feedback.py",
+      "bytes": 4897,
+      "sha256": "fc724093da086362c92b6159d5dc15a5698d890257e5e95def86e7be47487e1f"
+    },
+    {
+      "path": "test_filter_tron2_tracker_status2.py",
+      "bytes": 3709,
+      "sha256": "d1c1418121413cde5f9594edaba4a471e170f13aeaa5e3fe2770c7561b3cd5e4"
+    },
+    {
+      "path": "tron2_level_start_plan.py",
+      "bytes": 10414,
+      "sha256": "d45e1bd70afbf060fccdbdc7096f5084c60d972e93330a45f1beaf25b0aeb610"
+    },
+    {
       "path": "o6_replay_bridge.py",
       "bytes": 7202,
-      "sha256": "bf4872c349865b95cd3db6009e8c4e9c5ce81f8e9fc3c22bc64830e083acec8d"
+      "sha256": "9575910fe17adead11500142940b7b0ff75db6c16b64606964c6d335c4761e9f"
     },
     {
       "path": "replay_tron2_tracker.py",
-      "bytes": 58719,
-      "sha256": "a24109c1d1d020e5f55c64cacde6e3d41e85b5d9403de6116940182c3fd8f69d"
+      "bytes": 75107,
+      "sha256": "69a45545b6b5e682897a463819408726d178eaa1429d1788fb17a90d616861f0"
+    },
+    {
+      "path": "test_tron2_pose_replay.py",
+      "bytes": 16372,
+      "sha256": "285f5d189a6b93cd761226d9c67a3fd52bbafe890f64b25de839bbdd29749893"
     },
     {
       "path": "tron2_fixed_start_profiles.md",
-      "bytes": 1442,
-      "sha256": "9142a9b692d9eab81203da4dae466ff1fba1248d3c516f20cee8c81478a89fac"
+      "bytes": 32373,
+      "sha256": "2a35c046aea5c48cd89383f347d2feee5ae0db6f20c19f7f83eb56d32997fe00"
+    },
+    {
+      "path": "test_sweep_tron2_speed_scale.py",
+      "bytes": 7260,
+      "sha256": "2551258b972e7e031f2bc03a8525364a462b8c87a92eebbc615df66b0c3c03c7"
     },
     {
       "path": "restore_tron2_fixed_start.py",
-      "bytes": 4693,
-      "sha256": "b85436184801be3a2260788548a54a96f022f877e2f4bc1851e0b7aea47f50b2"
+      "bytes": 7056,
+      "sha256": "bc6ed44f386d989adf13b312d39290007d84029b8739c1314e81c55ee80c29c5"
+    },
+    {
+      "path": "test_dexumi_wrist_solver.py",
+      "bytes": 3597,
+      "sha256": "b9cf73e552a7aa1c6092d4a5d1fbc1db62ad4112075988bb9edbd42faf69257d"
     },
     {
       "path": "README.md",
-      "bytes": 4425,
-      "sha256": "cc1c22b03cd4badc4ece96653562f7c6b505f1fc60ab9e491fa477f33551e22f"
+      "bytes": 4749,
+      "sha256": "b883dbd37d71efc548925f99c92972786fcdc796954e6aea50cc02b102053a68"
+    },
+    {
+      "path": "test_tron2_payload.py",
+      "bytes": 12205,
+      "sha256": "badc5931c9f4129b228667d2651ed276e830a06c700774b9e828cc75746e1534"
+    },
+    {
+      "path": "tron2_pose_replay.py",
+      "bytes": 21105,
+      "sha256": "5f98bae6b07715a8285b351d8c2d99f43ff4bae1d6549d27bb0a8c048a711ca3"
+    },
+    {
+      "path": "filter_tron2_tracker_status2.py",
+      "bytes": 10048,
+      "sha256": "5bec35d2251ebb4c337e6f1bff80ca16dea45e864f08a358a98269caa20efec4"
     },
     {
       "path": ".gitignore",
-      "bytes": 661,
-      "sha256": "e5f2853a9ac9740e7daf19f646ad85ca86ec5ada54622631d4c3f5840e7799d6"
+      "bytes": 673,
+      "sha256": "024ad4f473629f032102cba37a5d84d68f680f28a28d5108e0f701591945fe91"
+    },
+    {
+      "path": "test_tron2_large_calibration_plan.py",
+      "bytes": 3361,
+      "sha256": "7a78c05ff52152f59572fc703c973d1208818f0da8434886736cd1a97dde3f5f"
+    },
+    {
+      "path": "auto_calibrate_tron2_tracker_wide.py",
+      "bytes": 8853,
+      "sha256": "3bb6daa77e237c51a71a8293dda6d0237ba17ff6471743bc7d8f18c10aff46f9"
     },
     {
       "path": "replay_tron2_fixed_start.py",
-      "bytes": 22365,
-      "sha256": "b45411ce7b3e245d8f00a6118ccf3a70129820d014cf9b99a520bbf150ca967b"
+      "bytes": 36246,
+      "sha256": "2aafbf23a08caf9c2c14c59a4b8a7be971ba762105e216919a362d348a3e5d5a"
+    },
+    {
+      "path": "test_tracker_wrist_capture.py",
+      "bytes": 8680,
+      "sha256": "0d0d8a79329907dc2251d765f8472cb1d4b839d7155f70355e6abfde1f7a9b53"
     },
     {
       "path": "实验室工程案例记录_TransHandR多源采集与O6左手遥操作整合.md",
@@ -94,14 +299,59 @@
       "sha256": "3c9a5042d2b87f1c1ed4876e91e4c57c5b86b8b2bc1d1095c18ec94fd2420d43"
     },
     {
-      "path": "tron2_tracker_replay_commands.tex",
-      "bytes": 7324,
-      "sha256": "5ee7a8af73b4e1e98b1ff9e16aa6ddbb67c8936362ae2bc7521e369fac6602e2"
+      "path": "tron2_pose_compensation.py",
+      "bytes": 7300,
+      "sha256": "7ffb5f50dd1aa2b7eb4c5570345d9a40b25ab7561bdac41aa79c058273eb6e9f"
     },
     {
-      "path": "test_o6_hand_replay.py",
-      "bytes": 4583,
-      "sha256": "2182a34f1f7776c3c50bf0c2748c731a191575ca3f5bd3508f1a6c6840a8499e"
+      "path": "review_dexumi_rigid_methods.py",
+      "bytes": 8248,
+      "sha256": "ba25fa9775d508a47e8fddf064cf4305b77d8a8f133baa886bba1bf5764c948b"
+    },
+    {
+      "path": "validate_tron2_tracker_mapping.py",
+      "bytes": 6606,
+      "sha256": "34bfdc230705dae95c4cbccc1cd4f9ab81e9778d9313bc495acc4a50d8ff6345"
+    },
+    {
+      "path": "test_tron2_z_compensation.py",
+      "bytes": 13979,
+      "sha256": "f13d2810a1562c0e6395f75e3bc8388bb565b8d665abbae61974245c54dc7829"
+    },
+    {
+      "path": "tron2_z_envelope.py",
+      "bytes": 16365,
+      "sha256": "7252b3723b4c7f7aa3d66a1c1dd50e4f0dfcd6a96a4640fb5c37e7ed33b0db2b"
+    },
+    {
+      "path": "test_tracker_replay_mapping.py",
+      "bytes": 10672,
+      "sha256": "75ea37b9474961b568f5602d5062fa1ecdfc492fc122cde9958e0d682d6a381b"
+    },
+    {
+      "path": "test_tron2_raw_ws_client.py",
+      "bytes": 16420,
+      "sha256": "536efa03514640480382f937a878c1fb3e1ba385c49fe5ce7977b559b4536edf"
+    },
+    {
+      "path": "test_compare_tron2_calibration_scales.py",
+      "bytes": 6572,
+      "sha256": "2da7a550221f03c567529ec3da3ff5d259f8e65eb574335205bd715fa67814ce"
+    },
+    {
+      "path": "test_auto_calibrate_tron2_tracker.py",
+      "bytes": 2330,
+      "sha256": "09925356190b1ef11c2692914136f999b4bf3241d721c32711535dd320dd1b41"
+    },
+    {
+      "path": "tron2_hardware_residual.py",
+      "bytes": 6510,
+      "sha256": "7f513aba449c6ad596cc19102c72fc37f300349552877df6e492c2679f71d69d"
+    },
+    {
+      "path": "test_validate_tron2_episode_batch.py",
+      "bytes": 5438,
+      "sha256": "a1b879d0760282fc59ac807e5c29d4e985afbac6eaef1c7ef612de7c7c74e6dc"
     },
     {
       "path": "实验室工程案例记录表_处理思路与适用边界.md",
@@ -109,24 +359,49 @@
       "sha256": "3845ce96285437bc5bfa02ba2a067ef0de2c2427c9d4ce1c786a67d966c85fc0"
     },
     {
-      "path": "test_prepare_tron2_arms.py",
-      "bytes": 1400,
-      "sha256": "fb4064a21a5154872621836a27773699beb71cbaa4e827e02227bd24d6b5c340"
+      "path": "test_replay_tron2_servop.py",
+      "bytes": 11049,
+      "sha256": "d16628b595f0508197aa9561ee74f52d6bc670b3d438a3d1492eeb9c80c500f4"
     },
     {
-      "path": "test_restore_tron2_fixed_start.py",
-      "bytes": 2632,
-      "sha256": "946892037fa3d837c5e48158a110f81b1c82ffd985d95e5fbe035683ae8b487a"
+      "path": "tron2_broad_calibration_plan.py",
+      "bytes": 13994,
+      "sha256": "44cdf3ec2a3d93385cdb0c0954b7638321aa1ba19604856c3d80f3eedba553b1"
     },
     {
-      "path": "test_replay_tron2_tracker.py",
-      "bytes": 23494,
-      "sha256": "0f87f208cf206485edee533d0c9326a49b8279cef0c99de490bada7112d5af7d"
+      "path": "test_wide_tracker_calibration.py",
+      "bytes": 4346,
+      "sha256": "5a1fefec57783234b0c70dd5eb4f2cd88af2898169aa6101dde758944e09f470"
     },
     {
-      "path": "test_robot_replay_web.py",
-      "bytes": 10993,
-      "sha256": "4b16981af8355961520e910a08acb543c708faa7b2ba3c633eeefa735addea29"
+      "path": "tron2_restore_trial.py",
+      "bytes": 18589,
+      "sha256": "bc304ce0fa4f13021a289b78fe11b618b214c6ff3d0e55221873b0a470931d16"
+    },
+    {
+      "path": "test_tron2_left_ik.py",
+      "bytes": 5197,
+      "sha256": "8cf454339b46ae239bdc1d33fcad755ee34623d40d8f51dcc27b2a05364d63b9"
+    },
+    {
+      "path": "tron2_wide_calibration_plan.py",
+      "bytes": 8743,
+      "sha256": "79891a782c835910ecfc9298d2bcf776b8343d2b714106b42ea3dddbf7cd05f6"
+    },
+    {
+      "path": "test_tron2_ik_planner.py",
+      "bytes": 7880,
+      "sha256": "d3b90c095652a6f4198b85ef373d54f45f547d384bd2c82b84521864d32d1374"
+    },
+    {
+      "path": "test_tron2_restore_trial.py",
+      "bytes": 21141,
+      "sha256": "ea1097918b1cd2dca7a8161750eb64e6e21f7b4ebbe998ba52f8c651cce78d31"
+    },
+    {
+      "path": "test_tron2_level_start_plan.py",
+      "bytes": 10267,
+      "sha256": "35de5e051247c1bd4f3270e78eefd452e738084de53879102e311c337eccfda9"
     },
     {
       "path": "DEXUMI_工程内容整理.md",
@@ -135,13 +410,33 @@
     },
     {
       "path": "test_replay_tron2_fixed_start.py",
-      "bytes": 17086,
-      "sha256": "e72cc8a774b3790bac0f2f30d581b9384611233ed5d1d8d7d3e58d7b7d6ce0d9"
+      "bytes": 31269,
+      "sha256": "c666235056259bdd779e175a6e2d4bb8d33f913bc0df4646c4aab53221fd5d03"
     },
     {
-      "path": "test_o6_replay_bridge.py",
-      "bytes": 6646,
-      "sha256": "4a7c55b3b85889f25f8ddafad74f5a9a6c59b91f6b2f15ae40141f9743857bd9"
+      "path": "tron2_large_calibration_plan.py",
+      "bytes": 9452,
+      "sha256": "cac4b7047078a6a1d1ce3a181cfb1a1a053010b30144ca026b632a78a9c4145f"
+    },
+    {
+      "path": "tron2_z_compensation.py",
+      "bytes": 9345,
+      "sha256": "e7c05acfc15afa915df766165da589359625a747aabe4ff3830b1a1299456053"
+    },
+    {
+      "path": "test_diagnose_tron2_servop.py",
+      "bytes": 16500,
+      "sha256": "6db618ba5781d664c2027eb2aeb95a84a212f3dbf127b1c05475ca763d0abda5"
+    },
+    {
+      "path": "tracker_replay_mapping.py",
+      "bytes": 8526,
+      "sha256": "c156463c6b80917076eebc4ac659b86f7767ed2a89deb7df8311d4fff94139af"
+    },
+    {
+      "path": "tron2_timing_calibration.py",
+      "bytes": 4277,
+      "sha256": "40af41bb5efe6f19b6a412b54cbdc2cfdc4791456b62eb1fd5d1b6a3d9be410d"
     },
     {
       "path": "o6_hand_replay.py",
@@ -149,14 +444,394 @@
       "sha256": "7bf2df62f689d68b6598a3b8f5b22932d2fd0d89d3182683d763013bb2560947"
     },
     {
+      "path": "tron2_left_ik.py",
+      "bytes": 8041,
+      "sha256": "d5a407fea2867af8b4b73d0091bfe1746fc84312cd50785cf19cee71b3e2404d"
+    },
+    {
+      "path": "solve_tron2_tracker_calibration.py",
+      "bytes": 26230,
+      "sha256": "8f3cefeee3b3a801df5301b854cd35aca6202d1643f99326bcdeb8a9bc579ddb"
+    },
+    {
       "path": "replay_o6_hand_ros.py",
       "bytes": 10265,
       "sha256": "73b2256ee7ddef6e35701b08f7fadd11761dc984939ce7cb40f9877799f5a630"
     },
     {
+      "path": "auto_calibrate_tron2_tracker.py",
+      "bytes": 15013,
+      "sha256": "d5f305cc5966476c7ba5135d2d6acb4eb311091cb9f06c8c433e9aedbb46416a"
+    },
+    {
+      "path": "test_review_dexumi_rigid_methods.py",
+      "bytes": 3308,
+      "sha256": "fd2e95307a2fa92cad132b4f9a0475c4abc818a91ba92c5a42aa5f3731f91525"
+    },
+    {
+      "path": "validate_frozen_tron2_mapping.py",
+      "bytes": 4866,
+      "sha256": "1d6e4884c9a205e75b656744464cf4955b26a7accee0223e49ff700e155b5b69"
+    },
+    {
+      "path": "tracker_passive_reader.py",
+      "bytes": 2824,
+      "sha256": "d33f945979c368a439bd281e68f66c1c0c467e7c2f565b1f637d93b5ac6f748c"
+    },
+    {
+      "path": "test_tron2_snapshot_retry.py",
+      "bytes": 5903,
+      "sha256": "00277b86039047c6a75e9abccc1c7a5a26ef40849b0782e3200fb2629c23e724"
+    },
+    {
+      "path": "tron2_pose_reference.py",
+      "bytes": 14411,
+      "sha256": "4205cb1b62caa99d95c867654a9306654e5db7c2ab62427e54bfacf7a55d9b13"
+    },
+    {
+      "path": "test_tron2_hardware_residual.py",
+      "bytes": 2246,
+      "sha256": "57b2c6755f0d017ba9fb61ce4e6caec45e887125797318b960d25f0bb7986a6f"
+    },
+    {
+      "path": "tron2_z_replay.py",
+      "bytes": 20605,
+      "sha256": "51ffd4e2e66ffc9771ac003d6a187448bc238f750c2198177d27f9424b4c911a"
+    },
+    {
+      "path": "tron2_ik_report.py",
+      "bytes": 4904,
+      "sha256": "ff472264e10567a2cad9ad09b44b8356e5bc49d7f6e5c5729c30af6dbc329c73"
+    },
+    {
+      "path": "compare_tron2_calibration_scales.py",
+      "bytes": 15434,
+      "sha256": "bd9c4f47448e0fc5c974e537e65f341bffa1be68bf60662b890e0a2e7b30016f"
+    },
+    {
+      "path": "fit_global_dexumi_reference.py",
+      "bytes": 10250,
+      "sha256": "d59e85d0fef1d38946d2e244f5bc2c5a3c5afd696405e6f7f40193a296d5686b"
+    },
+    {
+      "path": "tools/tron2_act_ros_io.py",
+      "bytes": 8012,
+      "sha256": "e6d9c26d3be2bc3b75b3c71b4cc686de798efb1b4d8fd8e8fcb409103fb865c6"
+    },
+    {
+      "path": "tools/tron2_payload_model.py",
+      "bytes": 4678,
+      "sha256": "07845d2307a1a7a2def55898a871d1eaa4e1acef861182b7c208d25f9b8de537"
+    },
+    {
+      "path": "tools/analyze_tron2_speed_scale.py",
+      "bytes": 16212,
+      "sha256": "506549533d3e2fc0fd650735443d65b6d2bf641e192a93890fd0bd9be5354620"
+    },
+    {
+      "path": "tools/validate_tron2_dynamic_z.py",
+      "bytes": 7143,
+      "sha256": "08be2023bbd313c4de2b37c277d99e54543e19b4d1b1db25a0562cfe7ffc1225"
+    },
+    {
+      "path": "tools/deploy_tron2_act.py",
+      "bytes": 29992,
+      "sha256": "541065ef166b7c0bb35ec51b5dd2318edb6e0bb4f0c2de097d6a2d402ce1bd49"
+    },
+    {
+      "path": "tools/simulate_tron2_act_isaac.py",
+      "bytes": 29330,
+      "sha256": "0d7ceffa0f52d2b6a54ce9f0c800b1fddd34f843305f4806ba40b30c6e671220"
+    },
+    {
+      "path": "tools/tron2_head_pose.py",
+      "bytes": 5689,
+      "sha256": "575f4b95895a5a2f526eaa6b3043783971cfe48bc48f7f1a8ecad37b301e1112"
+    },
+    {
+      "path": "tools/run_tron2_act_sweep.py",
+      "bytes": 10034,
+      "sha256": "543ce9aa2631211a2beb447a52e06b578b9074faff856bf13be984eeeccd17b2"
+    },
+    {
+      "path": "tools/check_tron2_readonly.py",
+      "bytes": 10829,
+      "sha256": "75eeab544e752007a32aacfb5773bdf9438f69429aa3094dcf9cb108dd7791be"
+    },
+    {
+      "path": "tools/prepare_tron2_act_start.py",
+      "bytes": 9407,
+      "sha256": "c4a9ff997c12e430c977ae190bbb659ebdd7cfd22604a1c9a72d59665e51b4a7"
+    },
+    {
+      "path": "tools/sam3_top_stream.py",
+      "bytes": 7910,
+      "sha256": "4b74f203f7edd687a1efd6dce87f0ec1c383ef5d28819c753c96571139fd4ae6"
+    },
+    {
+      "path": "tools/evaluate_tron2_act_training.py",
+      "bytes": 5362,
+      "sha256": "30e9ce8e1bf7e4d1e1c7fb4d72f8c137691ad18a4ff63edb60d887b89727cfad"
+    },
+    {
+      "path": "tools/try_sam3_top_foreground.py",
+      "bytes": 11721,
+      "sha256": "03cce538e858cc30e89c369b34c2591397340e8a31006c501cdf464083745f24"
+    },
+    {
+      "path": "tools/reset_o6_act_start.py",
+      "bytes": 3396,
+      "sha256": "6c2c013fb6bd6c934df79e01a7cfa034efb0ceeae399b4a118f397b02c9a0dd1"
+    },
+    {
+      "path": "tools/tron2_raw_ws_client.py",
+      "bytes": 11245,
+      "sha256": "b6ed2687f6e2dd54f220918feda54833470f7d1c5a716197a8cfcdbf91a7ffb7"
+    },
+    {
+      "path": "tools/check_tron2_act_camera.py",
+      "bytes": 2897,
+      "sha256": "e9dd57b769fd0e427d2df028a7291629adda235e21834198aa7ebfe04e5a0bde"
+    },
+    {
+      "path": "tools/preview_tron2_top_camera.py",
+      "bytes": 15380,
+      "sha256": "2b291e9ecc9454437b29e33d1e4e8f4ba32cbf5923c78cc58c5c0a56a19c3fa6"
+    },
+    {
+      "path": "tools/validate_tron2_act_worker.py",
+      "bytes": 3283,
+      "sha256": "e9e54325dbe2eb9a6f4e6af19bcdd5a723f4bd16d9e76d60822caef558a7d5c9"
+    },
+    {
+      "path": "tools/validate_tron2_act_servop_local.py",
+      "bytes": 6487,
+      "sha256": "3c08d49a3946992dd162bb3c93a98e8e6ddc7f3eeb00b1f393df278e9dfd6bdb"
+    },
+    {
+      "path": "tools/tron2_act_scene.py",
+      "bytes": 2300,
+      "sha256": "028fb338da5ec06d300f470c0080f5fca831bec7aed3cede7e3972e4618a08bd"
+    },
+    {
+      "path": "tools/train_tron2_act_baseline.py",
+      "bytes": 3543,
+      "sha256": "3918c034caa30a076d45bafb9026da4cadc8a9fbb22a2063165b6509df482864"
+    },
+    {
       "path": "tools/prepare_github_export.py",
       "bytes": 9687,
       "sha256": "0d0efa26819ae000166913f3f66f4e400c95cd2cfdff69e563652162e1c0ac3f"
+    },
+    {
+      "path": "tools/validate_tron2_servop_hardware_model.py",
+      "bytes": 14422,
+      "sha256": "8f5558d1a53df0eb13d36fbc06f6824695ec31cbeee9b6020b8dd5ab091a9626"
+    },
+    {
+      "path": "tools/sweep_tron2_speed_scale.py",
+      "bytes": 11045,
+      "sha256": "0c0aa18a4b8e70998134e9b2652b71118150d87a0fac6acf91052cb887de4f39"
+    },
+    {
+      "path": "tools/run_tron2_act_temporal_sweep.py",
+      "bytes": 10113,
+      "sha256": "04b7b16eccbea88cee751280e13096a380a1d253aa8e2711797c6af5f9abe1e7"
+    },
+    {
+      "path": "tools/simulate_tron2_z_feedback.py",
+      "bytes": 30099,
+      "sha256": "4808a6e5530b03e2c70d1a95f87c03f17e9b63a795c86dac07fde991b75dc62d"
+    },
+    {
+      "path": "tools/tron2_motor_observer.py",
+      "bytes": 4028,
+      "sha256": "d641c717713390a7c6025b34c3c5673ec2b166229542744c5f7ca67a559d4e8a"
+    },
+    {
+      "path": "tools/diagnose_tron2_servop.py",
+      "bytes": 19206,
+      "sha256": "03d688e75bf23d59d059c0c77ebee6eb5398f8b8909d7b8f7bb2f48789c7d257"
+    },
+    {
+      "path": "tools/process_sam3_top_training.py",
+      "bytes": 7368,
+      "sha256": "edf9aad436acf3e7cde71ef2a0350b642e8d3b54f846ff041e104cae3f87541e"
+    },
+    {
+      "path": "tools/fit_tron2_servop_hardware_model.py",
+      "bytes": 19319,
+      "sha256": "9c37a7dbf4c4ecc30f597babfd8e9f4825ad1d4f0a26e9203bb36c34b2a4a289"
+    },
+    {
+      "path": "tools/validate_tron2_episode_batch.py",
+      "bytes": 16772,
+      "sha256": "fb94d039851a2cd1123551a30de5c13607ff58092d8edcb0adfbe89d3564500f"
+    },
+    {
+      "path": "tools/diagnose_tron2_z_compensation.py",
+      "bytes": 21004,
+      "sha256": "74423cd16814cc04d6b944dd24835f99b15b1368ea034168dc5ff94431bff20d"
+    },
+    {
+      "path": "tools/analyze_tron2_episode_batch.py",
+      "bytes": 12570,
+      "sha256": "e4b70a18bf52eb556572c90c53f787b8b846630e0d5321b94f65c9b5558d8d97"
+    },
+    {
+      "path": "tools/analyze_tron2_z_compensation.py",
+      "bytes": 8120,
+      "sha256": "03ffe8a36ad605ace779920b0820c82dd317492935a4dc4991874ff2d410ad3a"
+    },
+    {
+      "path": "tools/tron2_payload.py",
+      "bytes": 10943,
+      "sha256": "16f0d35abbf984dcb7d2861bf5dd1e3eb88c972e1f8be680d154b52215ba77fa"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/final_validation.json",
+      "bytes": 14994,
+      "sha256": "9ebad1f146f232f81f700c72e453f169e8e19cc294e15d58ce303466b231031f"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/final_validation_plan.json",
+      "bytes": 10960,
+      "sha256": "7774cedf4dac4db7ca56a9d96d82966f0ff89d9ecc93be7ddb0d4093fed61f49"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/historical_cross_validation.json",
+      "bytes": 23684,
+      "sha256": "b9c6863f7e91c9d7a66443baba6b89552fbe06b57e01f9bb0d3e675a2e703b83"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/independent_review.json",
+      "bytes": 6915,
+      "sha256": "8daf2a7d76840d470eeef9b029aea6e022dfd768c7e522b867140be98854f431"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/README.md",
+      "bytes": 8953,
+      "sha256": "a944086f4cac4285f30f512c6f541ab56903f736aa3f46fd7c7a9e2347e85644"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/broad_execution.json",
+      "bytes": 1105,
+      "sha256": "4e5109fe4c8f7d5458be4623487a65c326ed307c519f3a9a3187b050e53818bf"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/replay_integration.json",
+      "bytes": 2306,
+      "sha256": "d10f0a21d0bcf0cf9cd22780bd0745088da97158507188064eabff1d2df301b3"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/fit_sensitivity.json",
+      "bytes": 62475,
+      "sha256": "40b228b8c85dad14bf852754007ef7a7141fecca8917b825366fad8a32436e22"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/completion_check.json",
+      "bytes": 2192,
+      "sha256": "3b73b8a2a2f3ea4d87bba2e84276c57bedddf80dd7f5ea218b0d13120bff4ef5"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/validation_errors.png",
+      "bytes": 80977,
+      "sha256": "71b525f0ceb039d2a6d61db3e161f5e709f64b22d8ce340c8c26178168f59102"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/acceptance.json",
+      "bytes": 1276,
+      "sha256": "5abe29a74a47311b473ef79d322c300e3cd6010d26775f1b6833dcb4007a3149"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/broad_plan.json",
+      "bytes": 33417,
+      "sha256": "5b7f645d57dd8b2b7829c1b75089ffaf3057cc3dcb9a3e16210c35d6fe36fdd3"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_final_20261027/calibration.json",
+      "bytes": 53435,
+      "sha256": "2ce763663898c62971733ce4d2e53e5adc5d6c0c66a3d60c5d60d5f756e0ace5"
+    },
+    {
+      "path": "configs/tron2_act_foreground_experimental.yaml",
+      "bytes": 969,
+      "sha256": "fda7c2508bc0e2c454c900629054f1e8edd564466bbd8182336416478566f579"
+    },
+    {
+      "path": "configs/tron2_act_deploy_chunk100.json",
+      "bytes": 1274,
+      "sha256": "8f13d0678ae9f3226e81971a549d9fd1773fdafce90f56fc6d5544d1ad31ebe4"
+    },
+    {
+      "path": "configs/tron2_act_deploy_chunk125.json",
+      "bytes": 1274,
+      "sha256": "33df64afdeb3e181d2134d31d1c29e1143bef24525e630adc9569579b7ca709f"
+    },
+    {
+      "path": "configs/tron2_act_chunk25.yaml",
+      "bytes": 775,
+      "sha256": "87afc0741e783487a2799e52c3403cad19919c4090a7e077e253e1090769fb79"
+    },
+    {
+      "path": "configs/tron2_act_deploy.json",
+      "bytes": 1239,
+      "sha256": "b103a75f1c40f12f08437692cfe3f66874b9889588870024518987bce5e5e188"
+    },
+    {
+      "path": "configs/tron2_act_deploy_chunk150.json",
+      "bytes": 1274,
+      "sha256": "c207bb4c531d34b636dce0612beabf0e1c9c91e6045a9dc09e49fd9f2e8bc3b1"
+    },
+    {
+      "path": "configs/tron2_act_cup_task_sim.json",
+      "bytes": 1313,
+      "sha256": "e61dadd7525d208a3cb2b97afd000a5c93ef4fe66d077fcbfcbcf1f0df3650dc"
+    },
+    {
+      "path": "configs/tron2_act.yaml",
+      "bytes": 791,
+      "sha256": "e17b3abfb6c4b01c28c83c07db217e2e6af19df23709de0ebe0be384b66a7825"
+    },
+    {
+      "path": "configs/tron2_act_chunk125.yaml",
+      "bytes": 686,
+      "sha256": "188332f42ec9419bdc5d7dd809fc72a2383c6985c0d4574858e686cdd0773031"
+    },
+    {
+      "path": "configs/tron2_act_chunk100.yaml",
+      "bytes": 685,
+      "sha256": "c6f4e4d5fa2fdc8f4c6595acdb68eec96ad24ac567c17f5fe4bc837de1dd169b"
+    },
+    {
+      "path": "configs/tron2_act_deploy_chunk125_last.json",
+      "bytes": 1274,
+      "sha256": "94459c320fdf7c8e0c802079676dad1d23064015e8c0db8984ecddb11a26405c"
+    },
+    {
+      "path": "configs/tron2_act_chunk150.yaml",
+      "bytes": 685,
+      "sha256": "cc45d2bb06aec3a9381585cbdbcdf8ec6ffa099b8a208c6027b5a404ffd0fbb3"
+    },
+    {
+      "path": "configs/tron2_act_chunk75.yaml",
+      "bytes": 685,
+      "sha256": "2a617db722592779eca392599719363f4634ed654e6fb64b94e0de797b5e5389"
+    },
+    {
+      "path": "configs/tron2_act_chunk200.yaml",
+      "bytes": 686,
+      "sha256": "09f9e5c6c7386c42c4e3acf3776dee16f1095b8e8ef41ab25ee3677034d6c9e8"
+    },
+    {
+      "path": "configs/tron2_act_chunk175.yaml",
+      "bytes": 686,
+      "sha256": "84922b2325ca175b6f4d5f94c100d75475c78b12b885a93994e2b4828d1457d4"
+    },
+    {
+      "path": "configs/tron2_act_deploy_chunk125_last_zminus20.json",
+      "bytes": 1650,
+      "sha256": "49ab4ab71861b660a09b902247dc70dcc1e893c1b194b2d69d91f09ea5c623b5"
     },
     {
       "path": "TransHandR0725/TransHandR/requirements-vision.txt",
@@ -6240,8 +6915,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/tests/test_platform_lifecycle.py",
-      "bytes": 17124,
-      "sha256": "7fbdbf7d0b91986703cb0a3fa42938de5539a370d1f035a350c074426363b151"
+      "bytes": 17128,
+      "sha256": "64f8ac7033ad958d010b2b5083beddcbc7897672bdd48853590f6258aa5fbc2d"
     },
     {
       "path": "TransHandR0725/TransHandR/tests/test_vision_controller.py",
@@ -6260,8 +6935,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/tests/test_dashboard_contract.py",
-      "bytes": 4868,
-      "sha256": "da9e4063d57ec3d679223b53f2ec11b4bbffb07f3edd96f47a19acbe62c25ed8"
+      "bytes": 5519,
+      "sha256": "f5e9cc73d28a8f72af8b20e1d5423e25deaa492551f479420a09045cd3939cac"
     },
     {
       "path": "TransHandR0725/TransHandR/tests/test_telemetry_v2.py",
@@ -6325,13 +7000,13 @@
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/collect_transhandr_multisource.py",
-      "bytes": 60486,
-      "sha256": "742b4c19d03839d7df34cd32ae0f883104469d37a45d4af9bcd96c0f83cbd022"
+      "bytes": 62649,
+      "sha256": "b08b0b128c788a03b285195adcdda2990913b3a5a5d1b8dea97b51e015302b52"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/run_teleoperation_platform.py",
-      "bytes": 49467,
-      "sha256": "b3b78f8be5a79b7c43613c08ae5fb151edc5cb073204ee5a58b684ea3661a7f7"
+      "bytes": 50463,
+      "sha256": "5c1df16c67efab62b7ca5ef8f6cb5ed9efe8c9e51b97483e28522599223b725e"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/start_can.sh",
@@ -6345,8 +7020,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/realtime_multisource_dashboard.py",
-      "bytes": 19146,
-      "sha256": "dac38ecf5b91630e4fc2f19ba095b2da36ccf2df9f6e84d10b0787f4bc1f3e41"
+      "bytes": 21910,
+      "sha256": "a422599d05c76a1d0fb57d0c25e730cbd58339e37262d3a643dc4976ac27d6ad"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/figure_loss_real_rb_3_points.py",
@@ -6367,6 +7042,11 @@
       "path": "TransHandR0725/TransHandR/scripts/probe_o6_touch_can.py",
       "bytes": 7465,
       "sha256": "5bd8f30b96192ad59e64ba99eaeb75893cc147f6ecf360a364b355892371fa7e"
+    },
+    {
+      "path": "TransHandR0725/TransHandR/scripts/wrist_calibration_web.py",
+      "bytes": 12360,
+      "sha256": "cca2fc12b16c87566f840f931c197b7d2eb52ca18b39154cc6c07de036732cda"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/check_l21_range.py",
@@ -6415,8 +7095,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/usage.md",
-      "bytes": 15820,
-      "sha256": "149641ef679c3cc52b07b2ad3a65652348beee6a6fd8376360c02364a49b307d"
+      "bytes": 49972,
+      "sha256": "95f931f4b8086a8be25a27bb042523cce2e0e638191595f77efe6d7ac53be41d"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/check_visionpro_connect.py",
@@ -6445,8 +7125,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/robot_replay_web.py",
-      "bytes": 12137,
-      "sha256": "b8962d8ed86f7bac1df51986345146d5a3d5349e7b3ffcda277b7062579c3fc3"
+      "bytes": 12252,
+      "sha256": "410be60c3ea0dd0d79dd1f021dc0113828f9bdac796366c798601f0049379468"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/main_h5_simulate.py",
@@ -6514,24 +7194,29 @@
       "sha256": "5bdb6f5960fa848270ca0ad37f438570a4e575a7838a260d2dd01100dc3e4dd0"
     },
     {
+      "path": "TransHandR0725/TransHandR/scripts/dashboard/wrist_calibration.js",
+      "bytes": 5713,
+      "sha256": "a60def8f760d0a01a5d0793aeed86fe1abbfcfbfe923b4ba281b298a6256a862"
+    },
+    {
       "path": "TransHandR0725/TransHandR/scripts/dashboard/dashboard.js",
-      "bytes": 35728,
-      "sha256": "e92e6fbb850fce3139ad229aa726cc62737a2c3ef6cb1383b0dcad1a1af4d671"
+      "bytes": 35843,
+      "sha256": "f24acecc35352d0df5b58dbcb3f1a7d2552d66a218ceb764bfc1b069facb8504"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/dashboard/index.html",
-      "bytes": 15689,
-      "sha256": "607fa3b8c89c24b5aba80b67239e403e362e50e251448ce03b912c8bd4234499"
+      "bytes": 20008,
+      "sha256": "ae57abbd69d4d3b10025c2757d458f112453f6b115d38fd3fae197e6c0cf96e2"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/dashboard/o6_hand_viewer.js",
-      "bytes": 29905,
-      "sha256": "645b85c6e469d025de95c9b0a59d491495564b74c68ea18742221d4341f4825e"
+      "bytes": 30052,
+      "sha256": "be34fb5c48828b1658c20134ee8551a10c6df1a5afacf1ee29e91eb544dfe13c"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/dashboard/dashboard.css",
-      "bytes": 17219,
-      "sha256": "bdbd25517ae1a26623eb75c26d0f487867c407c42c2a107d280df4f8dc05ddab"
+      "bytes": 18634,
+      "sha256": "e3ba6612adb4296097810a5fad5bf50b66591a16c01ee03d12b5301012be13a6"
     },
     {
       "path": "TransHandR0725/TransHandR/scripts/dashboard/vendor/GLTFLoader.js",
@@ -6795,8 +7480,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/config/teleoperation_profiles.py",
-      "bytes": 3696,
-      "sha256": "26e0d74c81d6fcb32747d4c6c6cbed878b46932694206fc0c5608804f47c6fc5"
+      "bytes": 3704,
+      "sha256": "1549c40fbe9d53f6a5224f36d304b8629702cc27aad8823544afce8265eb2e43"
     },
     {
       "path": "TransHandR0725/TransHandR/config/h36m_dataset.py",
@@ -6840,8 +7525,8 @@
     },
     {
       "path": "TransHandR0725/TransHandR/config/multisource_collection.py",
-      "bytes": 4888,
-      "sha256": "e69bc5257d3bec986da1d9ded8c5779781f1fd9f171fa4029c17e4e433457ac0"
+      "bytes": 5006,
+      "sha256": "1d91ce492d5ecd8ec21194491be97b1f7f3d440cfafc7f0d1c58e1a48d7ce9d3"
     },
     {
       "path": "TransHandR0725/TransHandR/config/config.txt",
@@ -7259,6 +7944,11 @@
       "sha256": "70fe411615115e88185ddbaab1d559d48a6e76ab2d505018be7a4426633074b0"
     },
     {
+      "path": "TransHandR0725/TransHandR/docs/data_collection_platform_external_introduction.md",
+      "bytes": 19534,
+      "sha256": "0496812ab5d1c732c5327ca8b1dc35d34c5bac98c30e485a10c131c675f57f0b"
+    },
+    {
       "path": "TransHandR0725/TransHandR/docs/linkerforce_inspire_teleoperation.md",
       "bytes": 3909,
       "sha256": "58724a0ba32b8c5583a513bc81ae1670394300f43327e8669ebc171e38b51b41"
@@ -7287,6 +7977,151 @@
       "path": "TransHandR0725/TransHandR/yumi_gym/envs/yumi_env.py",
       "bytes": 11925,
       "sha256": "71a9b0ce9e38c8e74c976183e66a7657986e3576acf8c28f034e00d15beb369b"
+    },
+    {
+      "path": "tests/test_tron2_act_bounded_ik.py",
+      "bytes": 1136,
+      "sha256": "c1d7bcc40712b4f34ebed52284f554898b3beeb7bc9c56f53993b976122af613"
+    },
+    {
+      "path": "tests/test_tron2_vision.py",
+      "bytes": 5160,
+      "sha256": "ab068e7ad17f25bf30e6c5de6ad30fbe4b6dd9c55472b78bd8747073ffab9e6f"
+    },
+    {
+      "path": "tests/test_tron2_act_live.py",
+      "bytes": 17234,
+      "sha256": "7aeefa1eb6f2e3f214cf189edb084acd8be1053d1443e74864d4c49f30a6312c"
+    },
+    {
+      "path": "tests/test_tron2_restore_recovery.py",
+      "bytes": 1129,
+      "sha256": "5c7a7816a043f4ddb2ca147a1912071c7c213f69fdcc94f3f2225eed43270a66"
+    },
+    {
+      "path": "tests/test_tron2_act_task_validation.py",
+      "bytes": 2057,
+      "sha256": "b1b7ac54adec4d84796e23680d42edb97311aadc44c355cf31fa5598f55026c7"
+    },
+    {
+      "path": "tests/test_tron2_act_simulation.py",
+      "bytes": 2961,
+      "sha256": "4c5a153d2aee4363ca9177e727d2b52920ceb62a31b115c9cebf5f0c07504f3e"
+    },
+    {
+      "path": "tests/test_tron2_act.py",
+      "bytes": 17788,
+      "sha256": "d8e8a7c9384dab14c95542e6452bcce8ece3c00488d39b7d04a668f24692ff5b"
+    },
+    {
+      "path": "tron2_act/__init__.py",
+      "bytes": 104,
+      "sha256": "4a1d7bbfc20645d058361889107080479089c00d06a263638af333af02939981"
+    },
+    {
+      "path": "tron2_act/task_validation.py",
+      "bytes": 3976,
+      "sha256": "46dcf431a18fa89ba281bb5a4a1579594aa28af4071b63288dead27095e170e6"
+    },
+    {
+      "path": "tron2_act/live_runtime.py",
+      "bytes": 12071,
+      "sha256": "205f44004224f663d5be263fdc113c28e29e633b1c7ba63d3c5bf3c97ea879d0"
+    },
+    {
+      "path": "tron2_act/engine.py",
+      "bytes": 13916,
+      "sha256": "4fba1067f4192cd19f39faeda28c2b288251e1781c48eea1b0846e5711f5ce4b"
+    },
+    {
+      "path": "tron2_act/geometry.py",
+      "bytes": 2877,
+      "sha256": "33e25c3ac490f115d67054f6527b2b61185cd026c67eefcc46f5c00d7a5376fd"
+    },
+    {
+      "path": "tron2_act/simulation_ik.py",
+      "bytes": 1521,
+      "sha256": "d06b309d7a5fe39782990d3474262a8ffee59974b6d5a4dc74a60c9f695d037d"
+    },
+    {
+      "path": "tron2_act/README.md",
+      "bytes": 13657,
+      "sha256": "dd58f93f814b42bdeea9b5dfc204d11926a210da83d7c9e98d62090be3e62f6e"
+    },
+    {
+      "path": "tron2_act/foreground.py",
+      "bytes": 2291,
+      "sha256": "cfd1ae8b2fe3f7b60bc47a379ce4bb08f795c34d079c9cd3020448b324c75704"
+    },
+    {
+      "path": "tron2_act/DEPLOYMENT.md",
+      "bytes": 10739,
+      "sha256": "28eb9ccf9687cfd7f4e16069d8c2871d08797204efb985c836c67768d8df7dfd"
+    },
+    {
+      "path": "tron2_act/requirements.txt",
+      "bytes": 295,
+      "sha256": "928367f97fcccd30f5c960380e3f7ba1439bfdc123fc61cb8a4eea3be76efffe"
+    },
+    {
+      "path": "tron2_act/deploy_core.py",
+      "bytes": 10083,
+      "sha256": "58a75ad48c9cc8ad48753018ded5aafa9cf4b651fe5aba4c30551e3736879ff4"
+    },
+    {
+      "path": "tron2_act/__main__.py",
+      "bytes": 4590,
+      "sha256": "948224048e81bb7e567b6c54298b8a6ea513a3d15b3b957f31a0d496cd401c5d"
+    },
+    {
+      "path": "tron2_act/model.py",
+      "bytes": 5350,
+      "sha256": "e37fd141e9af30f099a6f1b71fd0f3a34e66ed350d98af9aebd5ba40a04105a4"
+    },
+    {
+      "path": "tron2_act/data.py",
+      "bytes": 18142,
+      "sha256": "7da6cd23ba186d0ed69ef2f18c3c6032987645d2273ce790fd16710d9f3a7535"
+    },
+    {
+      "path": "tron2_act/simulation.py",
+      "bytes": 7372,
+      "sha256": "4ef2f1a128a54e63f647e9cfd52b79a04cd0e29c13c14266591f08d4d96fdd5b"
+    },
+    {
+      "path": "tron2_act/config.py",
+      "bytes": 4494,
+      "sha256": "cb43f991267224cb69208ccd50aa1164459d8a22d61ccb37b606e12bd5ef2140"
+    },
+    {
+      "path": "tron2_act/live_policy.py",
+      "bytes": 10554,
+      "sha256": "dd8d2b9f44a00827ec2206e2a6bc51ded73226ce165b700e92e17eee13640aee"
+    },
+    {
+      "path": "tron2_act/vendor/__init__.py",
+      "bytes": 61,
+      "sha256": "658bd1109dc98eb9821577f4c446cf702114fa8d1241992d0ccd2aacb87eb0ee"
+    },
+    {
+      "path": "tron2_act/vendor/UPSTREAM.md",
+      "bytes": 428,
+      "sha256": "599f9e75c3a4ca6e9153fc15c9bd3bfd989b43dad8365ee3982214d6c02bd7f0"
+    },
+    {
+      "path": "tron2_act/vendor/transformer.py",
+      "bytes": 13306,
+      "sha256": "5deb4ab0673787d0776a88181aa0b18aa72449b2cf7657865044ed353e6cfc99"
+    },
+    {
+      "path": "tron2_act/vendor/ACT_LICENSE",
+      "bytes": 1070,
+      "sha256": "5d9b5155090e922e814ba60c5669c3077ecdaf3915b3b6c5720592648ce22f88"
+    },
+    {
+      "path": "tron2_act/vendor/DETR_LICENSE",
+      "bytes": 11355,
+      "sha256": "cc5991b45a65aa3ece56adcba292066b9943ef8a52a347ac5f6493212e8a633a"
     },
     {
       "path": "project1yu/2025DexGrasp-VLA.pdf",
@@ -38509,6 +39344,11 @@
       "sha256": "5b402e10d1e88d260fb7deb14eee3ddbaf03d11b0a88be92f16712ce229a1a7e"
     },
     {
+      "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/tests/unit/test_o6_thumb_abduction.py",
+      "bytes": 862,
+      "sha256": "004c3e1618bc7d3b8a4c20584e9db0414d2f6ec2c5bfb384c84395b55e523fd8"
+    },
+    {
       "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/tests/unit/TEST_LINKERMCG.md",
       "bytes": 1248,
       "sha256": "954a8646e8246adecce13d15d6f64dc5d38f4f415e8bd57ee9ab7db7a177781a"
@@ -38940,8 +39780,8 @@
     },
     {
       "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/linkerhand_retarget/motion/linkerforce/hand/linkerforce_o6.py",
-      "bytes": 22719,
-      "sha256": "01a7992ca0218163686b298ec656f3c12cff67985513ecc26ab664c642f026fb"
+      "bytes": 24403,
+      "sha256": "75e7439aeb853ca74fe5581b3bd743c5836d49ad8809225723c6075619102925"
     },
     {
       "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/linkerhand_retarget/motion/linkerforce/hand/linkerforce_l10.py",
@@ -39085,8 +39925,8 @@
     },
     {
       "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/linkerhand_retarget/config/base_config.yml",
-      "bytes": 1061,
-      "sha256": "dc20c5eafe2b4b35f3d2c2e420384f90fd1da701725bdd7df57ac63a0f8c86b2"
+      "bytes": 1007,
+      "sha256": "76203a5be5e3573cc0882e620aa238653196b3313e7e3fc5968e5cc5409ec72b"
     },
     {
       "path": "linkerhand_telop_python-master/ros2/src/linkerhand_retarget/linkerhand_retarget/config/teleop/linker_hand_o7v3_left.yml",
@@ -45715,6 +46555,46 @@
       "sha256": "5f375af1980c7dabf46280366d31bb605f30dd24cc86bb9bd4409fae55aacf19"
     },
     {
+      "path": "tron2_vision/__init__.py",
+      "bytes": 79,
+      "sha256": "31725e3d451cc2dad5f24badc9ba27e1b401ac98b7456caabdd6499892692906"
+    },
+    {
+      "path": "tron2_vision/editor.html",
+      "bytes": 8671,
+      "sha256": "24bab9a2b7c12d5e932ac0f308409502245771fbbd8ca4e6f89e9ec63010d16a"
+    },
+    {
+      "path": "tron2_vision/README.md",
+      "bytes": 5388,
+      "sha256": "b99a2a07a374845b669a2efeaf6e8f8ad5669a5b2d1268836f23641c29fc5e64"
+    },
+    {
+      "path": "tron2_vision/annotations.py",
+      "bytes": 10157,
+      "sha256": "e5d560688691275701ae46c4ce803d6932533a968eb783bd954c0db46a82ce44"
+    },
+    {
+      "path": "tron2_vision/requirements.txt",
+      "bytes": 47,
+      "sha256": "3170942500c8c078bed9c1b4df8b05654d481ff257fbb9e95fba64b0000e310b"
+    },
+    {
+      "path": "tron2_vision/pipeline.py",
+      "bytes": 12380,
+      "sha256": "074444b3eada4eefb54fa3567aa91649c661a5c76fbed5872c2718f8d6be58c8"
+    },
+    {
+      "path": "tron2_vision/__main__.py",
+      "bytes": 2899,
+      "sha256": "455cece71720be0ec3681e077ebd1f791cfaea16834931837002a4dc1c442638"
+    },
+    {
+      "path": "tron2_vision/model.py",
+      "bytes": 3852,
+      "sha256": "0b970236ff49eeed718e17abad285a1bb713fbbbf7a279618a4e693a9585a6e0"
+    },
+    {
       "path": "docs/TransHandR_多源数据采集需求设计.md",
       "bytes": 11379,
       "sha256": "7cac27e1daac1cb66c38d03665adcdb0c98b27598bff3e8f5bec3756936db77e"
@@ -45722,8 +46602,24 @@
   ],
   "excluded": [
     {
+      "path": "camera_alignment_results/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": ".pytest_cache/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": ".git/",
+      "reason": "nested Git metadata; source files retained"
+    },
+    {
       "path": "__pycache__/",
       "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": "replay_camera_records/",
+      "reason": "build or runtime output"
     },
     {
       "path": ".vscode/",
@@ -45734,9 +46630,105 @@
       "reason": "build or runtime output"
     },
     {
+      "path": "validation_results/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "artifacts/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
       "path": ".tron2_replay.lock",
       "reason": "cache or runtime output",
       "bytes": 0
+    },
+    {
+      "path": "tools/__pycache__/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": "tracker_calibrations/auto_20261027_212914_6f3bcb0d/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/final_validation_20261027_231813/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/pose_reference_experimental_20261105/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/wide_20261027_221722_e755d1b1/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/broad_20261027_230150_0285f444/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_wide_20261027_221722/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/20261027_215306_52f66f4e/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/20261027_213042_5ff5cb15/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/auto_20261027_215417_aad49c1d/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/auto_20261027_212926_7338cc95/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/auto_20261027_215157_5c211140/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_large_20261027_223541/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/auto_20261027_215225_2dab2c4d/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/final_validation_20261027_231756/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/20261027_211245_2f372dd4/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/validation_20261027_220113_8e590f8c/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/validation_20261027_220050_364df425/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/broad_20261027_230133_f27cbe85/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/20261027_212421_160e7880/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/large_20261027_223541_c71cef2d/",
+      "reason": "build or runtime output"
+    },
+    {
+      "path": "tracker_calibrations/left_mapping_20261027_220113/",
+      "reason": "build or runtime output"
     },
     {
       "path": "TransHandR0725/TransHandR/.pytest_cache/",
@@ -45995,6 +46987,18 @@
     },
     {
       "path": "TransHandR0725/TransHandR/yumi_gym/envs/__pycache__/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": "tests/__pycache__/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": "tron2_act/__pycache__/",
+      "reason": "cache, IDE, or generated artifact directory"
+    },
+    {
+      "path": "tron2_act/vendor/__pycache__/",
       "reason": "cache, IDE, or generated artifact directory"
     },
     {
@@ -47716,6 +48720,10 @@
       "path": "linkerhand_telop_python-master/ros1/src/models/l20_8_right_trumbend_model_ericli.pth",
       "reason": "recording, model artifact, or distribution archive",
       "bytes": 21388
+    },
+    {
+      "path": "tron2_vision/__pycache__/",
+      "reason": "cache, IDE, or generated artifact directory"
     }
   ],
   "sanitized_configs": [
